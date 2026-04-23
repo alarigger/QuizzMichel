@@ -28,7 +28,7 @@ game.add_state("intro",function(id){
     quizz.restart()
 
     document.getElementById(id).innerHTML = "";
-    addCenteredImage(id,"quizz/3dec/splash_screen.png",)
+    addCenteredImage(id,"quizz/demo/splash_screen.png",)
 
 })
 game.add_state("menu",function(id){
