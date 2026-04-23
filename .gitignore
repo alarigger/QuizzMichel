@@ -180,3 +180,4 @@ cython_debug/
 .cursorignore
 .cursorindexingignore
 quizz/3dec/data2.js
+/quizz/myquizz

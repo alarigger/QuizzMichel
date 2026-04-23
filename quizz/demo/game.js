@@ -9,9 +9,6 @@ let selected_team = 0;
 let locked = false;
 let valid = false
 
-const snow = new SnowFX("snow-container", 300);
-snow.init();
-snow.start();
 
 var game = new Game()
 var quizz = new Quizz()
@@ -42,7 +39,6 @@ game.add_state("menu",function(id){
 
 // QUESTION VIEW
 game.add_state("question_title",function(id){
-    //snow.restoreColors()
     
     document.getElementById(id).innerHTML = "";
     
