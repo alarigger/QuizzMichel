@@ -32,6 +32,22 @@ const QUIZZ_DATA = {
                 {content: "Farafles", valid: false },
                 {content: "Pene", valid: false }
             ]
+        },
+
+        {
+            categories:["general","quizz"],
+            type:"QCM",
+            content: [
+                { type: "text", value: "Comment s'appelle cet animal ?" },
+                { type: "image", value: "zebra.gif" }
+            ],
+            correction: "Spagethi ! ",
+            is_demo: false,
+            options: [
+                {content: "Zebre", valid: true },
+                {content: "Cheval", valid: false },
+                {content: "Chat", valid: false }
+            ]
         }
 
     ]

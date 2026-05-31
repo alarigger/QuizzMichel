@@ -233,12 +233,12 @@ function QuestionFactory() {
 
         const quest = new Question();
         quest.content = this._parse_content(data.content);
+        quest.points = data.points || 1;
+        quest.categories = data.categories || [];
         quest.options = data.options.map(option => {
             const content = this._parse_content(option.content);
             return new QuestionOption(content, option.valid);
         });
-        quest.points = data.points || 1;
-        quest.categories = data.categories || [];
         quest.correction = this._parse_content(data.correction);
         quest.is_demo = data.is_demo || false;
 

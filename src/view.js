@@ -1,35 +1,49 @@
-const ContentRenderers = {
 
-    text(content) {
+
+function BaseContentRenderer() {
+    this.render = function(content) {
+        throw new Error("render() not implemented");
+    };
+}
+
+function TextContentRenderer() {
+    this.render = function(content) {
         const el = document.createElement("span");
+        el.classList.add("question-content", "question-content--text");
         el.innerHTML = smartLineBreak(content.value);
         return el;
-    },
-    image(content) {
-        var img = document.createElement("img");
-        if (content.asset) {
-            img = content.asset;
-            return img;
+    };
+}
+function ImageContentRenderer() {
+    this.render = function(content) {
+        const img = content.asset || new Image();
+        img.classList.add("question-content", "question-content--image");
+        if (!content.asset) {
+            img.src = "images/" + content.value;
         }
-        img = document.createElement("img");
-        img.src = "images/" + content.value;
         return img;
-    },
-
-    video(content) {
-        const video = document.createElement("video");
-        video.src = "videos/" + content.value;
+    };
+}
+function VideoContentRenderer() {
+    this.render = function(content) {
+        const video = content.asset || document.createElement("video");
+        video.classList.add("question-content", "question-content--video");
         video.controls = true;
-        return video;
-    },
+        if (!content.asset) {
+            video.src = "videos/" + content.value;
+        }
 
-    sound(content) {
-        const audio = document.createElement("audio");
-        audio.src = "sounds/" + content.asset.src;
-        audio.controls = true;
-        return audio;
-    }
+        return video;
+    };
+}
+
+const ContentRendererRegistry = {
+    text: new TextContentRenderer(),
+    image: new ImageContentRenderer(),
+    video: new VideoContentRenderer()
 };
+
+
 
 /**
  * 
@@ -39,13 +53,21 @@ const ContentRenderers = {
 function renderContentList(contents) {
 
     const wrapper = document.createElement("div");
+    wrapper.className = "question-content-list";
 
-    if (!Array.isArray(contents)) {
-        console.warn("[View] content is not array:", contents);
-        return wrapper;
-    }
+    const sorted = [...contents].sort((a, b) => {
 
-    contents.forEach(c => {
+        const rank = {
+            image: 0,
+            video: 0,
+            audio: 0,
+            text: 1
+        };
+
+        return (rank[a.type] || 0) - (rank[b.type] || 0);
+    });
+
+    sorted.forEach(c => {
         wrapper.appendChild(renderContent(c));
     });
 
@@ -53,12 +75,12 @@ function renderContentList(contents) {
 }
 
 function renderContent(content) {
-    const renderer = ContentRenderers[content.type];
+    const renderer = ContentRendererRegistry[content.type];
     if (!renderer) {
-        console.warn("[View] No renderer for type: " + content.type);
-        throw new Error("No renderer for type: " + content.type);
+        console.warn("No renderer for type:", content.type);
+        return document.createTextNode("");
     }
-    return renderer(content);
+    return renderer.render(content);
 }
 
 /**
@@ -72,11 +94,12 @@ function renderOption(option, index) {
     const el = document.createElement("div");
     el.className = "option";
     el.dataset.i = index;
+
     el.appendChild(numberCircleIconHTML(index + 1));
     el.appendChild(renderContentList(option.content));
+
     return el;
 }
-
 /**
  * @param {Question} question
  */
@@ -88,34 +111,42 @@ function QuestionView(question) {
 
         const card = document.createElement("div");
         card.className = "card";
+        card.style.position = "relative"; // important for top-right positioning
 
-        // QUESTION CONTENT
+        // ===== TOP RIGHT HUD =====
+        const hud = document.createElement("div");
+        hud.className = "card-hud";
+
+        // POINTS (shiny badge)
+        const points = document.createElement("div");
+        points.className = "points-badge";
+        points.innerText = `${question.points ?? 0} pts`;
+
+        // CATEGORIES (blob tags)
+        const categories = document.createElement("div");
+        categories.className = "category-blobs";
+
+        (question.categories || []).forEach(cat => {
+            const blob = document.createElement("span");
+            blob.className = "category-blob";
+            blob.innerText = cat;
+            categories.appendChild(blob);
+        });
+
+        hud.appendChild(categories);
+        hud.appendChild(points);
+        card.appendChild(hud);
+
+        // ===== QUESTION CONTENT =====
         const title = document.createElement("div");
         title.className = "question-content";
         title.appendChild(renderContentList(question.content));
         card.appendChild(title);
 
-        // OPTIONS
+        // ===== OPTIONS =====
         question.options.forEach((opt, i) => {
             card.appendChild(renderOption(opt, i));
         });
-
-        /*
-        // CORRECTION (optional section)
-        if (question.correction) {
-
-            const correctionBox = document.createElement("div");
-            correctionBox.className = "correction";
-
-            const label = document.createElement("h3");
-            label.textContent = "Correction";
-
-            correctionBox.appendChild(label);
-            correctionBox.appendChild(renderContentList(question.correction));
-
-            card.appendChild(correctionBox);
-        }
-        */
 
         const container = document.getElementById(containerId);
         container.innerHTML = "";

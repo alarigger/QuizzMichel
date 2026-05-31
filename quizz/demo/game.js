@@ -8,7 +8,7 @@ const GAME_NAME = "demo"
 let selected_option = 0;
 let selected_team = 0;
 let locked = false;
-let valid = false
+let VALID = false
 
 
 var game = new Game()
@@ -49,7 +49,7 @@ game.add_state("question_title",function(id){
         return
     }
     
-    if(valid){
+    if(VALID){
         game.apply_state("attribution")
         return
     }
@@ -83,8 +83,11 @@ game.add_state("question_title",function(id){
 game.add_state("question", function(id) {
 
     const question = quizz.get_current_question();
-    const view = new QuestionView(question);
-    view.render(id);
+    if (question!=undefined){
+
+        const view = new QuestionView(question);
+        view.render(id);
+    }
 
     selected_option = 0;
 },function(id){
@@ -105,17 +108,17 @@ game.add_state("correction", function(id) {
     card.id = "card";
 
     const chosen = question.options[selected_option];
-    const valid = chosen.valid === true;
+    VALID = chosen.valid === true;
 
     // sound
-    if (valid) {
+    if (VALID) {
         game_sounds.correct.play();
     } else {
         game_sounds.incorrect.play();
     }
 
     const verdict = document.createElement("h1");
-    verdict.textContent = valid ? "Bonne réponse !" : "Mauvaise réponse !";
+    verdict.textContent = VALID ? "Bonne réponse !" : "Mauvaise réponse !";
 
     card.appendChild(verdict);
 
@@ -141,7 +144,7 @@ game.add_state("correction", function(id) {
     }
 
     // background
-    card.style.backgroundColor = valid ? "#82e082" : "#ff8b8b";
+    card.style.backgroundColor = VALID ? "#82e082" : "#ff8b8b";
     card.style.transition = "background-color 0.3s ease";
 
     const container = document.getElementById(id);
@@ -154,8 +157,6 @@ game.add_state("correction", function(id) {
 
 //======================SCORE========================
 game.add_state("score",function(id){
-
-
 
     const chosen_team = quizz.get_team(selected_team)
     question = quizz.get_current_question();
@@ -183,7 +184,7 @@ game.add_state("score",function(id){
 game.add_state("attribution",function(id){
 
     const teams = quizz.get_teams()
-    valid=false
+    VALID=false
 
     console.log(teams)
     
