@@ -330,8 +330,8 @@ function QuestionManager() {
         for (var q in _list) {
             const qdata = _list[q]
             var nquest = this._factory.create(qdata)
-            this.questions.push(nquest)
             this._preload_question_data(nquest)
+            this.questions.push(nquest)
         }
         this.limit = this.questions.length
         return this
@@ -349,31 +349,39 @@ function QuestionManager() {
         return "quizz/" + name
     }
 
-    this.preload_content = function (content) {
+    this.preload_content = function(content) {
 
-        if (!content) {
+        if (!content) return;
+
+        const game_folder = this._resolve_game_folder();
+
+        // ARRAY SUPPORT (IMPORTANT since your model changed)
+        if (Array.isArray(content)) {
+            content.forEach(c => this.preload_content(c));
             return;
         }
 
-        const game_folder = this._resolve_game_folder()
+        if (!content.type) return;
+
+        const base = game_folder;
 
         switch (content.type) {
 
             case "image":
                 content.asset = new Image();
-                content.asset.src = game_folder + "/images/" + content.value;
+                content.asset.src = base + "/images/" + content.value;
                 break;
 
             case "video":
                 content.asset = document.createElement("video");
                 content.asset.preload = "auto";
-                content.asset.src = game_folder + "/videos/" + content.value;
+                content.asset.src = base + "/videos/" + content.value;
                 break;
 
             case "audio":
                 content.asset = new Audio();
                 content.asset.preload = "auto";
-                content.asset.src = game_folder + "/audio/" + content.value;
+                content.asset.src = base + "/audio/" + content.value;
                 break;
         }
     };

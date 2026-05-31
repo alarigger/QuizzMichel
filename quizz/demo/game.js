@@ -3,8 +3,9 @@
 // ------------------------------
 // QUIZ ENGINE - MODE BUZZER
 // ------------------------------
+const GAME_NAME = "demo"
 
-let selected_answer = 0;
+let selected_option = 0;
 let selected_team = 0;
 let locked = false;
 let valid = false
@@ -14,7 +15,6 @@ var game = new Game()
 var quizz = new Quizz()
 
 quizz.load(QUIZZ_DATA)
-//quizz.shuffle_answers()
 
 
 // game. add sound
@@ -72,7 +72,7 @@ game.add_state("question_title",function(id){
 
     document.getElementById(id).appendChild(card);
     
-    selected_answer = 0;
+    selected_option = 0;
 
 },function(id){
 
@@ -80,38 +80,18 @@ game.add_state("question_title",function(id){
 })
 
 //======================QUESTION========================
-game.add_state("question",function(id){
+game.add_state("question", function(id) {
 
-    const question = quizz.get_current_question()
-    const answers = question.answers
-    
-    const card = document.createElement("div");
-    card.className = "card";
-    card.id = "card";
-    
-    card.innerHTML = `
-        <h1>${smartLineBreak(question.text)}</h1>
-        ${answers.map((a, i) =>
-            `<div class="answer ${i === 0 ? "selected" : ""}" data-i="${i}">
-                ${numberCircleIconHTML(i+1)} -- ${a.text}
-            </div>`
-        ).join("")}
-    `;
+    const question = quizz.get_current_question();
+    const view = new QuestionView(question);
+    view.render(id);
 
-    document.getElementById(id).innerHTML = "";
-    document.getElementById(id).appendChild(card);
-    
-    selected_answer = 0;
-
-
-
-    
+    selected_option = 0;
 },function(id){
 
-    console.log(`select ${selected_answer} `)
-
-    document.querySelectorAll(".answer").forEach(el => el.classList.remove("selected"));
-    document.querySelectorAll(".answer")[selected_answer].classList.add("selected");
+    console.log(`select ${selected_option} `)
+    document.querySelectorAll(".option").forEach(el => el.classList.remove("selected"));
+    document.querySelectorAll(".option")[selected_option].classList.add("selected");
 })
 
 
@@ -119,47 +99,56 @@ game.add_state("question",function(id){
 game.add_state("correction", function(id) {
 
     const question = quizz.get_current_question();
-    const team = quizz.get_current_team();
-    
+
     const card = document.createElement("div");
     card.className = "card";
     card.id = "card";
-    
-    const chosen = question.answers[selected_answer];
-    valid = chosen.valid;
 
-    if (chosen.valid != undefined) {
-        if (valid) {
-            //snow.setColor("green")
-            game_sounds.correct.play();
-        } else {
-           // snow.setColor("red")
-            game_sounds.incorrect.play();
-        }
+    const chosen = question.options[selected_option];
+    const valid = chosen.valid === true;
+
+    // sound
+    if (valid) {
+        game_sounds.correct.play();
+    } else {
+        game_sounds.incorrect.play();
     }
 
-    const correction_text = smartLineBreak(question.correction);
-    const valid_answer = question.get_valid_answer()
+    const verdict = document.createElement("h1");
+    verdict.textContent = valid ? "Bonne réponse !" : "Mauvaise réponse !";
 
-    let verdict_text = valid ? "bonne réponse !" : "mauvaise réponse !";
+    card.appendChild(verdict);
 
-    // ⭐ SET CARD BACKGROUND BASED ON VALIDITY
+    // VALID OPTION (USE YOUR SYSTEM)
+    const valid_option = question.get_valid_option();
+
+    if (valid_option) {
+        const validTitle = document.createElement("h2");
+        validTitle.textContent = "Réponse correcte :";
+        card.appendChild(validTitle);
+
+        // IMPORTANT: render content properly
+        card.appendChild(renderContentList(valid_option.content));
+    }
+
+    // CORRECTION (NOW PROPER CONTENT SYSTEM)
+    if (question.correction) {
+
+        const correctionTitle = document.createElement("h2");
+        correctionTitle.textContent = "Explication :";
+        card.appendChild(correctionTitle);
+        card.appendChild(renderContentList(question.correction));
+    }
+
+    // background
     card.style.backgroundColor = valid ? "#82e082" : "#ff8b8b";
     card.style.transition = "background-color 0.3s ease";
 
-    card.innerHTML = `
-        <h1>${verdict_text}</h1>
-        <h1>${valid_answer}</h1>
-        <h1>${correction_text}</h1>
-    `;
-
-    document.getElementById(id).innerHTML = "";
-    document.getElementById(id).appendChild(card);
-
-
+    const container = document.getElementById(id);
+    container.innerHTML = "";
+    container.appendChild(card);
 
     locked = false;
-
 }, function(id){});
 
 
@@ -276,10 +265,10 @@ game.apply_state("intro")
 
 document.addEventListener("keydown", (e) => {
     if (locked) return
-    const answers = document.querySelectorAll(".answer");
+    const options = document.querySelectorAll(".option");
     const teams = document.querySelectorAll(".team");
     if (e.key === "ArrowDown") {
-        selected_answer = (selected_answer + 1) % answers.length;
+        selected_option = (selected_option + 1) % options.length;
         selected_team = (selected_team + 1) % teams.length;
         console.log(selected_team)
         console.log("DOWN")
@@ -287,7 +276,7 @@ document.addEventListener("keydown", (e) => {
     }    
     
     if (e.key === "ArrowUp") {
-        selected_answer = (selected_answer - 1 + answers.length) % answers.length;
+        selected_option = (selected_option - 1 + options.length) % options.length;
         selected_team = (selected_team - 1 + teams.length) % teams.length;
         console.log("UP")
         console.log(selected_team)
