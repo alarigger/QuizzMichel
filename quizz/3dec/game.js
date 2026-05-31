@@ -4,20 +4,23 @@
 // QUIZ ENGINE - MODE BUZZER
 // ------------------------------
 
-let selected_answer = 0;
+let selected_option = 0;
 let selected_team = 0;
 let locked = false;
 let valid = false
 
+<<<<<<< Updated upstream:quizz/3dec/game.js
 const snow = new SnowFX("snow-container", 300);
 snow.init();
 snow.start();
+=======
+const GAME_NAME = "demo"
+>>>>>>> Stashed changes:quizz/demo/game.js
 
 var game = new Game()
 var quizz = new Quizz()
 
 quizz.load(QUIZZ_DATA)
-//quizz.shuffle_answers()
 
 
 // game. add sound
@@ -76,7 +79,7 @@ game.add_state("question_title",function(id){
 
     document.getElementById(id).appendChild(card);
     
-    selected_answer = 0;
+    selected_option = 0;
 
 },function(id){
 
@@ -86,36 +89,16 @@ game.add_state("question_title",function(id){
 //======================QUESTION========================
 game.add_state("question",function(id){
 
-    const question = quizz.get_current_question()
-    const answers = question.answers
-    
-    const card = document.createElement("div");
-    card.className = "card";
-    card.id = "card";
-    
-    card.innerHTML = `
-        <h1>${smartLineBreak(question.text)}</h1>
-        ${answers.map((a, i) =>
-            `<div class="answer ${i === 0 ? "selected" : ""}" data-i="${i}">
-                ${numberCircleIconHTML(i+1)} -- ${a.text}
-            </div>`
-        ).join("")}
-    `;
+    const question = quizz.get_current_question();
+    const view = new QuestionView(question);
+    view.render(id);
+    selected_option = 0;
 
-    document.getElementById(id).innerHTML = "";
-    document.getElementById(id).appendChild(card);
-    
-    selected_answer = 0;
-
-
-
-    
 },function(id){
 
-    console.log(`select ${selected_answer} `)
-
-    document.querySelectorAll(".answer").forEach(el => el.classList.remove("selected"));
-    document.querySelectorAll(".answer")[selected_answer].classList.add("selected");
+    console.log(`select ${selected_option} `)
+    document.querySelectorAll(".option").forEach(el => el.classList.remove("selected"));
+    document.querySelectorAll(".option")[selected_option].classList.add("selected");
 })
 
 
@@ -129,7 +112,7 @@ game.add_state("correction", function(id) {
     card.className = "card";
     card.id = "card";
     
-    const chosen = question.answers[selected_answer];
+    const chosen = question.options[selected_option];
     valid = chosen.valid;
 
     if (chosen.valid != undefined) {
@@ -142,8 +125,12 @@ game.add_state("correction", function(id) {
         }
     }
 
-    const correction_text = smartLineBreak(question.correction);
-    const valid_answer = question.get_valid_answer()
+    if(question.correction.type != "text"){
+        return 
+    }
+
+    const correction_text = smartLineBreak(question.correction.value);
+    const valid_option = question.get_valid_option()
 
     let verdict_text = valid ? "bonne réponse !" : "mauvaise réponse !";
 
@@ -153,7 +140,7 @@ game.add_state("correction", function(id) {
 
     card.innerHTML = `
         <h1>${verdict_text}</h1>
-        <h1>${valid_answer}</h1>
+        <h1>${valid_option}</h1>
         <h1>${correction_text}</h1>
     `;
 
@@ -280,10 +267,10 @@ game.apply_state("intro")
 
 document.addEventListener("keydown", (e) => {
     if (locked) return
-    const answers = document.querySelectorAll(".answer");
+    const options = document.querySelectorAll(".option");
     const teams = document.querySelectorAll(".team");
     if (e.key === "ArrowDown") {
-        selected_answer = (selected_answer + 1) % answers.length;
+        selected_option = (selected_option + 1) % options.length;
         selected_team = (selected_team + 1) % teams.length;
         console.log(selected_team)
         console.log("DOWN")
@@ -291,7 +278,7 @@ document.addEventListener("keydown", (e) => {
     }    
     
     if (e.key === "ArrowUp") {
-        selected_answer = (selected_answer - 1 + answers.length) % answers.length;
+        selected_option = (selected_option - 1 + options.length) % options.length;
         selected_team = (selected_team - 1 + teams.length) % teams.length;
         console.log("UP")
         console.log(selected_team)

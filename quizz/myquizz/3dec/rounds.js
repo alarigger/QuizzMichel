@@ -4,7 +4,7 @@
 // QUIZ ENGINE
 // ------------------------------
 
-let selected_option = 0;
+let selected_answer = 0;
 let selected_team = 0;
 let locked = false;
 let valid = true
@@ -13,7 +13,7 @@ var game = new Game()
 var quizz = new Quizz()
 
 quizz.load(QUIZZ_DATA)
-//quizz.shuffle_options()
+//quizz.shuffle_answers()
 
 
 // game. add sound
@@ -59,7 +59,7 @@ game.add_state("question_title",function(id){
 
     document.getElementById(id).appendChild(card);
     
-    selected_option = 0;
+    selected_answer = 0;
 
 },function(id){
 
@@ -71,7 +71,7 @@ game.add_state("question",function(id){
 
     const question = quizz.get_current_question()
     const team = quizz.get_current_team()
-    const options = question.options
+    const answers = question.answers
     
     const card = document.createElement("div");
     card.className = "card";
@@ -80,8 +80,8 @@ game.add_state("question",function(id){
     card.innerHTML = `
     <h1>question pour équipe ${team.name}</h1>
     <h1>${question.text}</h1>
-        ${options.map((a, i) =>
-        `<div class="option ${i === 0 ? "selected" : ""}" data-i="${i}">
+        ${answers.map((a, i) =>
+        `<div class="answer ${i === 0 ? "selected" : ""}" data-i="${i}">
                 <span class = "question_number" > ${i+1} </span> ${a.text}
             </div>`
             ).join("")}
@@ -90,16 +90,16 @@ game.add_state("question",function(id){
     document.getElementById(id).innerHTML = "";
     document.getElementById(id).appendChild(card);
     
-    selected_option = 0;
+    selected_answer = 0;
 
 
     
 },function(id){
 
-    console.log(`select ${selected_option} `)
+    console.log(`select ${selected_answer} `)
 
-    document.querySelectorAll(".option").forEach(el => el.classList.remove("selected"));
-    document.querySelectorAll(".option")[selected_option].classList.add("selected");
+    document.querySelectorAll(".answer").forEach(el => el.classList.remove("selected"));
+    document.querySelectorAll(".answer")[selected_answer].classList.add("selected");
 })
 
 
@@ -113,7 +113,7 @@ game.add_state("correction", function(id) {
     card.className = "card";
     card.id = "card";
     
-    const chosen = question.options[selected_option];
+    const chosen = question.answers[selected_answer];
     valid = chosen.valid;
 
     if (chosen.valid != undefined) {
@@ -128,7 +128,7 @@ game.add_state("correction", function(id) {
     }
 
     const correction_text = question.correction;
-    const valid_option = question.get_valid_option()
+    const valid_answer = question.get_valid_answer()
 
     let verdict_text = valid ? "bonne réponse !" : "mauvaise réponse !";
 
@@ -138,7 +138,7 @@ game.add_state("correction", function(id) {
 
     card.innerHTML = `
         <h1>${verdict_text}</h1>
-        <h1>${valid_option}</h1>
+        <h1>${valid_answer}</h1>
         <h1>${correction_text}</h1>
     `;
 
@@ -225,15 +225,15 @@ game.apply_state("intro")
 
 document.addEventListener("keydown", (e) => {
     if (locked) return
-    const items = document.querySelectorAll(".option");
+    const items = document.querySelectorAll(".answer");
     if (e.key === "ArrowDown") {
-        selected_option = (selected_option + 1) % items.length;
+        selected_answer = (selected_answer + 1) % items.length;
         console.log("DOWN")
         game.update()
     }    
     
     if (e.key === "ArrowUp") {
-        selected_option = (selected_option - 1 + items.length) % items.length;
+        selected_answer = (selected_answer - 1 + items.length) % items.length;
         console.log("UP")
         game.update()
     }

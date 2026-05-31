@@ -1,3 +1,128 @@
+const ContentRenderers = {
+
+    text(content) {
+        const el = document.createElement("span");
+        el.innerHTML = smartLineBreak(content.value);
+        return el;
+    },
+    image(content) {
+        var img = document.createElement("img");
+        if (content.asset) {
+            img = content.asset;
+            return img;
+        }
+        img = document.createElement("img");
+        img.src = "images/" + content.value;
+        return img;
+    },
+
+    video(content) {
+        const video = document.createElement("video");
+        video.src = "videos/" + content.value;
+        video.controls = true;
+        return video;
+    },
+
+    sound(content) {
+        const audio = document.createElement("audio");
+        audio.src = "sounds/" + content.asset.src;
+        audio.controls = true;
+        return audio;
+    }
+};
+
+/**
+ * 
+ * @param {QuestionContent[]} contents 
+ * @returns 
+ */
+function renderContentList(contents) {
+
+    const wrapper = document.createElement("div");
+
+    if (!Array.isArray(contents)) {
+        console.warn("[View] content is not array:", contents);
+        return wrapper;
+    }
+
+    contents.forEach(c => {
+        wrapper.appendChild(renderContent(c));
+    });
+
+    return wrapper;
+}
+
+function renderContent(content) {
+    const renderer = ContentRenderers[content.type];
+    if (!renderer) {
+        console.warn("[View] No renderer for type: " + content.type);
+        throw new Error("No renderer for type: " + content.type);
+    }
+    return renderer(content);
+}
+
+/**
+ * 
+ * @param {QuestionOption} option 
+ * @param {*} index 
+ * @returns 
+ */
+function renderOption(option, index) {
+
+    const el = document.createElement("div");
+    el.className = "option";
+    el.dataset.i = index;
+    el.appendChild(numberCircleIconHTML(index + 1));
+    el.appendChild(renderContentList(option.content));
+    return el;
+}
+
+/**
+ * @param {Question} question
+ */
+function QuestionView(question) {
+
+    this.question = question;
+
+    this.render = function(containerId) {
+
+        const card = document.createElement("div");
+        card.className = "card";
+
+        // QUESTION CONTENT
+        const title = document.createElement("div");
+        title.className = "question-content";
+        title.appendChild(renderContentList(question.content));
+        card.appendChild(title);
+
+        // OPTIONS
+        question.options.forEach((opt, i) => {
+            card.appendChild(renderOption(opt, i));
+        });
+
+        /*
+        // CORRECTION (optional section)
+        if (question.correction) {
+
+            const correctionBox = document.createElement("div");
+            correctionBox.className = "correction";
+
+            const label = document.createElement("h3");
+            label.textContent = "Correction";
+
+            correctionBox.appendChild(label);
+            correctionBox.appendChild(renderContentList(question.correction));
+
+            card.appendChild(correctionBox);
+        }
+        */
+
+        const container = document.getElementById(containerId);
+        container.innerHTML = "";
+        container.appendChild(card);
+    };
+}
+
 
 function SlideManager(){
     this.slide_table = []
@@ -378,22 +503,27 @@ function numberToEmoji(num) {
         .join("");
 }
 
-function numberCircleIconHTML(num, size=24, bg="#4CAF50", color="#fff") {
-    return `<span style="
-        display:inline-flex;
-        justify-content:center;
-        align-items:center;
-        width:${size}px;
-        height:${size}px;
-        border-radius:50%;
-        background-color:${bg};
-        color:${color};
-        font-weight:bold;
-        font-size:${Math.floor(size*0.6)}px;
-        font-family:sans-serif;
-        text-align:center;
-        line-height:1;
-    ">${num}</span>`;
+function numberCircleIconHTML(num, size = 24, bg = "#4CAF50", color = "#fff") {
+
+    const span = document.createElement("span");
+
+    span.style.display = "inline-flex";
+    span.style.justifyContent = "center";
+    span.style.alignItems = "center";
+    span.style.width = size + "px";
+    span.style.height = size + "px";
+    span.style.borderRadius = "50%";
+    span.style.backgroundColor = bg;
+    span.style.color = color;
+    span.style.fontWeight = "bold";
+    span.style.fontSize = Math.floor(size * 0.6) + "px";
+    span.style.fontFamily = "sans-serif";
+    span.style.textAlign = "center";
+    span.style.lineHeight = "1";
+
+    span.textContent = num;
+
+    return span;
 }
 
 

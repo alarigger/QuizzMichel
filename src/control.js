@@ -5,8 +5,8 @@ function Quizz(){
         this.questions.load(quizz_data.questions)
         this.teams.load(quizz_data.teams)
         this.questions.set_limit(quizz_data.question_limit)
-        if(quizz_data.shuffle_answers){
-            this.questions.shuffle_answers()
+        if(quizz_data.shuffle_options){
+            this.questions.shuffle_options()
         }
     }
     this.restart = function(){
