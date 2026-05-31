@@ -349,42 +349,62 @@ function QuestionManager() {
         return "quizz/" + name
     }
 
+    function isUrl(value) {
+        return /^https?:\/\//i.test(value);
+    }
+
     this.preload_content = function(content) {
 
-        if (!content) return;
+    if (!content) return;
 
-        const game_folder = this._resolve_game_folder();
+    const game_folder = this._resolve_game_folder();
 
-        // ARRAY SUPPORT (IMPORTANT since your model changed)
-        if (Array.isArray(content)) {
-            content.forEach(c => this.preload_content(c));
-            return;
+    // ARRAY SUPPORT
+    if (Array.isArray(content)) {
+        content.forEach(c => this.preload_content(c));
+        return;
+    }
+
+    if (!content.type) return;
+
+    switch (content.type) {
+
+        case "image": {
+
+            const src = isUrl(content.value)
+                ? content.value
+                : `${game_folder}/images/${content.value}`;
+
+            content.asset = new Image();
+            content.asset.src = src;
+            break;
         }
 
-        if (!content.type) return;
+        case "video": {
 
-        const base = game_folder;
+            const src = isUrl(content.value)
+                ? content.value
+                : `${game_folder}/videos/${content.value}`;
 
-        switch (content.type) {
-
-            case "image":
-                content.asset = new Image();
-                content.asset.src = base + "/images/" + content.value;
-                break;
-
-            case "video":
-                content.asset = document.createElement("video");
-                content.asset.preload = "auto";
-                content.asset.src = base + "/videos/" + content.value;
-                break;
-
-            case "audio":
-                content.asset = new Audio();
-                content.asset.preload = "auto";
-                content.asset.src = base + "/audio/" + content.value;
-                break;
+            content.asset = document.createElement("video");
+            content.asset.preload = "auto";
+            content.asset.src = src;
+            break;
         }
-    };
+
+        case "audio": {
+
+            const src = isUrl(content.value)
+                ? content.value
+                : `${game_folder}/audio/${content.value}`;
+
+            content.asset = new Audio();
+            content.asset.preload = "auto";
+            content.asset.src = src;
+            break;
+        }
+    }
+};
 
 
     this.set_limit = function (_int) {
@@ -418,6 +438,10 @@ function QuestionManager() {
 
     this.shuffle_options = function () {
         this.questions.forEach(q => shuffleArray(q.options));
+    }
+
+    this.all = function(){
+        return this.questions
     }
 
     function shuffleArray(arr) {

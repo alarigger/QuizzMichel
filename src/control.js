@@ -70,6 +70,10 @@ function Quizz(){
         return this.teams.get_team(index)
     }
 
+    this.get_questions = function(){
+        return this.questions.all()
+    }
+
     
 }
 window.Quizz = Quizz

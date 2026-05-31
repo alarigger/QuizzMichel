@@ -1,20 +1,19 @@
 
 
 // ------------------------------
-// QUIZ ENGINE - MODE BUZZER
+// QUIZ ENGINE
 // ------------------------------
-const GAME_NAME = "demo"
 
 let selected_option = 0;
 let selected_team = 0;
 let locked = false;
-let VALID = false
-
+let valid = true
 
 var game = new Game()
 var quizz = new Quizz()
 
 quizz.load(QUIZZ_DATA)
+//quizz.shuffle_options()
 
 
 // game. add sound
@@ -28,32 +27,19 @@ game.add_state("intro",function(id){
     quizz.restart()
 
     document.getElementById(id).innerHTML = "";
-    addCenteredImage(id,"quizz/demo/splash_screen.png",)
+    addCenteredImage(id,"quizz/3dec/splash_screen.png",)
 
 })
-game.add_state("menu",function(id){
-
-
-},function(id){
-})
+game.add_state("menu",function(id){},function(id){})
 
 // QUESTION VIEW
 game.add_state("question_title",function(id){
-    
+
     document.getElementById(id).innerHTML = "";
-    
-    
-    
     if(quizz.is_last_question()){
         game.apply_state("result")
         return
     }
-    
-    if(VALID){
-        game.apply_state("attribution")
-        return
-    }
-    
 
     // iterate 
     quizz.next_question();
@@ -68,6 +54,7 @@ game.add_state("question_title",function(id){
     
     card.innerHTML = `
     <h1>Question ${quizz.get_current_question_number()} / ${quizz.get_question_total()} ${test} </h1>
+    <h1>pour équipe ${team.name}</h1>
     `;
 
     document.getElementById(id).appendChild(card);
@@ -79,21 +66,38 @@ game.add_state("question_title",function(id){
 
 })
 
-
 //======================QUESTION========================
-game.add_state("question", function(id) {
+game.add_state("question",function(id){
 
-    const question = quizz.get_current_question();
-    if (question!=undefined){
+    const question = quizz.get_current_question()
+    const team = quizz.get_current_team()
+    const options = question.options
+    
+    const card = document.createElement("div");
+    card.className = "card";
+    card.id = "card";
+    
+    card.innerHTML = `
+    <h1>question pour équipe ${team.name}</h1>
+    <h1>${question.text}</h1>
+        ${options.map((a, i) =>
+        `<div class="option ${i === 0 ? "selected" : ""}" data-i="${i}">
+                <span class = "question_number" > ${i+1} </span> ${a.text}
+            </div>`
+            ).join("")}
+            `;
 
-        const view = new QuestionView(question);
-        view.render(id);
-    }
-
+    document.getElementById(id).innerHTML = "";
+    document.getElementById(id).appendChild(card);
+    
     selected_option = 0;
+
+
+    
 },function(id){
 
     console.log(`select ${selected_option} `)
+
     document.querySelectorAll(".option").forEach(el => el.classList.remove("selected"));
     document.querySelectorAll(".option")[selected_option].classList.add("selected");
 })
@@ -103,67 +107,52 @@ game.add_state("question", function(id) {
 game.add_state("correction", function(id) {
 
     const question = quizz.get_current_question();
-
+    const team = quizz.get_current_team();
+    
     const card = document.createElement("div");
     card.className = "card";
     card.id = "card";
-
+    
     const chosen = question.options[selected_option];
-    VALID = chosen.valid === true;
+    valid = chosen.valid;
 
-    // sound
-    if (VALID) {
-        game_sounds.correct.play();
-    } else {
-        game_sounds.incorrect.play();
+    if (chosen.valid != undefined) {
+        if (valid) {
+            if(question.is_demo==false){
+                quizz.increment_score();
+            }
+            game_sounds.correct.play();
+        } else {
+            game_sounds.incorrect.play();
+        }
     }
 
-    const verdict = document.createElement("h1");
-    verdict.textContent = VALID ? "Bonne réponse !" : "Mauvaise réponse !";
+    const correction_text = question.correction;
+    const valid_option = question.get_valid_option()
 
-    card.appendChild(verdict);
+    let verdict_text = valid ? "bonne réponse !" : "mauvaise réponse !";
 
-    // VALID OPTION (USE YOUR SYSTEM)
-    const valid_option = question.get_valid_option();
-
-    if (valid_option) {
-        const validTitle = document.createElement("h2");
-        validTitle.textContent = "Réponse correcte :";
-        card.appendChild(validTitle);
-
-        // IMPORTANT: render content properly
-        card.appendChild(renderContentList(valid_option.content));
-    }
-
-    // CORRECTION (NOW PROPER CONTENT SYSTEM)
-    if (question.correction) {
-
-        const correctionTitle = document.createElement("h2");
-        correctionTitle.textContent = "Explication :";
-        card.appendChild(correctionTitle);
-        card.appendChild(renderContentList(question.correction));
-    }
-
-    // background
-    card.style.backgroundColor = VALID ? "#82e082" : "#ff8b8b";
+    // ⭐ SET CARD BACKGROUND BASED ON VALIDITY
+    card.style.backgroundColor = valid ? "#82e082" : "#ff8b8b";
     card.style.transition = "background-color 0.3s ease";
 
-    const container = document.getElementById(id);
-    container.innerHTML = "";
-    container.appendChild(card);
+    card.innerHTML = `
+        <h1>${verdict_text}</h1>
+        <h1>${valid_option}</h1>
+        <h1>${correction_text}</h1>
+    `;
+
+    document.getElementById(id).innerHTML = "";
+    document.getElementById(id).appendChild(card);
+
 
     locked = false;
+
 }, function(id){});
 
 
 //======================SCORE========================
 game.add_state("score",function(id){
-
-    const chosen_team = quizz.get_team(selected_team)
-    question = quizz.get_current_question();
-    if(question.is_demo==false){
-        chosen_team.increment_score()
-    }
 
     const card = document.createElement("div");
     card.className = "card";
@@ -181,38 +170,6 @@ game.add_state("score",function(id){
 },function(id){
 
 })
-//======================SCORE========================
-game.add_state("attribution",function(id){
-
-    const teams = quizz.get_teams()
-    VALID=false
-
-    console.log(teams)
-    
-    const card = document.createElement("div");
-    card.className = "card";
-    card.id = "card";
-    
-    card.innerHTML = `
-    <h1>le point est donné à </h1>
-        ${teams.map((t, i) =>
-        `<div class="team ${i === 0 ? "selected" : ""}" data-i="${i}">
-                 Equipe ${t.name}
-            </div>`
-            ).join("")}
-            `;
-
-    document.getElementById(id).innerHTML = "";
-    document.getElementById(id).appendChild(card);
-    
-    selected_team = 0;
-    
-},function(id){
-    document.querySelectorAll(".team").forEach(el => el.classList.remove("selected"));
-    document.querySelectorAll(".team")[selected_team].classList.add("selected");
-
-})
-
 game.add_state("result",function(id){
 
     const card = document.createElement("div");
@@ -225,11 +182,14 @@ game.add_state("result",function(id){
     }else{
         winner = "L' équipe "+winners[0]+" a gagné le quizz !"
     }
-
+    /*
+    card.innerHTML = `
+        <h1>${winner}</h1>
+        <h1>${render_scores_podium()}</h1>
+        `;    
+        */
    card.innerHTML = `
-    <h1>${render_scores_podium(quizz)}</h1>
        <h1>${winner}</h1>
-
    `;
 
     document.getElementById(id).innerHTML = "";
@@ -246,17 +206,15 @@ game.add_state("result",function(id){
 
 game.add_state("outro",function(id){
 
-},function(id){
-
 })
+
 
 
 game.connect_states("intro","menu")
 game.connect_states("menu","question_title")
 game.connect_states("question_title","question")
 game.connect_states("question","correction")
-game.connect_states("correction","question_title")
-game.connect_states("attribution","score")
+game.connect_states("correction","score")
 // TODO add conditionnal states that go to state A or B 
 game.connect_states("score","question_title")
 game.connect_states("result","outro")
@@ -267,21 +225,16 @@ game.apply_state("intro")
 
 document.addEventListener("keydown", (e) => {
     if (locked) return
-    const options = document.querySelectorAll(".option");
-    const teams = document.querySelectorAll(".team");
+    const items = document.querySelectorAll(".option");
     if (e.key === "ArrowDown") {
-        selected_option = (selected_option + 1) % options.length;
-        selected_team = (selected_team + 1) % teams.length;
-        console.log(selected_team)
+        selected_option = (selected_option + 1) % items.length;
         console.log("DOWN")
         game.update()
     }    
     
     if (e.key === "ArrowUp") {
-        selected_option = (selected_option - 1 + options.length) % options.length;
-        selected_team = (selected_team - 1 + teams.length) % teams.length;
+        selected_option = (selected_option - 1 + items.length) % items.length;
         console.log("UP")
-        console.log(selected_team)
         game.update()
     }
     

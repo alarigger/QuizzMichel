@@ -244,3 +244,39 @@
     0% { left: -60%; }
     100% { left: 120%; }
 }
+
+
+
+.jeopardy-board {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 4px;
+}
+
+.jeopardy-header {
+    background: #0c2d8a;
+    color: white;
+    padding: 16px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.jeopardy-cell {
+    background: #001b66;
+    color: #ffcc33;
+    font-size: 2rem;
+    font-weight: bold;
+
+    min-height: 90px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+}
+
+.jeopardy-cell.selected {
+    outline: 4px solid white;
+    transform: scale(1.05);
+}

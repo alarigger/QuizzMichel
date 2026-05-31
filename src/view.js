@@ -592,6 +592,55 @@ function smartLineBreak(text) {
 
     // 2. Optional: break before uppercase words not at start
     result = result.replace(/(\S)\s+([A-Z][a-z]+)/g, "$1<br>$2");
-
+ 
     return result;
+}
+
+
+function JeopardyBoard(questions) {
+
+    this.render = function(containerId) {
+
+        const board = document.createElement("div");
+        board.className = "jeopardy-board";
+
+        const categories = [...new Set(
+            questions.flatMap(q => q.categories || [])
+        )];
+
+        // header row
+        categories.forEach(cat => {
+            const header = document.createElement("div");
+            header.className = "jeopardy-header";
+            header.textContent = cat;
+            board.appendChild(header);
+        });
+
+        
+        const values = [...new Set(
+            questions.map(q => q.points)
+        )].sort((a, b) => a - b);
+
+        values.forEach(value => {
+            categories.forEach(cat => {
+
+                const cell = document.createElement("div");
+                cell.className = "jeopardy-cell";
+
+                const question = questions.find(q =>
+                    q.points === value &&
+                    (q.categories || []).includes(cat)
+                );
+
+                cell.dataset.questionId = question?.id ?? "";
+                cell.textContent = question ? value : "";
+
+                board.appendChild(cell);
+            });
+        });
+
+        const container = document.getElementById(containerId);
+        container.innerHTML = "";
+        container.appendChild(board);
+    };
 }

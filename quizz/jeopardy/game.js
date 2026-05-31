@@ -3,7 +3,7 @@
 // ------------------------------
 // QUIZ ENGINE - MODE BUZZER
 // ------------------------------
-const GAME_NAME = "demo"
+const GAME_NAME = "jeopardy"
 
 let selected_option = 0;
 let selected_team = 0;
@@ -42,8 +42,6 @@ game.add_state("question_title",function(id){
     
     document.getElementById(id).innerHTML = "";
     
-    
-    
     if(quizz.is_last_question()){
         game.apply_state("result")
         return
@@ -78,6 +76,100 @@ game.add_state("question_title",function(id){
 
 
 })
+
+//======================QUESTION========================
+game.add_state("jeopardy",function(id) {
+
+    const questions = quizz.get_questions();
+
+    // Categories
+    this.categories = [...new Set(
+        questions.flatMap(q => q.categories || [])
+    )];
+
+    // Point values
+    this.values = [...new Set(
+        questions.map(q => q.points)
+    )].sort((a, b) => a - b);
+
+    // Lookup table
+    this.boardData = {};
+
+    questions.forEach(q => {
+
+        (q.categories || []).forEach(category => {
+
+            if (!this.boardData[category]) {
+                this.boardData[category] = {};
+            }
+
+            this.boardData[category][q.points] = q;
+        });
+    });
+
+    // Cursor
+    this.selectedRow = 0;
+    this.selectedCol = 0;
+
+    // Render board
+    const board = document.createElement("div");
+    board.className = "jeopardy-board";
+
+    board.style.gridTemplateColumns =
+        `repeat(${this.categories.length}, 1fr)`;
+
+    // Headers
+    this.categories.forEach(category => {
+
+        const header = document.createElement("div");
+        header.className = "jeopardy-header";
+        header.textContent = category;
+
+        board.appendChild(header);
+    });
+
+    // Cells
+    this.values.forEach(value => {
+
+        this.categories.forEach(category => {
+
+            const q = this.boardData[category]?.[value];
+
+            const cell = document.createElement("div");
+            cell.className = "jeopardy-cell";
+
+            if (q) {
+                cell.textContent = value;
+                cell.dataset.questionId = q.id;
+            } else {
+                cell.classList.add("empty");
+            }
+
+            board.appendChild(cell);
+        });
+    });
+
+    document.getElementById(id).innerHTML = "";
+    document.getElementById(id).appendChild(board);
+
+},
+function(id) {
+
+    const state = game.states["jeopardy"];
+
+    const cells = document.querySelectorAll(".jeopardy-cell");
+
+    cells.forEach(c => c.classList.remove("selected"));
+
+    const cols = state.categories.length;
+
+    const index =
+        state.selectedRow * cols +
+        state.selectedCol;
+
+    cells[index]?.classList.add("selected");
+});
+
 
 
 //======================QUESTION========================
@@ -253,9 +345,11 @@ game.add_state("outro",function(id){
 
 game.connect_states("intro","menu")
 game.connect_states("menu","question_title")
-game.connect_states("question_title","question")
+game.connect_states("question_title","jeopardy")
+game.connect_states("jeopardy","question")
 game.connect_states("question","correction")
 game.connect_states("correction","question_title")
+game.connect_states("question_title","jeopardy")
 game.connect_states("attribution","score")
 // TODO add conditionnal states that go to state A or B 
 game.connect_states("score","question_title")
@@ -265,38 +359,45 @@ game.connect_states("outro","intro")
 game.apply_state("intro")
 
 
+
+
+let selected_row = 0;
+let selected_col = 0;
+
 document.addEventListener("keydown", (e) => {
-    if (locked) return
-    const options = document.querySelectorAll(".option");
-    const teams = document.querySelectorAll(".team");
+
+    if (locked) return;
+
+    const state = game.states[game.current_state];
+
+    // fallback safety
+    const rows = state?.rows ?? 1;
+    const cols = state?.cols ?? 1;
+
     if (e.key === "ArrowDown") {
-        selected_option = (selected_option + 1) % options.length;
-        selected_team = (selected_team + 1) % teams.length;
-        console.log(selected_team)
-        console.log("DOWN")
-        game.update()
-    }    
-    
+        selected_row = Math.min(selected_row + 1, rows - 1);
+        game.update();
+    }
+
     if (e.key === "ArrowUp") {
-        selected_option = (selected_option - 1 + options.length) % options.length;
-        selected_team = (selected_team - 1 + teams.length) % teams.length;
-        console.log("UP")
-        console.log(selected_team)
-        game.update()
+        selected_row = Math.max(selected_row - 1, 0);
+        game.update();
     }
-    
+
     if (e.key === "ArrowLeft") {
-        console.log("LEFT")
-        
-        game.update()
-    }    
-    if (e.key === "ArrowRigth") {
-        console.log("RIGTH")
-        game.update()
+        selected_col = Math.max(selected_col - 1, 0);
+        game.update();
     }
+
+    if (e.key === "ArrowRight") {
+        selected_col = Math.min(selected_col + 1, cols - 1);
+        game.update();
+    }
+
     if (e.key === "Enter") {
-        console.log("ENTER")
-        game.next_state()
+        console.log("ENTER");
+
+        game.next_state?.();
     }
 });
 
