@@ -280,3 +280,8 @@
     outline: 4px solid white;
     transform: scale(1.05);
 }
+
+.jeopardy-cell.burned {
+    opacity: 0.4;
+    pointer-events: none;
+}

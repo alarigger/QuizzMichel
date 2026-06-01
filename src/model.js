@@ -399,6 +399,8 @@ function Question() {
     this.correction = null
     this.categories = []
     this.points = []
+    this.atempts = 0
+    this.is_burned = false
     this.is_demo = false
     this.get_valid_option = function () {
         for (var a in this.options) {
@@ -407,8 +409,14 @@ function Question() {
             }
         }
     }
+    this.try = function(){
+        this.atempts+=1
+    }
     this.get_content = function () {
         return this.content.value
+    }
+    this.burn = function(){
+        this.is_burned = true
     }
 }
 

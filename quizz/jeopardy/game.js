@@ -101,6 +101,11 @@ game.add_state("jeopardy", function (id, state) {
             if (q) {
                 cell.textContent = value;
                 cell.dataset.questionId = q.id;
+
+                if (q.is_burned) {
+                    cell.classList.add("burned");
+                    cell.dataset.burned = "true";
+                }
             } else {
                 cell.classList.add("empty");
             }
@@ -113,26 +118,26 @@ game.add_state("jeopardy", function (id, state) {
     document.getElementById(id).appendChild(board);
 
 
-},function (id, state) {
+}, function (id, state) {
 
     const cells = document.querySelectorAll(".jeopardy-cell");
 
     cells.forEach(c => c.classList.remove("selected"));
 
     const index = game.get_selected_index();
-    console.log(`select ${index}`);
-
     const selected_cell = cells[index];
 
-    if (selected_cell) {
+    if (
+        selected_cell &&
+        !selected_cell.classList.contains("empty") &&
+        !selected_cell.classList.contains("burned")
+    ) {
         selected_cell.classList.add("selected");
 
         const question_id = selected_cell.dataset.questionId;
-        console.log(question_id);
-
         quizz.select_question(question_id);
     }
-},function (id, state) {
+}, function (id, state) {
     game.next_state();
 
 });
@@ -146,6 +151,7 @@ game.add_state("question", function (id, state) {
     if (question != undefined) {
         const view = new QuestionView(question);
         view.render(id);
+
     }
 
     state.rows = question.options.length
@@ -158,9 +164,11 @@ game.add_state("question", function (id, state) {
     console.log(`select ${index} `)
     document.querySelectorAll(".option").forEach(el => el.classList.remove("selected"));
     document.querySelectorAll(".option")[index].classList.add("selected");
-},function (id, state) {
+}, function (id, state) {
+    const question = quizz.get_current_question();
+    question.try()
     game.next_state();
-    
+
 });
 
 
@@ -180,6 +188,7 @@ game.add_state("correction", function (id) {
     // sound
     if (VALID) {
         game_sounds.correct.play();
+
     } else {
         game_sounds.incorrect.play();
     }
@@ -192,8 +201,10 @@ game.add_state("correction", function (id) {
     // VALID OPTION (USE YOUR SYSTEM)
     const valid_option = question.get_valid_option();
 
-    if (!VALID) {
+    if (VALID) {
+        question.burn()
         if (valid_option) {
+
             const validTitle = document.createElement("h2");
             validTitle.textContent = "Incorrect ! ";
             card.appendChild(validTitle);
@@ -216,13 +227,23 @@ game.add_state("correction", function (id) {
     container.appendChild(card);
 
     locked = false;
-}, function (id) { 
+}, function (id) {
 
-},function (id, state) {
-    if(VALID){
+}, function (id, state) {
+    const max_retry = 2
+    const question = quizz.get_current_question();
+    console.log("ATEMPS")
+    console.log(question.atempts)
+    if (VALID) {
         game.apply_state("attribution");
-    }else{
-        game.apply_state("score");
+    } else {
+        if(question.atempts <= max_retry){
+            game.apply_state("question");
+        }else{
+            question.burn()
+            game.apply_state("score");
+        }
+        
     }
 });
 ;
@@ -253,15 +274,15 @@ game.add_state("score", function (id) {
 
 }, function (id) {
 
-},function (id, state) {
+}, function (id, state) {
     game.next_state();
-    
+
 });
 
 //======================ATTRIBUTION========================
 game.add_state("attribution", function (id, state) {
 
-    console.log("VALID "+VALID)
+    console.log("VALID " + VALID)
 
     const teams = quizz.get_teams()
 
@@ -292,15 +313,20 @@ game.add_state("attribution", function (id, state) {
     const teams = document.querySelectorAll(".team");
     teams.forEach(el => el.classList.remove("selected"));
     const selectedTeam = teams[index];
-
     if (selectedTeam) {
-        selectedTeam.classList.add("selected");
+        selectedTeam.classList.add("selected"); 1
+    }
+}, function (id, state) {
+    const index = game.get_selected_index();
+    const teams = document.querySelectorAll(".team");
+    teams.forEach(el => el.classList.remove("selected"));
+    const selectedTeam = teams[index];
+    if (selectedTeam) {
         const teamId = selectedTeam.dataset.teamId; // or Number(...)
         quizz.select_team(teamId);
     }
-},function (id, state) {
     game.next_state();
-    
+
 });
 
 
@@ -330,9 +356,9 @@ game.add_state("result", function (id) {
 
 }, function (id) {
 
-},function (id, state) {
-    
-    
+}, function (id, state) {
+
+
 });
 
 
@@ -343,9 +369,9 @@ game.add_state("outro", function (id) {
 
 }, function (id) {
 
-},function (id, state) {
-    
-    
+}, function (id, state) {
+
+
 });
 
 
@@ -406,7 +432,7 @@ document.addEventListener("keydown", (e) => {
         console.log("ENTER");
         game.cursor_action()
         game.validate()
-        
+
     }
 
     console.log("------------------------------------")
