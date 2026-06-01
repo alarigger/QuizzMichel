@@ -78,38 +78,40 @@ game.add_state("question_title",function(id){
 })
 
 //======================QUESTION========================
-game.add_state("jeopardy",function(id) {
+game.add_state("jeopardy",function(id,state) {
 
     const questions = quizz.get_questions();
 
     // Categories
-    this.categories = [...new Set(
+    state.categories = [...new Set(
         questions.flatMap(q => q.categories || [])
     )];
 
     // Point values
-    this.values = [...new Set(
+    state.values = [...new Set(
         questions.map(q => q.points)
     )].sort((a, b) => a - b);
 
     // Lookup table
-    this.boardData = {};
+    state.boardData = {};
 
     questions.forEach(q => {
-
         (q.categories || []).forEach(category => {
 
-            if (!this.boardData[category]) {
-                this.boardData[category] = {};
+            if (!state.boardData[category]) {
+                state.boardData[category] = {};
             }
 
-            this.boardData[category][q.points] = q;
+            state.boardData[category][q.points] = q;
         });
     });
 
+    state.rows = state.values.length
+    state.columns = state.categories.length
+
     // Cursor
-    this.selectedRow = 0;
-    this.selectedCol = 0;
+    state.selectedRow = 0;
+    state.selectedCol = 0;
 
     // Render board
     const board = document.createElement("div");
@@ -131,7 +133,7 @@ game.add_state("jeopardy",function(id) {
     // Cells
     this.values.forEach(value => {
 
-        this.categories.forEach(category => {
+        state.categories.forEach(category => {
 
             const q = this.boardData[category]?.[value];
 
@@ -153,9 +155,7 @@ game.add_state("jeopardy",function(id) {
     document.getElementById(id).appendChild(board);
 
 },
-function(id) {
-
-    const state = game.states["jeopardy"];
+function(id,state) {
 
     const cells = document.querySelectorAll(".jeopardy-cell");
 
@@ -164,8 +164,10 @@ function(id) {
     const cols = state.categories.length;
 
     const index =
-        state.selectedRow * cols +
-        state.selectedCol;
+        selected_row * cols +
+        selected_col;
+
+    console.log(index)
 
     cells[index]?.classList.add("selected");
 });
@@ -184,7 +186,7 @@ game.add_state("question", function(id) {
 
     selected_option = 0;
 },function(id){
-
+    
     console.log(`select ${selected_option} `)
     document.querySelectorAll(".option").forEach(el => el.classList.remove("selected"));
     document.querySelectorAll(".option")[selected_option].classList.add("selected");
@@ -368,11 +370,11 @@ document.addEventListener("keydown", (e) => {
 
     if (locked) return;
 
-    const state = game.states[game.current_state];
+    const state = game.get_current_state();
 
     // fallback safety
     const rows = state?.rows ?? 1;
-    const cols = state?.cols ?? 1;
+    const cols = state?.columns ?? 1;
 
     if (e.key === "ArrowDown") {
         selected_row = Math.min(selected_row + 1, rows - 1);

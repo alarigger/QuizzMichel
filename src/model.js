@@ -8,13 +8,20 @@
 function GameState(_name, _render_func, _update_func) {
     this.type = "render"
     this.name = _name
+    this.rows = null
+    this.columns = null
     this._render = _render_func
     this._update = _update_func
+    this._get_state_element = function(){
+        return this.name
+    }
     this.render = function () {
-        this._render(this.name)
+        var state_element = this._get_state_element()
+        this._render(state_element,this)
     }
     this.update = function () {
-        this._update(this.name)
+        var state_element = this._get_state_element()
+        this._update(state_element,this)
     }
 }
 window.GameState = GameState
@@ -55,6 +62,7 @@ function Game() {
     this.state_table = []
     this.current_state = null
     this.state_connections = []
+
 
     /**
      * 
@@ -153,6 +161,9 @@ function Game() {
         const next_state = connection.next()
         this.apply_state(connection.next())
 
+    }
+    this.get_current_state = function(){
+        return this.state_table[this.current_state]
     }
 
 }
