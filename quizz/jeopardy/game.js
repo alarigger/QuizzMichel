@@ -108,10 +108,7 @@ game.add_state("jeopardy",function(id,state) {
 
     state.rows = state.values.length
     state.columns = state.categories.length
-
-    // Cursor
-    state.selectedRow = 0;
-    state.selectedCol = 0;
+    game.reload_grid()
 
     // Render board
     const board = document.createElement("div");
@@ -163,9 +160,8 @@ function(id,state) {
 
     const cols = state.categories.length;
 
-    const index =
-        selected_row * cols +
-        selected_col;
+    
+    const index =game.cursor_position.y * cols + game.cursor_position.x ;
 
     console.log(index)
 
@@ -175,21 +171,22 @@ function(id,state) {
 
 
 //======================QUESTION========================
-game.add_state("question", function(id) {
+game.add_state("question", function(id,state) {
 
     const question = quizz.get_current_question();
     if (question!=undefined){
-
         const view = new QuestionView(question);
         view.render(id);
     }
 
-    selected_option = 0;
+    state.rows = question.options.length
+    game.reload_grid()
+
 },function(id){
     
-    console.log(`select ${selected_option} `)
+    console.log(`select ${game.cursor_position.y} `)
     document.querySelectorAll(".option").forEach(el => el.classList.remove("selected"));
-    document.querySelectorAll(".option")[selected_option].classList.add("selected");
+    document.querySelectorAll(".option")[game.cursor_position.y].classList.add("selected");
 })
 
 
@@ -202,7 +199,7 @@ game.add_state("correction", function(id) {
     card.className = "card";
     card.id = "card";
 
-    const chosen = question.options[selected_option];
+    const chosen = question.options[game.cursor_position.y];
     VALID = chosen.valid === true;
 
     // sound
@@ -220,22 +217,22 @@ game.add_state("correction", function(id) {
     // VALID OPTION (USE YOUR SYSTEM)
     const valid_option = question.get_valid_option();
 
-    if (valid_option) {
-        const validTitle = document.createElement("h2");
-        validTitle.textContent = "Réponse correcte :";
-        card.appendChild(validTitle);
-
-        // IMPORTANT: render content properly
-        card.appendChild(renderContentList(valid_option.content));
-    }
-
-    // CORRECTION (NOW PROPER CONTENT SYSTEM)
-    if (question.correction) {
-
-        const correctionTitle = document.createElement("h2");
-        correctionTitle.textContent = "Explication :";
-        card.appendChild(correctionTitle);
-        card.appendChild(renderContentList(question.correction));
+    if(!VALID){
+        if (valid_option) {
+            const validTitle = document.createElement("h2");
+            validTitle.textContent = "Réponse correcte :";
+            card.appendChild(validTitle);
+    
+            // IMPORTANT: render content properly
+            card.appendChild(renderContentList(valid_option.content));
+    
+            if (question.correction) {
+                const correctionTitle = document.createElement("h2");
+                correctionTitle.textContent = "Bonne réponse ";
+                card.appendChild(correctionTitle);
+                card.appendChild(renderContentList(question.correction));
+            }
+        }
     }
 
     // background
@@ -346,12 +343,10 @@ game.add_state("outro",function(id){
 
 
 game.connect_states("intro","menu")
-game.connect_states("menu","question_title")
-game.connect_states("question_title","jeopardy")
+game.connect_states("menu","jeopardy")
 game.connect_states("jeopardy","question")
 game.connect_states("question","correction")
-game.connect_states("correction","question_title")
-game.connect_states("question_title","jeopardy")
+game.connect_states("correction","jeopardy")
 game.connect_states("attribution","score")
 // TODO add conditionnal states that go to state A or B 
 game.connect_states("score","question_title")
@@ -366,40 +361,46 @@ game.apply_state("intro")
 let selected_row = 0;
 let selected_col = 0;
 
+
+
+
+
 document.addEventListener("keydown", (e) => {
 
     if (locked) return;
 
-    const state = game.get_current_state();
 
     // fallback safety
-    const rows = state?.rows ?? 1;
-    const cols = state?.columns ?? 1;
+    const rows = game.get_rows();
+    const cols =  game.get_columns();
 
     if (e.key === "ArrowDown") {
-        selected_row = Math.min(selected_row + 1, rows - 1);
+        game.cursor_down()
         game.update();
     }
-
+    
     if (e.key === "ArrowUp") {
-        selected_row = Math.max(selected_row - 1, 0);
-        game.update();
-    }
-
+         game.cursor_up()
+         game.update();
+        }
+        
     if (e.key === "ArrowLeft") {
-        selected_col = Math.max(selected_col - 1, 0);
+        game.cursor_left()
         game.update();
     }
-
+    
     if (e.key === "ArrowRight") {
-        selected_col = Math.min(selected_col + 1, cols - 1);
+        game.cursor_rigth()
         game.update();
     }
-
+    
     if (e.key === "Enter") {
         console.log("ENTER");
-
+        game.cursor_action()
         game.next_state?.();
     }
-});
 
+    console.log("------------------------------------")
+    console.log(game.cursor_position)
+    console.log("------------------------------------")
+});

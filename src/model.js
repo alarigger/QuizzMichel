@@ -62,7 +62,8 @@ function Game() {
     this.state_table = []
     this.current_state = null
     this.state_connections = []
-
+    this.cursor_position = {x:0,y:0}
+    this.grid = {columns:0,rows:0}
 
     /**
      * 
@@ -164,6 +165,43 @@ function Game() {
     }
     this.get_current_state = function(){
         return this.state_table[this.current_state]
+    }
+    this.get_rows = function(){
+        const state = this.get_current_state();
+        const rows = state?.rows ?? 1;
+        return rows
+    }    
+    this.get_columns = function(){
+        const state = this.get_current_state();
+        const cols = state?.columns ?? 1;
+        return cols
+    }
+    this.reload_grid = function(){
+        const state = this.get_current_state();
+        const cols = state?.columns ?? 1;
+        const rows = state?.rows ?? 1;
+        this.grid = {
+            columns:cols,
+            rows:rows
+        }
+        return this
+    }
+    this.cursor_up =function(){
+        this.cursor_position.y = Math.max(this.cursor_position.y - 1, 0);
+    }    
+    this.cursor_down =function(){
+        const rows = this.grid.rows
+        this.cursor_position.y = Math.min(this.cursor_position.y + 1, rows - 1);
+    }    
+    this.cursor_left =function(){
+        this.cursor_position.x = Math.max(this.cursor_position.x - 1, 0);
+    }    
+    this.cursor_rigth =function(){
+        const cols = this.grid.columns
+        this.cursor_position.x = Math.min(this.cursor_position.x + 1, cols - 1);
+    }    
+    this.cursor_action =function(){
+        
     }
 
 }
