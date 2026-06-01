@@ -117,28 +117,54 @@ game.add_state("jeopardy", function (id, state) {
     document.getElementById(id).innerHTML = "";
     document.getElementById(id).appendChild(board);
 
+    const items = board.querySelectorAll(
+        ".jeopardy-header, .jeopardy-cell"
+    );
 
-}, function (id, state) {
+    items.forEach((item, i) => {
+        item.style.animationDelay = `${i * 30}ms`;
+        item.classList.add("jeopardy-item-show");
+    });
 
     const cells = document.querySelectorAll(".jeopardy-cell");
-
     cells.forEach(c => c.classList.remove("selected"));
-
     const index = game.get_selected_index();
     const selected_cell = cells[index];
-
     if (
         selected_cell &&
         !selected_cell.classList.contains("empty") &&
         !selected_cell.classList.contains("burned")
     ) {
         selected_cell.classList.add("selected");
-
         const question_id = selected_cell.dataset.questionId;
         quizz.select_question(question_id);
     }
+
+
 }, function (id, state) {
-    game.next_state();
+
+    const cells = document.querySelectorAll(".jeopardy-cell");
+    cells.forEach(c => c.classList.remove("selected"));
+    const index = game.get_selected_index();
+    const selected_cell = cells[index];
+    if (selected_cell){
+        selected_cell.classList.add("selected");
+    }
+}, function (id, state) {
+    
+    const cells = document.querySelectorAll(".jeopardy-cell");
+    const index = game.get_selected_index();
+    const selected_cell = cells[index];
+    if (selected_cell){
+        if(
+            !selected_cell.classList.contains("empty") &&
+            !selected_cell.classList.contains("burned")
+        ){
+            const question_id = selected_cell.dataset.questionId;
+            quizz.select_question(question_id);
+            game.next_state();
+        }
+    }
 
 });
 
@@ -158,15 +184,26 @@ game.add_state("question", function (id, state) {
     state.columns = 1
     game.reload_grid()
 
+    game.cursor_position.x = 0
+    game.cursor_position.y = 0
+    const index = game.get_selected_index()
+    console.log(`select ${index} `)
+    document.querySelectorAll(".option").forEach(el => el.classList.remove("selected"));
+    document.querySelectorAll(".option")[index].classList.add("selected");
+
 }, function (id) {
+
     game.cursor_position.x = 0
     const index = game.get_selected_index()
     console.log(`select ${index} `)
     document.querySelectorAll(".option").forEach(el => el.classList.remove("selected"));
     document.querySelectorAll(".option")[index].classList.add("selected");
+
 }, function (id, state) {
     const question = quizz.get_current_question();
-    question.try()
+    if(question){
+        question.try()
+    }
     game.next_state();
 
 });

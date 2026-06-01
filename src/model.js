@@ -14,6 +14,7 @@ function GameState(_name, _render_func, _update_func,_validate_func) {
     this._render = _render_func || function(id,state){ }
     this._update = _update_func || function(id,state){}
     this._validate = _validate_func || function(id,state){game.next_state()}
+    this.last_cursor_position = {x:0,y:0}
     this._get_state_element = function () {
         return this.name
     }
@@ -28,6 +29,24 @@ function GameState(_name, _render_func, _update_func,_validate_func) {
     this.validate = function () {
         var state_element = this._get_state_element()
         this._validate(state_element, this)
+    }
+    this.load_cursor_position = function () {
+        this.last_cursor_position.x = Math.max(
+            0,
+            Math.min(this.last_cursor_position.x, this.columns - 1)
+        );
+        this.last_cursor_position.y = Math.max(
+            0,
+            Math.min(this.last_cursor_position.y, this.rows - 1)
+        );
+        game.cursor.x = this.last_cursor_position.x;
+        game.cursor.y = this.last_cursor_position.y;
+    }   
+    this.save_cursor_position = function () {
+        this.last_cursor_position = {
+            x: game.cursor.x,
+            y: game.cursor.y
+        };
     }
 }
 window.GameState = GameState
