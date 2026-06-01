@@ -46,17 +46,17 @@ const ContentRendererRegistry = {
 
 
 /**
- * 
- * @param {QuestionContent[]} contents 
- * @returns 
+ * @param {QuestionContent|QuestionContent[]} contents
+ * @returns {HTMLDivElement}
  */
 function renderContentList(contents) {
+
+    contents = Array.isArray(contents) ? contents : [contents];
 
     const wrapper = document.createElement("div");
     wrapper.className = "question-content-list";
 
     const sorted = [...contents].sort((a, b) => {
-
         const rank = {
             image: 0,
             video: 0,
@@ -594,53 +594,4 @@ function smartLineBreak(text) {
     result = result.replace(/(\S)\s+([A-Z][a-z]+)/g, "$1<br>$2");
  
     return result;
-}
-
-
-function JeopardyBoard(questions) {
-
-    this.render = function(containerId) {
-
-        const board = document.createElement("div");
-        board.className = "jeopardy-board";
-
-        const categories = [...new Set(
-            questions.flatMap(q => q.categories || [])
-        )];
-
-        // header row
-        categories.forEach(cat => {
-            const header = document.createElement("div");
-            header.className = "jeopardy-header";
-            header.textContent = cat;
-            board.appendChild(header);
-        });
-
-        
-        const values = [...new Set(
-            questions.map(q => q.points)
-        )].sort((a, b) => a - b);
-
-        values.forEach(value => {
-            categories.forEach(cat => {
-
-                const cell = document.createElement("div");
-                cell.className = "jeopardy-cell";
-
-                const question = questions.find(q =>
-                    q.points === value &&
-                    (q.categories || []).includes(cat)
-                );
-
-                cell.dataset.questionId = question?.id ?? "";
-                cell.textContent = question ? value : "";
-
-                board.appendChild(cell);
-            });
-        });
-
-        const container = document.getElementById(containerId);
-        container.innerHTML = "";
-        container.appendChild(board);
-    };
 }

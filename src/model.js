@@ -5,23 +5,29 @@
  * @param {function} _render_func 
  * @param {function} _update_func 
  */
-function GameState(_name, _render_func, _update_func) {
+function GameState(_name, _render_func, _update_func,_validate_func) {
+    this.id = Math.floor(Math.random() * 1000000000); // 0-999,999,999
     this.type = "render"
     this.name = _name
     this.rows = null
     this.columns = null
-    this._render = _render_func
-    this._update = _update_func
-    this._get_state_element = function(){
+    this._render = _render_func || function(id,state){ }
+    this._update = _update_func || function(id,state){}
+    this._validate = _validate_func || function(id,state){game.next_state()}
+    this._get_state_element = function () {
         return this.name
     }
     this.render = function () {
         var state_element = this._get_state_element()
-        this._render(state_element,this)
+        this._render(state_element, this)
     }
     this.update = function () {
         var state_element = this._get_state_element()
-        this._update(state_element,this)
+        this._update(state_element, this)
+    }    
+    this.validate = function () {
+        var state_element = this._get_state_element()
+        this._validate(state_element, this)
     }
 }
 window.GameState = GameState
@@ -56,14 +62,15 @@ function GameStateConnection(_state_A, _state_B) {
 window.GameStateConnection = GameStateConnection
 
 function Game() {
+    this.id = Math.floor(Math.random() * 1000000000); // 0-999,999,999
     this.transition_time = 100
     this.slides = new AnimatedSlideManager()
     this.function_table = []
     this.state_table = []
     this.current_state = null
     this.state_connections = []
-    this.cursor_position = {x:0,y:0}
-    this.grid = {columns:0,rows:0}
+    this.cursor_position = { x: 0, y: 0 }
+    this.grid = { columns: 0, rows: 0 }
 
     /**
      * 
@@ -72,11 +79,12 @@ function Game() {
      * @param {function} _update_function 
      * @returns {Game}
      */
-    this.add_state = function (state_name, _render_function, _update_function) {
+    this.add_state = function (state_name, _render_function, _update_function,_validate_function) {
         console.log(state_name)
         console.log(_render_function)
         console.log(_update_function)
-        var state = new GameState(state_name, _render_function, _update_function)
+        console.log(_validate_function)
+        var state = new GameState(state_name, _render_function, _update_function,_validate_function)
 
         this.state_table[state_name] = state
         this.slides.register(state_name, state_name)
@@ -106,6 +114,7 @@ function Game() {
     }
     this.apply_state = function (name) {
 
+        console.log("APPLY "+name)
         // Check if the current state exists in the state table
         if (this.state_table[name] === undefined) {
             console.log("state " + name + " not found")
@@ -121,11 +130,38 @@ function Game() {
         if (state.type == "condition") {
             this.current_state = name
             return this._apply_conditionnal_state(state)
+        } 
+
+        return this;
+    }
+    this.validate = function () {
+        console.log("VALIDATE")
+        // Check if the current state exists in the state table
+        if (this.state_table[this.current_state] === undefined) {
+            console.log("state not found")
+            return this;
         }
+
+        var state = this.state_table[this.current_state];
+        console.log(state)
+
+
+        if (state.validate === undefined) {
+            console.log("update function is undefined")
+            return this
+        }
+
+        // Check if the update function exists before calling it
+        if (typeof state.validate !== "function") {
+            console.log("no update function found")
+            return this
+        }
+        state.validate();
 
         return this;
     }
     this.update = function () {
+        console.log("UPDATE")
         // Check if the current state exists in the state table
         if (this.state_table[this.current_state] === undefined) {
             console.log("state not found")
@@ -163,45 +199,49 @@ function Game() {
         this.apply_state(connection.next())
 
     }
-    this.get_current_state = function(){
+    this.get_current_state = function () {
         return this.state_table[this.current_state]
     }
-    this.get_rows = function(){
+    this.get_rows = function () {
         const state = this.get_current_state();
         const rows = state?.rows ?? 1;
         return rows
-    }    
-    this.get_columns = function(){
+    }
+    this.get_columns = function () {
         const state = this.get_current_state();
         const cols = state?.columns ?? 1;
         return cols
     }
-    this.reload_grid = function(){
+    this.reload_grid = function () {
         const state = this.get_current_state();
         const cols = state?.columns ?? 1;
         const rows = state?.rows ?? 1;
         this.grid = {
-            columns:cols,
-            rows:rows
+            columns: cols,
+            rows: rows
         }
         return this
     }
-    this.cursor_up =function(){
+    this.cursor_up = function () {
         this.cursor_position.y = Math.max(this.cursor_position.y - 1, 0);
-    }    
-    this.cursor_down =function(){
+    }
+    this.cursor_down = function () {
         const rows = this.grid.rows
         this.cursor_position.y = Math.min(this.cursor_position.y + 1, rows - 1);
-    }    
-    this.cursor_left =function(){
+    }
+    this.cursor_left = function () {
         this.cursor_position.x = Math.max(this.cursor_position.x - 1, 0);
-    }    
-    this.cursor_rigth =function(){
+    }
+    this.cursor_rigth = function () {
         const cols = this.grid.columns
         this.cursor_position.x = Math.min(this.cursor_position.x + 1, cols - 1);
-    }    
-    this.cursor_action =function(){
-        
+    }
+    this.cursor_action = function () {
+
+    }
+    this.get_selected_index = function () {
+        const cols = this.grid.columns
+        return this.cursor_position.y * cols + this.cursor_position.x;
     }
 
 }
@@ -250,6 +290,7 @@ function QuestionContent(type, value) {
  * @param {*} value 
  */
 function QuestionOption(content, valid) {
+    this.id = Math.floor(Math.random() * 1000000000); // 0-999,999,999
     this.content = content;
     this.valid = valid;
     this.selectable = true;
@@ -352,6 +393,7 @@ function QuestionFactory() {
 
 
 function Question() {
+    this.id = Math.floor(Math.random() * 1000000000); // 0-999,999,999
     this.content = null
     this.options = []
     this.correction = null
@@ -402,58 +444,58 @@ function QuestionManager() {
         return /^https?:\/\//i.test(value);
     }
 
-    this.preload_content = function(content) {
+    this.preload_content = function (content) {
 
-    if (!content) return;
+        if (!content) return;
 
-    const game_folder = this._resolve_game_folder();
+        const game_folder = this._resolve_game_folder();
 
-    // ARRAY SUPPORT
-    if (Array.isArray(content)) {
-        content.forEach(c => this.preload_content(c));
-        return;
-    }
-
-    if (!content.type) return;
-
-    switch (content.type) {
-
-        case "image": {
-
-            const src = isUrl(content.value)
-                ? content.value
-                : `${game_folder}/images/${content.value}`;
-
-            content.asset = new Image();
-            content.asset.src = src;
-            break;
+        // ARRAY SUPPORT
+        if (Array.isArray(content)) {
+            content.forEach(c => this.preload_content(c));
+            return;
         }
 
-        case "video": {
+        if (!content.type) return;
 
-            const src = isUrl(content.value)
-                ? content.value
-                : `${game_folder}/videos/${content.value}`;
+        switch (content.type) {
 
-            content.asset = document.createElement("video");
-            content.asset.preload = "auto";
-            content.asset.src = src;
-            break;
+            case "image": {
+
+                const src = isUrl(content.value)
+                    ? content.value
+                    : `${game_folder}/images/${content.value}`;
+
+                content.asset = new Image();
+                content.asset.src = src;
+                break;
+            }
+
+            case "video": {
+
+                const src = isUrl(content.value)
+                    ? content.value
+                    : `${game_folder}/videos/${content.value}`;
+
+                content.asset = document.createElement("video");
+                content.asset.preload = "auto";
+                content.asset.src = src;
+                break;
+            }
+
+            case "audio": {
+
+                const src = isUrl(content.value)
+                    ? content.value
+                    : `${game_folder}/audio/${content.value}`;
+
+                content.asset = new Audio();
+                content.asset.preload = "auto";
+                content.asset.src = src;
+                break;
+            }
         }
-
-        case "audio": {
-
-            const src = isUrl(content.value)
-                ? content.value
-                : `${game_folder}/audio/${content.value}`;
-
-            content.asset = new Audio();
-            content.asset.preload = "auto";
-            content.asset.src = src;
-            break;
-        }
-    }
-};
+    };
 
 
     this.set_limit = function (_int) {
@@ -484,12 +526,24 @@ function QuestionManager() {
     this.get_current = function () {
         return this.questions[this.current_index]
     }
+    this.select_question = function (id) {
+        var selected = null
+        var selected_index = 0
+        for(var q = 0 ; q < this.questions.length ; q++){
+            if(this.questions[q].id == id){
+                selected_index = q
+                break
+            }
+        }
+        this.current_index = selected_index
+        return this.questions[selected_index]
+    }
 
     this.shuffle_options = function () {
         this.questions.forEach(q => shuffleArray(q.options));
     }
 
-    this.all = function(){
+    this.all = function () {
         return this.questions
     }
 
@@ -508,10 +562,12 @@ function QuestionManager() {
 window.QuestionManager = QuestionManager
 
 function Team(name) {
+    this.id = Math.floor(Math.random() * 1000000000); // 0-999,999,999
     this.name = name
     this.score = 0
-    this.increment_score = function () {
-        this.score += 1
+    this.increment_score = function (points) {
+        var delta = points || 1
+        this.score += delta
     }
     this.reset = function () {
         this.score = 0
@@ -565,6 +621,18 @@ function TeamsManager() {
     }
     this.get_current = function () {
         return this.teams[this.current_index]
+    }
+    this.select_team = function(id){
+        var selected = null
+        var selected_index = 0
+        for(var q = 0 ; q < this.teams.length ; q++){
+            if(this.teams[q].id == id){
+                selected_index = q
+                break
+            }
+        }
+        this.current_index = selected_index
+        return this.teams[selected_index]
     }
     this.set_current = function (name) {
         index = name != undefined && this.teams.indexOf(name) != -1 ? this.teams.indexOf(name) : 0

@@ -1,5 +1,5 @@
 const QUIZZ_DATA = {
-    teams: ["A", "B", "C"],
+    teams: ["A", "B", "C","D"],
     shuffle_options: false,
     question_limit: 20,
     questions: [

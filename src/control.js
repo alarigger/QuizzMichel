@@ -72,7 +72,14 @@ function Quizz(){
 
     this.get_questions = function(){
         return this.questions.all()
-    }
+    }    
+    this.select_question = function(id){
+        return this.questions.select_question(id)
+    }    
+    this.select_team = function(id){
+        return this.teams.select_team(id)
+    }    
+
 
     
 }

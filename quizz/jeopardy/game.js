@@ -8,7 +8,7 @@ const GAME_NAME = "jeopardy"
 let selected_option = 0;
 let selected_team = 0;
 let locked = false;
-let VALID = false
+var VALID = false
 
 
 var game = new Game()
@@ -19,66 +19,27 @@ quizz.load(QUIZZ_DATA)
 
 // game. add sound
 var game_sounds = {
-    correct:new Audio('assets/correct.mp3'),
-    incorrect:new Audio('assets/incorrect.mp3')
+    correct: new Audio('assets/correct.mp3'),
+    incorrect: new Audio('assets/incorrect.mp3')
 }
 
 
-game.add_state("intro",function(id){
+game.add_state("intro", function (id) {
     quizz.restart()
 
     document.getElementById(id).innerHTML = "";
-    addCenteredImage(id,"quizz/demo/splash_screen.png",)
+    addCenteredImage(id, "quizz/demo/splash_screen.png",)
 
 })
-game.add_state("menu",function(id){
+game.add_state("menu", function (id) {
 
-
-},function(id){
+}, function (id) {
+    game.next_state();
 })
 
-// QUESTION VIEW
-game.add_state("question_title",function(id){
-    
-    document.getElementById(id).innerHTML = "";
-    
-    if(quizz.is_last_question()){
-        game.apply_state("result")
-        return
-    }
-    
-    if(VALID){
-        game.apply_state("attribution")
-        return
-    }
-    
-
-    // iterate 
-    quizz.next_question();
-    quizz.next_team();
-
-    const question = quizz.get_current_question()
-    const team = quizz.get_current_team()
-    const card = document.createElement("div");
-    card.className = "card";
-    card.id = "card";
-    let test = question.is_demo ? "(test)" : ""
-    
-    card.innerHTML = `
-    <h1>Question ${quizz.get_current_question_number()} / ${quizz.get_question_total()} ${test} </h1>
-    `;
-
-    document.getElementById(id).appendChild(card);
-    
-    selected_option = 0;
-
-},function(id){
-
-
-})
 
 //======================QUESTION========================
-game.add_state("jeopardy",function(id,state) {
+game.add_state("jeopardy", function (id, state) {
 
     const questions = quizz.get_questions();
 
@@ -151,47 +112,61 @@ game.add_state("jeopardy",function(id,state) {
     document.getElementById(id).innerHTML = "";
     document.getElementById(id).appendChild(board);
 
-},
-function(id,state) {
+
+},function (id, state) {
 
     const cells = document.querySelectorAll(".jeopardy-cell");
 
     cells.forEach(c => c.classList.remove("selected"));
 
-    const cols = state.categories.length;
+    const index = game.get_selected_index();
+    console.log(`select ${index}`);
 
-    
-    const index =game.cursor_position.y * cols + game.cursor_position.x ;
+    const selected_cell = cells[index];
 
-    console.log(index)
+    if (selected_cell) {
+        selected_cell.classList.add("selected");
 
-    cells[index]?.classList.add("selected");
+        const question_id = selected_cell.dataset.questionId;
+        console.log(question_id);
+
+        quizz.select_question(question_id);
+    }
+},function (id, state) {
+    game.next_state();
+
 });
 
 
 
 //======================QUESTION========================
-game.add_state("question", function(id,state) {
-
+game.add_state("question", function (id, state) {
+    VALID = false
     const question = quizz.get_current_question();
-    if (question!=undefined){
+    if (question != undefined) {
         const view = new QuestionView(question);
         view.render(id);
     }
 
     state.rows = question.options.length
+    state.columns = 1
     game.reload_grid()
 
-},function(id){
-    
-    console.log(`select ${game.cursor_position.y} `)
+}, function (id) {
+    game.cursor_position.x = 0
+    const index = game.get_selected_index()
+    console.log(`select ${index} `)
     document.querySelectorAll(".option").forEach(el => el.classList.remove("selected"));
-    document.querySelectorAll(".option")[game.cursor_position.y].classList.add("selected");
-})
+    document.querySelectorAll(".option")[index].classList.add("selected");
+},function (id, state) {
+    game.next_state();
+    
+});
+
 
 
 //======================CORRECTION========================
-game.add_state("correction", function(id) {
+game.add_state("correction", function (id) {
 
     const question = quizz.get_current_question();
 
@@ -217,15 +192,12 @@ game.add_state("correction", function(id) {
     // VALID OPTION (USE YOUR SYSTEM)
     const valid_option = question.get_valid_option();
 
-    if(!VALID){
+    if (!VALID) {
         if (valid_option) {
             const validTitle = document.createElement("h2");
-            validTitle.textContent = "Réponse correcte :";
+            validTitle.textContent = "Incorrect ! ";
             card.appendChild(validTitle);
-    
-            // IMPORTANT: render content properly
-            card.appendChild(renderContentList(valid_option.content));
-    
+
             if (question.correction) {
                 const correctionTitle = document.createElement("h2");
                 correctionTitle.textContent = "Bonne réponse ";
@@ -244,16 +216,26 @@ game.add_state("correction", function(id) {
     container.appendChild(card);
 
     locked = false;
-}, function(id){});
+}, function (id) { 
+
+},function (id, state) {
+    if(VALID){
+        game.apply_state("attribution");
+    }else{
+        game.apply_state("score");
+    }
+});
+;
 
 
 //======================SCORE========================
-game.add_state("score",function(id){
+game.add_state("score", function (id) {
 
-    const chosen_team = quizz.get_team(selected_team)
-    question = quizz.get_current_question();
-    if(question.is_demo==false){
-        chosen_team.increment_score()
+    const chosen_team = quizz.get_current_team()
+    var question = quizz.get_current_question();
+    var points = question.points
+    if (VALID == true && question.is_demo == false) {
+        chosen_team.increment_score(points)
     }
 
     const card = document.createElement("div");
@@ -269,55 +251,73 @@ game.add_state("score",function(id){
 
     locked = false;
 
-},function(id){
+}, function (id) {
 
-})
-//======================SCORE========================
-game.add_state("attribution",function(id){
+},function (id, state) {
+    game.next_state();
+    
+});
+
+//======================ATTRIBUTION========================
+game.add_state("attribution", function (id, state) {
+
+    console.log("VALID "+VALID)
 
     const teams = quizz.get_teams()
-    VALID=false
 
-    console.log(teams)
-    
+    state.rows = teams.length
+    state.columns = 1
+    game.reload_grid()
+
     const card = document.createElement("div");
     card.className = "card";
     card.id = "card";
-    
+
     card.innerHTML = `
-    <h1>le point est donné à </h1>
-        ${teams.map((t, i) =>
-        `<div class="team ${i === 0 ? "selected" : ""}" data-i="${i}">
-                 Equipe ${t.name}
-            </div>`
-            ).join("")}
-            `;
+    <h1>Le point est donné à</h1>
+    ${teams.map((t, i) =>
+        `<div class="team ${i === 0 ? "selected" : ""}"
+              data-i="${i}"
+              data-team-id="${t.id}">
+            Equipe ${t.name}
+        </div>`
+    ).join("")}
+    `;
 
     document.getElementById(id).innerHTML = "";
     document.getElementById(id).appendChild(card);
-    
-    selected_team = 0;
-    
-},function(id){
-    document.querySelectorAll(".team").forEach(el => el.classList.remove("selected"));
-    document.querySelectorAll(".team")[selected_team].classList.add("selected");
 
-})
+}, function (id) {
+    const index = game.get_selected_index();
+    const teams = document.querySelectorAll(".team");
+    teams.forEach(el => el.classList.remove("selected"));
+    const selectedTeam = teams[index];
 
-game.add_state("result",function(id){
+    if (selectedTeam) {
+        selectedTeam.classList.add("selected");
+        const teamId = selectedTeam.dataset.teamId; // or Number(...)
+        quizz.select_team(teamId);
+    }
+},function (id, state) {
+    game.next_state();
+    
+});
+
+
+game.add_state("result", function (id) {
 
     const card = document.createElement("div");
     card.className = "card";
     card.id = "card";
 
     const winners = quizz.get_winners()
-    if(winners.length>1){
-        winner = " Egalité "+[winners].join("  ")
-    }else{
-        winner = "L' équipe "+winners[0]+" a gagné le quizz !"
+    if (winners.length > 1) {
+        winner = " Egalité " + [winners].join("  ")
+    } else {
+        winner = "L' équipe " + winners[0] + " a gagné le quizz !"
     }
 
-   card.innerHTML = `
+    card.innerHTML = `
     <h1>${render_scores_podium(quizz)}</h1>
        <h1>${winner}</h1>
 
@@ -328,30 +328,38 @@ game.add_state("result",function(id){
 
     locked = false;
 
-},function(id){
+}, function (id) {
 
-})
-
-
-
-
-game.add_state("outro",function(id){
-
-},function(id){
-
-})
+},function (id, state) {
+    
+    
+});
 
 
-game.connect_states("intro","menu")
-game.connect_states("menu","jeopardy")
-game.connect_states("jeopardy","question")
-game.connect_states("question","correction")
-game.connect_states("correction","jeopardy")
-game.connect_states("attribution","score")
+
+
+
+game.add_state("outro", function (id) {
+
+}, function (id) {
+
+},function (id, state) {
+    
+    
+});
+
+
+
+game.connect_states("intro", "menu")
+game.connect_states("menu", "jeopardy")
+game.connect_states("jeopardy", "question")
+game.connect_states("question", "correction")
+game.connect_states("correction", "attribution")
+game.connect_states("attribution", "score")
 // TODO add conditionnal states that go to state A or B 
-game.connect_states("score","question_title")
-game.connect_states("result","outro")
-game.connect_states("outro","intro")
+game.connect_states("score", "jeopardy")
+game.connect_states("result", "outro")
+game.connect_states("outro", "intro")
 
 game.apply_state("intro")
 
@@ -372,32 +380,33 @@ document.addEventListener("keydown", (e) => {
 
     // fallback safety
     const rows = game.get_rows();
-    const cols =  game.get_columns();
+    const cols = game.get_columns();
 
     if (e.key === "ArrowDown") {
         game.cursor_down()
         game.update();
     }
-    
+
     if (e.key === "ArrowUp") {
-         game.cursor_up()
-         game.update();
-        }
-        
+        game.cursor_up()
+        game.update();
+    }
+
     if (e.key === "ArrowLeft") {
         game.cursor_left()
         game.update();
     }
-    
+
     if (e.key === "ArrowRight") {
         game.cursor_rigth()
         game.update();
     }
-    
+
     if (e.key === "Enter") {
         console.log("ENTER");
         game.cursor_action()
-        game.next_state?.();
+        game.validate()
+        
     }
 
     console.log("------------------------------------")
