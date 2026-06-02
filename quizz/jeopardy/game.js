@@ -209,7 +209,7 @@ game.add_state("correction", function (id) {
 
     const question = quizz.get_current_question();
     const card = document.createElement("div");
-    card.className = "card";
+    card.className = "card quizz_style_ligth";
     card.id = "card";
     const chosen = question.options[game.cursor_position.y];
     VALID = chosen.valid === true;
@@ -290,12 +290,12 @@ game.add_state("attribution", function (id, state) {
     card.id = "card";
 
     card.innerHTML = `
-    <h1>Le point est donné à</h1>
+    <h1>${dancingLetter("Le point est donné à")}</h1>
     ${teams.map((t, i) =>
-        `<div class="team ${i === 0 ? "selected" : ""}"
+        `<div class="team ${i === 0 ? "selected" : ""} "
               data-i="${i}"
               data-team-id="${t.id}">
-            Equipe ${t.name}
+            ${dancingLetter(t.name)}
         </div>`
     ).join("")}
     `;
@@ -372,7 +372,7 @@ game.add_state("result", function (id, state) {
 
     card.innerHTML = `
         <div class="winner-overlay">
-            ${winner_text}
+            ${dancingLetter(winner_text)}
         </div>
 
         <div class="winner-card">

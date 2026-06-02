@@ -10,7 +10,8 @@ function TextContentRenderer() {
     this.render = function (content) {
         const el = document.createElement("span");
         el.classList.add("question-content", "question-content--text");
-        el.innerHTML = smartLineBreak(content.value);
+        el.innerHTML = content.value;
+        //el.innerHTML = smartLineBreak(content.value);
         return el;
     };
 }
@@ -53,8 +54,8 @@ function renderContentList(contents) {
 
     contents = Array.isArray(contents) ? contents : [contents];
 
-    const wrapper = document.createElement("div");
-    wrapper.className = "question-content-list";
+    const wrapper = document.createElement("span");
+    wrapper.className = "";
 
     const sorted = [...contents].sort((a, b) => {
         const rank = {
@@ -138,7 +139,7 @@ function QuestionView(question) {
         card.appendChild(hud);
 
         // ===== QUESTION CONTENT =====
-        const title = document.createElement("div");
+        const title = document.createElement("h1");
         title.className = "question-content";
         title.appendChild(renderContentList(question.content));
         card.appendChild(title);
@@ -353,7 +354,7 @@ function render_scores_podium(quizz,name,glowing_teams_names,slow) {
                 "></div>
 
                 <div style="margin-top:8px;font-size:20px;font-weight:bold;">
-                    ${team}
+                    ${dancingLetter(team)}
                 </div>
             </div>
         `;
@@ -669,4 +670,31 @@ const palettes = [
 function setRandomBg() {
     document.body.style.transition = "background 1s ease";
     document.body.style.background = palettes[Math.floor(Math.random() * palettes.length)];
+}
+
+function dancingLetter(text) {
+    return [...text]
+        .map((c, i) => {
+            const display = c === " " ? "&nbsp;" : c;
+
+            const duration = (0.8 + Math.random() * 0.8).toFixed(2);
+            const delay = (Math.random() * 0.5).toFixed(2);
+            const rotate = Math.floor(Math.random() * 20 - 10);
+            const jump = Math.floor(Math.random() * 12 + 4);
+
+            return `
+                <span
+                    class="dancing-letter"
+                    style="
+                        --rot:${rotate}deg;
+                        --jump:${jump}px;
+                        animation-duration:${duration}s;
+                        animation-delay:${delay}s;
+                    "
+                >
+                    ${display}
+                </span>
+            `;
+        })
+        .join("");
 }

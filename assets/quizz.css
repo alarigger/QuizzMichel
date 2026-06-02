@@ -10,36 +10,6 @@
         overflow: hidden;
     }
 
-    body::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        background: url("https://grainy-gradients.vercel.app/noise.svg");
-        opacity: 0.15;
-        pointer-events: none;
-        mix-blend-mode: multiply;
-    }
-
-    .snow {
-        pointer-events: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        z-index: 1;
-    }
-
-    .snowflake {
-        position: absolute;
-        top: -10px;
-        color: white;
-        font-size: 12px;
-        opacity: 0.8;
-        animation-name: fall;
-        animation-timing-function: linear;
-    }
 
     @keyframes fall {
         0% {
@@ -85,13 +55,11 @@
         animation: fadeIn 0.6s forwards ease;
     }
 
-    .option {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 10px 12px;
-        cursor: pointer;
+    .question-content {
+        padding:10px;
+
     }
+
 
     .question-content-list {
         display: flex;
@@ -105,12 +73,11 @@
         /*margin: 0 auto;*/
     }
 
+    /*    
     .question-content--text {
-        font-size: 26px;
-        font-weight: bold;
-        text-align: center;
-        padding: 5px 10px;
+        font-size: 20px;
     }
+    */
 
     @keyframes fadeIn {
         to {
@@ -126,6 +93,19 @@
         }
     }
 
+    .quizz_style {
+        color: #0e8a53;
+        margin-bottom: 20px;
+        font-size: 30px;
+        text-shadow: 1px 1px #c73b3b;
+    }    
+    .quizz_style_ligth {
+        color: #0e2f8a;
+        margin-bottom: 20px;
+        font-size: 25px;
+        text-shadow: 1px 1px #c73b3b;
+    }
+
     h1 {
         color: #0e8a53;
         margin-bottom: 20px;
@@ -137,7 +117,7 @@
         padding: 14px 20px;
         margin: 12px 0;
         border-radius: 20px;
-        box-shadow: 0 12px 0 #c73b3b;
+        box-shadow: 0 12px 0 #73d8e6;
         background: #fff;
         cursor: pointer;
         font-size: 20px;
@@ -375,4 +355,19 @@
     inset: 0;
     background: radial-gradient(circle at top, rgba(255,255,255,0.15), transparent 60%);
     pointer-events: none;
+}
+
+.dancing-letter {
+    display: inline-block;
+    padding:0px;
+    animation: dance 0.8s ease-in-out infinite;
+}
+
+@keyframes dance {
+    0%,100% {
+        transform: translateY(0) rotate(-5deg);
+    }
+    50% {
+        transform: translateY(-2px) rotate(5deg);
+    }
 }
