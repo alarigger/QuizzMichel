@@ -23,9 +23,12 @@ const QUIZZ_DATA = {
             points: 200,
             content: [
                 { type: "text", value: "Quel personnage est représenté ici ?" },
-                { type: "image", value: "https://upload.wikimedia.org/wikipedia/en/6/66/Goku2007.jpg" }
+                { type: "image", value: "https://www.mangamag.fr/wp-content/uploads/2023/06/god-goku-saiyan.png" }
             ],
-            correction: "Il s'agit de Son Goku, héros principal de Dragon Ball.",
+            correction: [
+                { type: "text", value: "Il s'agit de Son Goku, héros principal de Dragon Ball" },
+                { type: "image", value: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCeJDBUB7ynGEF1MPEm530bC-H549RPdwA6w&s" }
+            ],
             is_demo: false,
             options: [
                 { content: "Son Goku", valid: true },
@@ -33,23 +36,40 @@ const QUIZZ_DATA = {
                 { content: "Naruto", valid: false }
             ]
         },
-
+        
         {
-            categories: ["anime"],
+            categories: ["pokemon"],
             type: "QCM",
             points: 300,
             content: "Dans Death Note, quel est le nom du dieu de la mort qui accompagne Light ?",
-            correction: "Ryuk est le Shinigami qui laisse tomber son Death Note dans le monde humain.",
+            correction:  [
+                { type: "text", value: "Il s'agit de Son Pikachu, héros principal de Dragon Ball" },
+                { type: "image", value: "https://images.rtl.fr/~c/770v513/rtl/www/1788931-detective-pikachu-sorti-en-2019.png" }
+            ],
             is_demo: false,
             options: [
-                { content: "Ryuk", valid: true },
-                { content: "Rem", valid: false },
-                { content: "Gelus", valid: false }
+                {
+                    content: [
+                        { type: "image", value: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpvRlEM2K3WVRPsIC1MdKA9W3vTdbjJDsVHA&s" }
+                    ], valid: true
+                },                
+                {
+                    content: [
+                        { type: "text", value: "Pikachu" },
+                        { type: "image", value: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpvRlEM2K3WVRPsIC1MdKA9W3vTdbjJDsVHA&s" }
+                    ], valid: true
+                },                
+                {
+                    content: [
+                        { type: "text", value: "Pikachu" },
+                        { type: "image", value: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpvRlEM2K3WVRPsIC1MdKA9W3vTdbjJDsVHA&s" }
+                    ], valid: true
+                },
             ]
         },
 
         {
-            categories: [ "japon"],
+            categories: ["japon"],
             type: "QCM",
             points: 400,
             content: "Quel anime raconte l'histoire des frères Elric ?",
@@ -158,7 +178,7 @@ const QUIZZ_DATA = {
                 { content: "Levi Ackerman", valid: false },
                 { content: "Armin Arlert", valid: false }
             ]
-        }        
+        }
         ,
         {
             categories: ["geopolitique"],

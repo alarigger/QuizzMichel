@@ -51,12 +51,9 @@ const ContentRendererRegistry = {
  * @returns {HTMLDivElement}
  */
 function renderContentList(contents) {
-
     contents = Array.isArray(contents) ? contents : [contents];
-
     const wrapper = document.createElement("span");
     wrapper.className = "";
-
     const sorted = [...contents].sort((a, b) => {
         const rank = {
             image: 0,
@@ -64,14 +61,11 @@ function renderContentList(contents) {
             audio: 0,
             text: 1
         };
-
         return (rank[a.type] || 0) - (rank[b.type] || 0);
     });
-
     sorted.forEach(c => {
         wrapper.appendChild(renderContent(c));
     });
-
     return wrapper;
 }
 
@@ -114,29 +108,25 @@ function QuestionView(question) {
         card.className = "card";
         card.style.position = "relative"; // important for top-right positioning
 
-        // ===== TOP RIGHT HUD =====
-        const hud = document.createElement("div");
-        hud.className = "card-hud";
+        const meta = document.createElement("div");
+        meta.className = "question-meta";
 
-        // POINTS (shiny badge)
+        // Shiny points pill
         const points = document.createElement("div");
-        points.className = "points-badge";
-        points.innerText = `${question.points ?? 0} pts`;
+        points.className = "points-pill";
+        points.innerHTML = `🏆 ${question.points ?? 0} pts`;
 
-        // CATEGORIES (blob tags)
-        const categories = document.createElement("div");
-        categories.className = "category-blobs";
+        meta.appendChild(points);
 
+        // Category pills
         (question.categories || []).forEach(cat => {
-            const blob = document.createElement("span");
-            blob.className = "category-blob";
-            blob.innerText = cat;
-            categories.appendChild(blob);
+            const tag = document.createElement("div");
+            tag.className = "category-pill";
+            tag.textContent = cat;
+            meta.appendChild(tag);
         });
 
-        hud.appendChild(categories);
-        hud.appendChild(points);
-        card.appendChild(hud);
+        card.appendChild(meta);
 
         // ===== QUESTION CONTENT =====
         const title = document.createElement("h1");
@@ -645,7 +635,7 @@ function spawn_confetti() {
         c.vy = 1+(Math.random()*1)
 
         const fall = setInterval(() => {
-            var vx = (Math.random()*1)-1
+            var vx = (Math.random()*2)-1
             x += vx
             y += c.vy;
             c.style.top = y + "px";

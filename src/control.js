@@ -40,6 +40,10 @@ function Quizz(){
     this.next_question = function(){
         return this.questions.next()
     }    
+    /**
+     * 
+     * @returns {Question}
+     */
     this.get_current_question = function(){
         return this.questions.get_current()
     }    
@@ -64,6 +68,10 @@ function Quizz(){
     this.get_teams = function(){
         return this.teams.get_teams()
     }    
+    /**
+     * 
+     * @returns {Team}
+     */
     this.get_team= function(index){
         return this.teams.get_team(index)
     }
@@ -80,7 +88,7 @@ function Quizz(){
         return this.teams.select_team(id)
     }    
     this.all_burned = function(){
-        return this.questions.is_last()
+        return this.questions.all_burned()
     }
 }
 window.Quizz = Quizz

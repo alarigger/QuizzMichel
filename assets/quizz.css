@@ -56,7 +56,7 @@
     }
 
     .question-content {
-        padding:10px;
+        padding: 10px;
 
     }
 
@@ -66,18 +66,33 @@
         flex-direction: column;
         gap: 10px;
     }
+
     .question-content--image {
-        /*max-width: 90%;*/
+        max-width: 95%;
         border-radius: 30px;
         display: block;
-        /*margin: 0 auto;*/
+        margin: 0 auto;
+    }
+    .option.question-content--image {
+        max-width: 95%;
+        border-radius: 30px;
+        display: block;
+        margin: 0 auto;
     }
 
-    /*    
+    
     .question-content--text {
-        font-size: 20px;
+        font-size: 25px;
     }
-    */
+
+    .correction.question-content--text {
+        color: #0e8a53;
+        margin-bottom: 20px;
+        font-size: 25px;
+        text-shadow: 1px 1px #c73b3b;
+        text-align: center;
+    }
+    
 
     @keyframes fadeIn {
         to {
@@ -98,7 +113,8 @@
         margin-bottom: 20px;
         font-size: 30px;
         text-shadow: 1px 1px #c73b3b;
-    }    
+    }
+
     .quizz_style_ligth {
         color: #0e2f8a;
         margin-bottom: 20px;
@@ -111,6 +127,7 @@
         margin-bottom: 20px;
         font-size: 25px;
         text-shadow: 1px 1px #c73b3b;
+        text-align: center;
     }
 
     .option {
@@ -123,12 +140,14 @@
         font-size: 20px;
         transition: 0.15s;
         margin: 10px;
-    }   
+    }
+
     .option.selected {
         background: #0e8a53;
         color: white;
         border-color: #0e8a53;
-    } 
+    }
+
     .team {
         padding: 14px 20px;
         margin: 12px 0;
@@ -141,19 +160,18 @@
         margin: 10px;
     }
 
-    .team.selected{
+    .team.selected {
         background: #0e8a53;
         color: white;
         border-color: #0e8a53;
     }
 
     .correction {
-        margin-top: 20px;
-        background: #c73b3b;
-        color: white;
-        padding: 15px;
-        border-radius: 20px;
-        font-size: 18px;
+        color: #0e8a53;
+        margin-bottom: 20px;
+        font-size: 25px;
+        text-shadow: 1px 1px #c73b3b;
+        text-align: center;
     }
 
     .image-center-wrapper {
@@ -165,209 +183,301 @@
     }
 
 
-.question-topbar {
-    font-size: 26px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 14px;
-    background: rgb(213 213 213);
-    backdrop-filter: blur(10px);
-}
+    .question-topbar {
+        font-size: 26px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 14px;
+        background: rgb(213 213 213);
+        backdrop-filter: blur(10px);
+    }
 
-/* categories (left side) */
-.question-categories {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-}
+    /* categories (left side) */
+    .question-categories {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
 
-/* blob style */
-.category-blob {
-    padding: 4px 8px;
-    border-radius: 999px;
+    /* blob style */
+    .category-blob {
+        padding: 4px 8px;
+        border-radius: 999px;
 
-    background: rgba(80, 120, 255, 0.15);
-    color: #7aa2ff;
-    border: 1px solid rgba(122, 162, 255, 0.35);
-}
+        background: rgba(80, 120, 255, 0.15);
+        color: #7aa2ff;
+        border: 1px solid rgba(122, 162, 255, 0.35);
+    }
 
-/* points (right side, shiny) */
-.question-points {
-    font-weight: 700;
-    color: white;
+    /* points (right side, shiny) */
+    .question-points {
+        font-weight: 700;
+        color: white;
 
-    padding: 5px 10px;
-    border-radius: 999px;
+        padding: 5px 10px;
+        border-radius: 999px;
 
-    background: linear-gradient(135deg, #ffcc00, #ff6a00);
-    box-shadow: 0 0 10px rgba(255, 170, 0, 0.6);
+        background: linear-gradient(135deg, #ffcc00, #ff6a00);
+        box-shadow: 0 0 10px rgba(255, 170, 0, 0.6);
 
-    position: relative;
-    overflow: hidden;
-}
+        position: relative;
+        overflow: hidden;
+    }
 
-/* shine animation */
-.question-points::after {
-    content: "";
-    position: absolute;
-    top: -60%;
-    left: -60%;
-    width: 40%;
-    height: 200%;
-    background: rgba(255,255,255,0.35);
-    transform: rotate(25deg);
-    animation: shine 2.8s infinite;
-}
+    /* shine animation */
+    .question-points::after {
+        content: "";
+        position: absolute;
+        top: -60%;
+        left: -60%;
+        width: 40%;
+        height: 200%;
+        background: rgba(255, 255, 255, 0.35);
+        transform: rotate(25deg);
+        animation: shine 2.8s infinite;
+    }
 
-@keyframes shine {
-    0% { left: -60%; }
-    100% { left: 120%; }
-}
+    .question-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 25px;
+        align-items: center;
+    }
+
+    .points-pill {
+        position: relative;
+
+        padding: 10px 18px;
+        border-radius: 999px;
+
+        font-weight: bold;
+        font-size: 1.2rem;
+
+        color: #111;
+
+        background: linear-gradient(135deg,
+                #ffe45c,
+                #ffbf00,
+                #ffe45c);
+
+        box-shadow:
+            0 0 10px rgba(255, 215, 0, .5),
+            0 0 20px rgba(255, 215, 0, .3);
+
+        overflow: hidden;
+    }
+
+    .points-pill::before {
+        content: "";
+
+        position: absolute;
+        top: 0;
+        left: -150%;
+
+        width: 60%;
+        height: 100%;
+
+        background: linear-gradient(90deg,
+                transparent,
+                rgba(255, 255, 255, .7),
+                transparent);
+
+        transform: skewX(-25deg);
+
+        animation: shine 2s infinite;
+    }
+
+    .category-pill {
+        position: relative;
+        padding: 10px 18px;
+        border-radius: 999px;
+        font-weight: bold;
+        font-size: 1.2rem;
+        border: 2px solid rgb(14 138 83);
+        color: #0e8a53;
+        font-size: .95rem;
+    }
+
+    @keyframes shine {
+        from {
+            left: -150%;
+        }
+
+        to {
+            left: 250%;
+        }
+    }
 
 
+    .jeopardy-board {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 4px;
+    }
 
-.jeopardy-board {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 4px;
-}
+    .jeopardy-header {
+        background: #0c2d8a;
+        color: white;
+        padding: 16px;
+        text-align: center;
+        font-weight: bold;
+    }
 
-.jeopardy-header {
-    background: #0c2d8a;
-    color: white;
-    padding: 16px;
-    text-align: center;
-    font-weight: bold;
-}
+    .jeopardy-cell {
+        background: #001b66;
+        color: #ffcc33;
+        font-size: 2rem;
+        font-weight: bold;
+        border-radius: 30px;
 
-.jeopardy-cell {
-    background: #001b66;
-    color: #ffcc33;
-    font-size: 2rem;
-    font-weight: bold;
-    border-radius: 30px;
+        min-height: 90px;
 
-    min-height: 90px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    cursor: pointer;
-}
+        cursor: pointer;
+    }
 
 
-.jeopardy-header,
-.jeopardy-cell {
-    opacity: 0;
-    transform: scale(0.8) translateY(20px);
-}
-
-.jeopardy-item-show {
-    animation: jeopardyAppear 0.35s ease-out forwards;
-}
-
-@keyframes jeopardyAppear {
-    from {
+    .jeopardy-header,
+    .jeopardy-cell {
         opacity: 0;
         transform: scale(0.8) translateY(20px);
     }
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
+
+    .jeopardy-item-show {
+        animation: jeopardyAppear 0.35s ease-out forwards;
     }
-}
 
-.jeopardy-cell.selected {
-    position: relative;
-    transform: scale(1.05);
-    border: 3px solid #ffd700;
-    box-shadow:
-        0 0 10px #ffd700,
-        0 0 20px #ffd700,
-        0 0 40px rgba(255, 215, 0, 0.8);
+    @keyframes jeopardyAppear {
+        from {
+            opacity: 0;
+            transform: scale(0.8) translateY(20px);
+        }
 
-    transition:
-        transform 0.15s ease,
-        box-shadow 0.15s ease;
-}
-
-
-.jeopardy-cell.burned {
-    background: #222;
-    color: #555;
-    cursor: default;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.7);
-}
-.jeopardy-cell.empty {
-    background: #010c29;
-    color: #555;
-    cursor: default;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.7);
-}
-@keyframes pulseGlow {
-    0%   { box-shadow: 0 0 10px #4aa3ff; transform: scaleY(1); }
-    50%  { box-shadow: 0 0 25px #00e5ff; transform: scaleY(1.05); }
-    100% { box-shadow: 0 0 10px #4aa3ff; transform: scaleY(1); }
-}
-
-
-.winner-card {
-    animation: popIn 0.6s ease-out;
-}
-
-.winner-overlay {
-    position: absolute;
-    top: -25px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: linear-gradient(90deg, #ffe259, #ff4e50);
-    padding: 10px 20px;
-    border-radius: 999px;
-    font-weight: bold;
-    font-size: 20px;
-    color: #fffc69;
-    box-shadow: 0 0 20px rgba(255, 200, 0, 0.6);
-    animation: glowPulse 1.5s infinite;
-}
-
-@keyframes popIn {
-    0% {
-        transform: scale(0.7);
-        opacity: 0;
+        to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
     }
-    100% {
-        transform: scale(1);
-        opacity: 1;
+
+    .jeopardy-cell.selected {
+        position: relative;
+        transform: scale(1.05);
+        border: 3px solid #ffd700;
+        box-shadow:
+            0 0 10px #ffd700,
+            0 0 20px #ffd700,
+            0 0 40px rgba(255, 215, 0, 0.8);
+
+        transition:
+            transform 0.15s ease,
+            box-shadow 0.15s ease;
     }
-}
 
-@keyframes glowPulse {
-    0% { box-shadow: 0 0 10px rgba(255,200,0,0.4); }
-    50% { box-shadow: 0 0 50px rgba(255,200,0,0.9); }
-    100% { box-shadow: 0 0 10px rgba(255,200,0,0.4); }
-}
 
-.winner-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at top, rgba(255,255,255,0.15), transparent 60%);
-    pointer-events: none;
-}
-
-.dancing-letter {
-    display: inline-block;
-    padding:0px;
-    animation: dance 0.8s ease-in-out infinite;
-}
-
-@keyframes dance {
-    0%,100% {
-        transform: translateY(0) rotate(-5deg);
+    .jeopardy-cell.burned {
+        background: #222;
+        color: #555;
+        cursor: default;
+        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.7);
     }
-    50% {
-        transform: translateY(-2px) rotate(5deg);
+
+    .jeopardy-cell.empty {
+        background: #010c29;
+        color: #555;
+        cursor: default;
+        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.7);
     }
-}
+
+    @keyframes pulseGlow {
+        0% {
+            box-shadow: 0 0 10px #4aa3ff;
+            transform: scaleY(1);
+        }
+
+        50% {
+            box-shadow: 0 0 25px #00e5ff;
+            transform: scaleY(1.05);
+        }
+
+        100% {
+            box-shadow: 0 0 10px #4aa3ff;
+            transform: scaleY(1);
+        }
+    }
+
+
+    .winner-card {
+        animation: popIn 0.6s ease-out;
+    }
+
+    .winner-overlay {
+        position: absolute;
+        top: -25px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(90deg, #ffe259, #ff4e50);
+        padding: 10px 20px;
+        border-radius: 999px;
+        font-weight: bold;
+        font-size: 20px;
+        color: #fffc69;
+        box-shadow: 0 0 20px rgba(255, 200, 0, 0.6);
+        animation: glowPulse 1.5s infinite;
+    }
+
+    @keyframes popIn {
+        0% {
+            transform: scale(0.7);
+            opacity: 0;
+        }
+
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes glowPulse {
+        0% {
+            box-shadow: 0 0 10px rgba(255, 200, 0, 0.4);
+        }
+
+        50% {
+            box-shadow: 0 0 50px rgba(255, 200, 0, 0.9);
+        }
+
+        100% {
+            box-shadow: 0 0 10px rgba(255, 200, 0, 0.4);
+        }
+    }
+
+    .winner-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at top, rgba(255, 255, 255, 0.15), transparent 60%);
+        pointer-events: none;
+    }
+
+    .dancing-letter {
+        display: inline-block;
+        padding: 0px;
+        animation: dance 0.8s ease-in-out infinite;
+    }
+
+    @keyframes dance {
+
+        0%,
+        100% {
+            transform: translateY(0) rotate(-5deg);
+        }
+
+        50% {
+            transform: translateY(-2px) rotate(5deg);
+        }
+    }

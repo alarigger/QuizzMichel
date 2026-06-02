@@ -209,7 +209,7 @@ game.add_state("correction", function (id) {
 
     const question = quizz.get_current_question();
     const card = document.createElement("div");
-    card.className = "card quizz_style_ligth";
+    card.className = "card correction";
     card.id = "card";
     const chosen = question.options[game.cursor_position.y];
     VALID = chosen.valid === true;
@@ -224,21 +224,13 @@ game.add_state("correction", function (id) {
     const verdict = document.createElement("h1");
     verdict.textContent = VALID ? "Bonne réponse !" : "Mauvaise réponse !";
     card.appendChild(verdict);
-    const valid_option = question.get_valid_option();
 
     if (VALID) {
         question.burn()
-        if (valid_option) {
-            const validTitle = document.createElement("h2");
-            validTitle.textContent = "Incorrect ! ";
-            card.appendChild(validTitle);
-            if (question.correction) {
-                const correctionTitle = document.createElement("h2");
-                correctionTitle.textContent = "Bonne réponse ";
-                card.appendChild(correctionTitle);
-                card.appendChild(renderContentList(question.correction));
-            }
+        if (question.correction) {
+            card.appendChild(renderContentList(question.correction));
         }
+    
     }
 
     // background
