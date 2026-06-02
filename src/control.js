@@ -16,8 +16,6 @@ function Quizz(){
     this.add_team = function(name){
         this.teams.add(name)
     }
-
-    
     this.next_team = function(){
         return this.teams.next()
     }        
@@ -69,8 +67,10 @@ function Quizz(){
     this.get_team= function(index){
         return this.teams.get_team(index)
     }
-
     this.get_questions = function(){
+        return this.questions.limited()
+    }   
+    this.get_all_questions = function(){
         return this.questions.all()
     }    
     this.select_question = function(id){
@@ -79,9 +79,9 @@ function Quizz(){
     this.select_team = function(id){
         return this.teams.select_team(id)
     }    
-
-
-    
+    this.all_burned = function(){
+        return this.questions.is_last()
+    }
 }
 window.Quizz = Quizz
 

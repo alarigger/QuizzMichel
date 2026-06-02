@@ -1,13 +1,13 @@
 
 
 function BaseContentRenderer() {
-    this.render = function(content) {
+    this.render = function (content) {
         throw new Error("render() not implemented");
     };
 }
 
 function TextContentRenderer() {
-    this.render = function(content) {
+    this.render = function (content) {
         const el = document.createElement("span");
         el.classList.add("question-content", "question-content--text");
         el.innerHTML = smartLineBreak(content.value);
@@ -15,7 +15,7 @@ function TextContentRenderer() {
     };
 }
 function ImageContentRenderer() {
-    this.render = function(content) {
+    this.render = function (content) {
         const img = content.asset || new Image();
         img.classList.add("question-content", "question-content--image");
         if (!content.asset) {
@@ -25,7 +25,7 @@ function ImageContentRenderer() {
     };
 }
 function VideoContentRenderer() {
-    this.render = function(content) {
+    this.render = function (content) {
         const video = content.asset || document.createElement("video");
         video.classList.add("question-content", "question-content--video");
         video.controls = true;
@@ -107,7 +107,7 @@ function QuestionView(question) {
 
     this.question = question;
 
-    this.render = function(containerId) {
+    this.render = function (containerId) {
 
         const card = document.createElement("div");
         card.className = "card";
@@ -155,35 +155,35 @@ function QuestionView(question) {
 }
 
 
-function SlideManager(){
+function SlideManager() {
     this.slide_table = []
     this.current_slide = undefined
-    this.register = function(slide_name,element_id){
-        this.slide_table[slide_name] =element_id
+    this.register = function (slide_name, element_id) {
+        this.slide_table[slide_name] = element_id
     }
-    this.show = function(slide_name){
+    this.show = function (slide_name) {
         //  animation code should be there 
         for (const key in this.slide_table) {
             var el = document.getElementById(this.slide_table[key]);
-            if(el==null){
+            if (el == null) {
                 continue
             }
-            if(key!=slide_name){
+            if (key != slide_name) {
                 el.style.display = "none";
-            }else{
+            } else {
                 el.style.display = "block";
             }
         }
         this.current_slide = slide_name
     }
-    this.next_slide = function(){
-        
+    this.next_slide = function () {
+
     }
-    
+
 }
 window.SlideManager = SlideManager
 
-function AnimatedSlideManager(){
+function AnimatedSlideManager() {
     this.slide_table = [];
     this.current_slide = undefined;
 
@@ -284,7 +284,7 @@ function AnimatedSlideManager(){
 
         this.current_slide = slide_name;
     };
-    
+
 }
 window.AnimatedSlideManager = AnimatedSlideManager
 
@@ -303,13 +303,23 @@ function animate_value(from, to, duration, callback) {
     requestAnimationFrame(step);
 }
 
-function render_scores_podium(quizz) {
-    let previous_scores = quizz.get_previous_scores();
+
+/**
+ * 
+ * @param {Quizz} quizz 
+ * @returns 
+ */
+function render_scores_podium(quizz,name,glowing_teams_names,slow) {
+    const previous_scores = quizz.get_previous_scores();
     const scores = quizz.get_current_scores();
     const teams = Object.keys(scores);
     const max_score = Math.max(...Object.values(scores), 1);
 
- let html = `
+    var suffix = name || "score"
+
+    console.log(scores)
+
+    var html = `
     <div id="podium" style="
         display: flex;
         gap: 30px;
@@ -326,7 +336,7 @@ function render_scores_podium(quizz) {
         html += `
             <div style="display:flex; flex-direction:column; align-items:center;">
 
-                <div id="score-text-${team}" style="
+                <div id="score-text-${team}${suffix}" style="
                     font-size:22px;
                     font-weight:bold;
                     margin-bottom:6px;
@@ -334,9 +344,9 @@ function render_scores_podium(quizz) {
                     ${previous}
                 </div>
 
-                <div id="bar-${team}" style="
+                <div id="bar-${team}${suffix}" style="
                     width: 60px;
-                    height: ${(previous/max_score)*200}px;
+                    height: ${(previous / max_score) * 200}px;
                     background: linear-gradient(180deg, #4aa3ff 0%, #1e7ae0 100%);
                     border-radius: 6px 6px 0 0;
                     transition: height 0.5s linear;
@@ -351,17 +361,22 @@ function render_scores_podium(quizz) {
 
     html += `</div>`;
 
+    const animation_time = 100
+    const animation_factor = slow || 5 
+
     // After HTML is placed in the DOM, animate the bars
     setTimeout(() => {
+        console.log("TIMEOUT FIRED");
         teams.forEach(team => {
-            const old_val =  0;
+            const old_val = 0;
             const new_val = scores[team];
 
-            const bar = document.getElementById(`bar-${team}`);
-            const scoreText = document.getElementById(`score-text-${team}`);
+            const bar = document.getElementById(`bar-${team}${suffix}`);
+            const scoreText = document.getElementById(`score-text-${team}${suffix}`);
 
+            const bar_animation_time = new_val * animation_factor
             // Animate bar and score
-            animate_value(old_val, new_val, 700, v => {
+            animate_value(old_val, new_val, bar_animation_time, v => {
                 // bar height
                 const maxPx = 200;
                 const h = (v / max_score) * maxPx;
@@ -372,9 +387,21 @@ function render_scores_podium(quizz) {
             });
         });
 
+        setTimeout(() => {
+            for (const gtn of glowing_teams_names) {
+                const bar = document.getElementById(`bar-${gtn}${suffix}`);
+                if (bar) {
+                    bar.style.animation = "pulseGlow 1s infinite";
+                }
+            }
+        }, 10);
+
         // Save new scores for next animation
         //previous_scores = { ...scores };
-    }, 100);
+    }, animation_time);
+
+
+
 
     return html;
 
@@ -592,6 +619,54 @@ function smartLineBreak(text) {
 
     // 2. Optional: break before uppercase words not at start
     result = result.replace(/(\S)\s+([A-Z][a-z]+)/g, "$1<br>$2");
- 
+
     return result;
+
+}
+
+function spawn_confetti() {
+    for (let i = 0; i < 100; i++) {
+        const c = document.createElement("div");
+        c.style.position = "fixed";
+        c.style.left = Math.random() * window.innerWidth + "px";
+        c.style.top = "-10px";
+        c.style.width = "6px";
+        c.style.height = "10px";
+        c.style.background = ["#4aa3ff", "#ff4ad8", "#ffe14a"][Math.random()*3|0];
+        c.style.opacity = "0.9";
+        c.style.transform = "rotate(45deg)";
+        c.style.zIndex = 9999;
+
+        document.body.appendChild(c);
+
+        let y = 0;
+        let x = (Math.random() - 0.5) * 2;
+        c.vy = 1+(Math.random()*1)
+
+        const fall = setInterval(() => {
+            var vx = (Math.random()*1)-1
+            x += vx
+            y += c.vy;
+            c.style.top = y + "px";
+            c.style.left = parseFloat(c.style.left) + vx + "px";
+
+            if (y > window.innerHeight) {
+                clearInterval(fall);
+                c.remove();
+            }
+        }, 16);
+    }
+}
+
+
+const palettes = [
+    "linear-gradient(135deg,#1a2a6c,#b21f1f,#fdbb2d)",
+    "linear-gradient(135deg,#0f2027,#203a43,#2c5364)",
+    "linear-gradient(135deg,#ff416c,#ff4b2b,#ffe259)",
+    "linear-gradient(135deg,#667db6,#0082c8,#667db6)"
+];
+
+function setRandomBg() {
+    document.body.style.transition = "background 1s ease";
+    document.body.style.background = palettes[Math.floor(Math.random() * palettes.length)];
 }

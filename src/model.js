@@ -4,6 +4,7 @@
  * @param {string} _name 
  * @param {function} _render_func 
  * @param {function} _update_func 
+ * @param {function} _validate_func 
  */
 function GameState(_name, _render_func, _update_func,_validate_func) {
     this.id = Math.floor(Math.random() * 1000000000); // 0-999,999,999
@@ -13,7 +14,7 @@ function GameState(_name, _render_func, _update_func,_validate_func) {
     this.columns = null
     this._render = _render_func || function(id,state){ }
     this._update = _update_func || function(id,state){}
-    this._validate = _validate_func || function(id,state){game.next_state()}
+    this._validate = _validate_func || function(id,state){game.next_state();}
     this.last_cursor_position = {x:0,y:0}
     this._get_state_element = function () {
         return this.name
@@ -90,6 +91,7 @@ function Game() {
     this.state_connections = []
     this.cursor_position = { x: 0, y: 0 }
     this.grid = { columns: 0, rows: 0 }
+    this.locked = false
 
     /**
      * 
@@ -110,6 +112,8 @@ function Game() {
         return this
     }
     this._apply_render_state = function (state) {
+
+        console.log("RENDER")
         // show the state div 
         this.slides.show(state.name)
 
@@ -154,6 +158,7 @@ function Game() {
         return this;
     }
     this.validate = function () {
+
         console.log("VALIDATE")
         // Check if the current state exists in the state table
         if (this.state_table[this.current_state] === undefined) {
@@ -180,6 +185,7 @@ function Game() {
         return this;
     }
     this.update = function () {
+
         console.log("UPDATE")
         // Check if the current state exists in the state table
         if (this.state_table[this.current_state] === undefined) {
@@ -210,6 +216,7 @@ function Game() {
         this.state_connections[state_A] = connection
     }
     this.next_state = function () {
+        console.log("NEXT")
         const connection = this.state_connections[this.current_state]
         if (connection == undefined) {
             return this
@@ -262,11 +269,21 @@ function Game() {
         const cols = this.grid.columns
         return this.cursor_position.y * cols + this.cursor_position.x;
     }
+    this.lock = function(){
+        this.locked = true
+    }    
+    this.unlock = function(){
+        this.locked = false
+    }
 
 }
 window.Game = Game
 
-
+/**
+ * 
+ * @param {string} type 
+ * @param {*} value 
+ */
 function QuestionContent(type, value) {
     this.type = type;
     this.value = value;
@@ -305,8 +322,8 @@ function QuestionContent(type, value) {
 
 /**
  * 
- * @param {string} type 
- * @param {*} value 
+ * @param {QuestionContent} content 
+ * @param {bool} valid 
  */
 function QuestionOption(content, valid) {
     this.id = Math.floor(Math.random() * 1000000000); // 0-999,999,999
@@ -430,12 +447,18 @@ function Question() {
     }
     this.try = function(){
         this.atempts+=1
+        return this
     }
+    /**
+     * 
+     * @returns {QuestionContent}
+     */
     this.get_content = function () {
         return this.content.value
     }
     this.burn = function(){
         this.is_burned = true
+        return this
     }
 }
 
@@ -444,6 +467,10 @@ function QuestionManager() {
     this.limit = undefined
     this._factory = new QuestionFactory()
     this.questions = []
+
+    /**
+     * @param {Object[]} _list
+     */
     this.load = function (_list) {
         for (var q in _list) {
             const qdata = _list[q]
@@ -454,6 +481,10 @@ function QuestionManager() {
         this.limit = this.questions.length
         return this
     }
+
+    /**
+     * @param {Question} question
+     */
     this._preload_question_data = function (question) {
         this.preload_content(question.content);
         this.preload_content(question.correction);
@@ -467,6 +498,11 @@ function QuestionManager() {
         return "quizz/" + name
     }
 
+
+    /**
+     * 
+     * @returns {bool}
+     */
     function isUrl(value) {
         return /^https?:\/\//i.test(value);
     }
@@ -522,19 +558,28 @@ function QuestionManager() {
                 break;
             }
         }
+        return this
     };
 
-
+    /**
+     * @param {int} _int 
+     */
     this.set_limit = function (_int) {
         if (_int > this.questions.length) {
-            return
+            this.limit = this.questions.length
         }
         this.limit = _int
+        return this
     }
+
     this.restart = function () {
         this.current_index = -1
         return this.current_index
     }
+    /**
+     * 
+     * @returns {Question}
+     */
     this.next = function () {
         if (this.current_index < this.limit - 1) {
             this.current_index += 1
@@ -543,16 +588,58 @@ function QuestionManager() {
         this.current_index = 0
         return this.questions[this.current_index]
     }
+    /**
+     * 
+     * @returns {bool}
+     */
     this.is_last = function () {
-        console.log("last_question")
         return this.current_index == this.limit - 1
+    }    
+    /**
+     * 
+     * @returns {bool}
+     */
+    this.all_burned = function () {
+        var burned = 0
+        for(var q = 0 ; q < this.questions.length ; q++){
+            if(this.questions[q].is_burned===true){
+                burned+=1
+            }
+        }
+        if(burned>=this.limit){
+            return true
+        }
+        if(burned==this.questions.length){
+            return true
+        }
+        return false
     }
+
+
+
+    /**
+     * 
+     * @returns {bool}
+     */
     this.is_middle = function () {
         return this.current_index === Math.floor((this.limit - 1) / 2);
     }
+
+
+
+    /**
+     * 
+     * @returns {Question}
+     */
     this.get_current = function () {
         return this.questions[this.current_index]
     }
+
+    /**
+     * 
+     * @param {int} id 
+     * @returns {Question}
+     */
     this.select_question = function (id) {
         var selected = null
         var selected_index = 0
@@ -568,10 +655,30 @@ function QuestionManager() {
 
     this.shuffle_options = function () {
         this.questions.forEach(q => shuffleArray(q.options));
+        return this
     }
 
+    /**
+     * 
+     * @returns {Question[]}
+     */
     this.all = function () {
         return this.questions
+    }    
+    
+    /**
+     * 
+     * @returns {Question[]}
+     */
+    this.limited = function () {
+        var list = []
+        for(var q = 0 ; q < this.questions.length ; q++){
+            if(q+1 > this.limit){
+                break;
+            }
+            list.push(this.questions[q])
+        }
+        return list
     }
 
     function shuffleArray(arr) {

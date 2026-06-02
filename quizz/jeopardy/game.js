@@ -7,12 +7,12 @@ const GAME_NAME = "jeopardy"
 
 let selected_option = 0;
 let selected_team = 0;
-let locked = false;
 var VALID = false
 
 
 var game = new Game()
 var quizz = new Quizz()
+game.unlock()
 
 quizz.load(QUIZZ_DATA)
 
@@ -55,7 +55,6 @@ game.add_state("jeopardy", function (id, state) {
 
     // Lookup table
     state.boardData = {};
-
     questions.forEach(q => {
         (q.categories || []).forEach(category => {
 
@@ -74,13 +73,10 @@ game.add_state("jeopardy", function (id, state) {
     // Render board
     const board = document.createElement("div");
     board.className = "jeopardy-board";
-
-    board.style.gridTemplateColumns =
-        `repeat(${this.categories.length}, 1fr)`;
+    board.style.gridTemplateColumns =`repeat(${this.categories.length}, 1fr)`;
 
     // Headers
     this.categories.forEach(category => {
-
         const header = document.createElement("div");
         header.className = "jeopardy-header";
         header.textContent = category;
@@ -92,9 +88,7 @@ game.add_state("jeopardy", function (id, state) {
     this.values.forEach(value => {
 
         state.categories.forEach(category => {
-
             const q = this.boardData[category]?.[value];
-
             const cell = document.createElement("div");
             cell.className = "jeopardy-cell";
 
@@ -116,7 +110,6 @@ game.add_state("jeopardy", function (id, state) {
 
     document.getElementById(id).innerHTML = "";
     document.getElementById(id).appendChild(board);
-
     const items = board.querySelectorAll(
         ".jeopardy-header, .jeopardy-cell"
     );
@@ -150,6 +143,7 @@ game.add_state("jeopardy", function (id, state) {
     if (selected_cell){
         selected_cell.classList.add("selected");
     }
+
 }, function (id, state) {
     
     const cells = document.querySelectorAll(".jeopardy-cell");
@@ -214,14 +208,11 @@ game.add_state("question", function (id, state) {
 game.add_state("correction", function (id) {
 
     const question = quizz.get_current_question();
-
     const card = document.createElement("div");
     card.className = "card";
     card.id = "card";
-
     const chosen = question.options[game.cursor_position.y];
     VALID = chosen.valid === true;
-
     // sound
     if (VALID) {
         game_sounds.correct.play();
@@ -232,20 +223,15 @@ game.add_state("correction", function (id) {
 
     const verdict = document.createElement("h1");
     verdict.textContent = VALID ? "Bonne réponse !" : "Mauvaise réponse !";
-
     card.appendChild(verdict);
-
-    // VALID OPTION (USE YOUR SYSTEM)
     const valid_option = question.get_valid_option();
 
     if (VALID) {
         question.burn()
         if (valid_option) {
-
             const validTitle = document.createElement("h2");
             validTitle.textContent = "Incorrect ! ";
             card.appendChild(validTitle);
-
             if (question.correction) {
                 const correctionTitle = document.createElement("h2");
                 correctionTitle.textContent = "Bonne réponse ";
@@ -258,12 +244,12 @@ game.add_state("correction", function (id) {
     // background
     card.style.backgroundColor = VALID ? "#82e082" : "#ff8b8b";
     card.style.transition = "background-color 0.3s ease";
-
     const container = document.getElementById(id);
     container.innerHTML = "";
     container.appendChild(card);
 
-    locked = false;
+    game.unlock()
+
 }, function (id) {
 
 }, function (id, state) {
@@ -286,35 +272,7 @@ game.add_state("correction", function (id) {
 ;
 
 
-//======================SCORE========================
-game.add_state("score", function (id) {
 
-    const chosen_team = quizz.get_current_team()
-    var question = quizz.get_current_question();
-    var points = question.points
-    if (VALID == true && question.is_demo == false) {
-        chosen_team.increment_score(points)
-    }
-
-    const card = document.createElement("div");
-    card.className = "card";
-    card.id = "card";
-
-    card.innerHTML = `
-        <h1>${render_scores_podium(quizz)}</h1>
-    `;
-
-    document.getElementById(id).innerHTML = "";
-    document.getElementById(id).appendChild(card);
-
-    locked = false;
-
-}, function (id) {
-
-}, function (id, state) {
-    game.next_state();
-
-});
 
 //======================ATTRIBUTION========================
 game.add_state("attribution", function (id, state) {
@@ -367,78 +325,102 @@ game.add_state("attribution", function (id, state) {
 });
 
 
-game.add_state("result", function (id) {
 
+//======================SCORE========================
+game.add_state("score", function (id, state) {
+
+    game.lock()
+
+    const chosen_team = quizz.get_current_team()
+    const question = quizz.get_current_question();
+    var points = question.points
+    if (VALID == true && question.is_demo == false) {
+        chosen_team.increment_score(points)
+    }
     const card = document.createElement("div");
     card.className = "card";
     card.id = "card";
-
-    const winners = quizz.get_winners()
-    if (winners.length > 1) {
-        winner = " Egalité " + [winners].join("  ")
-    } else {
-        winner = "L' équipe " + winners[0] + " a gagné le quizz !"
-    }
-
-    card.innerHTML = `
-    <h1>${render_scores_podium(quizz)}</h1>
-       <h1>${winner}</h1>
-
-   `;
-
+    card.innerHTML = render_scores_podium(quizz,"score",[chosen_team.name]);
     document.getElementById(id).innerHTML = "";
     document.getElementById(id).appendChild(card);
 
-    locked = false;
-
-}, function (id) {
+    game.unlock()
 
 }, function (id, state) {
 
+}, function (id, state) {
+    if(quizz.all_burned()){
+        game.apply_state("result");
+    }else{
+        game.next_state();
+    }
+
+});
+
+//======================RESULT========================
+game.add_state("result", function (id, state) {
+
+    game.lock()
+    const card = document.createElement("div");
+    card.className = "card";
+    card.id = "card";
+    var winner_team_names = quizz.get_winners()
+
+    const winner_text = winner_team_names.length > 1
+        ? `Égalité entre ${winner_team_names.join(" & ")} !`
+        : `Team ${winner_team_names[0]} remporte le quizz !`;
+
+    card.innerHTML = `
+        <div class="winner-overlay">
+            ${winner_text}
+        </div>
+
+        <div class="winner-card">
+            ${render_scores_podium(quizz, "final", winner_team_names, 15)}
+        </div>
+    `;
+    document.getElementById(id).innerHTML = "";
+    document.getElementById(id).appendChild(card);
+
+
+
+    spawn_confetti()
+
+    setRandomBg()
+
+    game.unlock()
+
+}, function (id, state) {
+
+}, function (id, state) {
 
 });
 
 
-
-
-
+//======================OUTRO========================
 game.add_state("outro", function (id) {
 
-}, function (id) {
+}, function (id, state) {
 
 }, function (id, state) {
 
-
 });
 
-
-
+// Connections 
 game.connect_states("intro", "menu")
 game.connect_states("menu", "jeopardy")
 game.connect_states("jeopardy", "question")
 game.connect_states("question", "correction")
 game.connect_states("correction", "attribution")
 game.connect_states("attribution", "score")
-// TODO add conditionnal states that go to state A or B 
 game.connect_states("score", "jeopardy")
 game.connect_states("result", "outro")
 game.connect_states("outro", "intro")
-
 game.apply_state("intro")
-
-
-
-
-let selected_row = 0;
-let selected_col = 0;
-
-
-
-
 
 document.addEventListener("keydown", (e) => {
 
-    if (locked) return;
+    if (game.locked) return;
 
 
     // fallback safety
@@ -472,7 +454,4 @@ document.addEventListener("keydown", (e) => {
 
     }
 
-    console.log("------------------------------------")
-    console.log(game.cursor_position)
-    console.log("------------------------------------")
 });

@@ -1,10 +1,10 @@
 const QUIZZ_DATA = {
     teams: ["A", "B", "C", "D"],
     shuffle_options: false,
-    question_limit: 20,
+    question_limit: 4,
     questions: [
         {
-            categories: ["anime", "japon"],
+            categories: ["anime"],
             type: "QCM",
             points: 100,
             content: "Quel studio a produit l'anime Naruto ?",
@@ -18,7 +18,7 @@ const QUIZZ_DATA = {
         },
 
         {
-            categories: ["anime", "japon"],
+            categories: ["anime"],
             type: "QCM",
             points: 200,
             content: [
@@ -35,7 +35,7 @@ const QUIZZ_DATA = {
         },
 
         {
-            categories: ["anime", "japon"],
+            categories: ["anime"],
             type: "QCM",
             points: 300,
             content: "Dans Death Note, quel est le nom du dieu de la mort qui accompagne Light ?",
@@ -49,7 +49,7 @@ const QUIZZ_DATA = {
         },
 
         {
-            categories: ["anime", "japon"],
+            categories: [ "japon"],
             type: "QCM",
             points: 400,
             content: "Quel anime raconte l'histoire des frères Elric ?",
@@ -63,7 +63,7 @@ const QUIZZ_DATA = {
         },
 
         {
-            categories: ["anime", "japon"],
+            categories: ["japon"],
             type: "QCM",
             points: 500,
             content: "Quel est le nom du trésor recherché par Luffy dans One Piece ?",
@@ -77,7 +77,7 @@ const QUIZZ_DATA = {
         },
 
         {
-            categories: ["anime", "films"],
+            categories: ["films"],
             type: "QCM",
             points: 100,
             content: "Quel réalisateur est à l'origine du Voyage de Chihiro ?",
@@ -91,7 +91,7 @@ const QUIZZ_DATA = {
         },
 
         {
-            categories: ["anime", "films"],
+            categories: ["films"],
             type: "QCM",
             points: 200,
             content: "Dans Mon Voisin Totoro, comment s'appelle la créature géante de la forêt ?",
@@ -105,7 +105,7 @@ const QUIZZ_DATA = {
         },
 
         {
-            categories: ["anime", "films"],
+            categories: ["films"],
             type: "QCM",
             points: 300,
             content: "Quel film d'animation japonais a popularisé Makoto Shinkai dans le monde entier en 2016 ?",
@@ -119,7 +119,7 @@ const QUIZZ_DATA = {
         },
 
         {
-            categories: ["anime", "personnages"],
+            categories: ["personnages"],
             type: "QCM",
             points: 400,
             content: "Quel personnage porte le chapeau de paille ?",
@@ -133,7 +133,7 @@ const QUIZZ_DATA = {
         },
 
         {
-            categories: ["anime", "personnages"],
+            categories: ["personnages"],
             type: "QCM",
             points: 500,
             content: "Dans Attack on Titan, qui possède le Titan Assaillant au début de l'histoire ?",
