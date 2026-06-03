@@ -6,16 +6,16 @@
  * @param {function} _update_func 
  * @param {function} _validate_func 
  */
-function GameState(_name, _render_func, _update_func,_validate_func) {
+function GameState(_name, _render_func, _update_func, _validate_func) {
     this.id = Math.floor(Math.random() * 1000000000); // 0-999,999,999
     this.type = "render"
     this.name = _name
     this.rows = null
     this.columns = null
-    this._render = _render_func || function(id,state){ }
-    this._update = _update_func || function(id,state){}
-    this._validate = _validate_func || function(id,state){game.next_state();}
-    this.last_cursor_position = {x:0,y:0}
+    this._render = _render_func || function (id, state) { }
+    this._update = _update_func || function (id, state) { }
+    this._validate = _validate_func || function (id, state) { game.next_state(); }
+    this.last_cursor_position = { x: 0, y: 0 }
     this._get_state_element = function () {
         return this.name
     }
@@ -26,7 +26,7 @@ function GameState(_name, _render_func, _update_func,_validate_func) {
     this.update = function () {
         var state_element = this._get_state_element()
         this._update(state_element, this)
-    }    
+    }
     this.validate = function () {
         var state_element = this._get_state_element()
         this._validate(state_element, this)
@@ -42,7 +42,7 @@ function GameState(_name, _render_func, _update_func,_validate_func) {
         );
         game.cursor.x = this.last_cursor_position.x;
         game.cursor.y = this.last_cursor_position.y;
-    }   
+    }
     this.save_cursor_position = function () {
         this.last_cursor_position = {
             x: game.cursor.x,
@@ -100,12 +100,12 @@ function Game() {
      * @param {function} _update_function 
      * @returns {Game}
      */
-    this.add_state = function (state_name, _render_function, _update_function,_validate_function) {
+    this.add_state = function (state_name, _render_function, _update_function, _validate_function) {
         console.log(state_name)
         console.log(_render_function)
         console.log(_update_function)
         console.log(_validate_function)
-        var state = new GameState(state_name, _render_function, _update_function,_validate_function)
+        var state = new GameState(state_name, _render_function, _update_function, _validate_function)
 
         this.state_table[state_name] = state
         this.slides.register(state_name, state_name)
@@ -137,7 +137,7 @@ function Game() {
     }
     this.apply_state = function (name) {
 
-        console.log("APPLY "+name)
+        console.log("APPLY " + name)
         // Check if the current state exists in the state table
         if (this.state_table[name] === undefined) {
             console.log("state " + name + " not found")
@@ -153,7 +153,7 @@ function Game() {
         if (state.type == "condition") {
             this.current_state = name
             return this._apply_conditionnal_state(state)
-        } 
+        }
 
         return this;
     }
@@ -269,10 +269,10 @@ function Game() {
         const cols = this.grid.columns
         return this.cursor_position.y * cols + this.cursor_position.x;
     }
-    this.lock = function(){
+    this.lock = function () {
         this.locked = true
-    }    
-    this.unlock = function(){
+    }
+    this.unlock = function () {
         this.locked = false
     }
 
@@ -284,45 +284,225 @@ window.Game = Game
  * @param {string} type 
  * @param {*} value 
  */
-function QuestionContent(type, value) {
+function QuizzContent(type, value) {
     this.type = type;
     this.value = value;
     this.asset = null;
-    this.getPath = function () {
-        const folders = {
-            image: "images/",
-            video: "videos/",
-            sound: "sounds/"
-        };
-
-        return (folders[this.type] || "") + this.value;
-    };
-
-    this.preload = function () {
-
-        if (this.type === "image") {
-            this.asset = new Image();
-            this.asset.src = this.getPath();
-        }
-
-        if (this.type === "video") {
-            this.asset = document.createElement("video");
-            this.asset.src = this.getPath();
-            this.asset.preload = "auto";
-        }
-
-        if (this.type === "sound") {
-            this.asset = new Audio();
-            this.asset.src = this.getPath();
-            this.asset.preload = "auto";
-        }
-    };
 }
+
+function QuizzContentManager() {
+    /**
+     * 
+     * @param {Object} content_data 
+     * @returns {QuizzContent[]}
+     */
+    this.from_obj = function (content_data) {
+
+        // 1) STRING → single text node array
+        if (typeof content_data === "string") {
+            return [new QuizzContent("text", content_data)];
+        }
+
+        // 2) ARRAY → normalize each item
+        if (Array.isArray(content_data)) {
+
+            const result = [];
+
+            content_data.forEach(item => {
+                result.push(...this.from_obj(item));
+            });
+
+            return result;
+        }
+
+        // 3) OBJECT → single content block
+        if (content_data && typeof content_data === "object") {
+
+            if (content_data.type && content_data.value) {
+                return [new QuizzContent(content_data.type, content_data.value)];
+            }
+
+            // legacy flexible format support (optional but useful)
+            if (content_data.text) {
+                return [new QuizzContent("text", content_data.text)];
+            }
+
+            if (content_data.image) {
+                return [new QuizzContent("image", content_data.image)];
+            }
+
+            if (content_data.video) {
+                return [new QuizzContent("video", content_data.video)];
+            }
+
+            if (content_data.sound) {
+                return [new QuizzContent("sound", content_data.sound)];
+            }
+        }
+
+        // 4) fallback safe output (never break UI)
+        console.warn("Unknown content format:", content_data);
+        return [];
+    };
+
+    /**
+     * @param {Question | Category} data_object
+     * @param {QuizzContent} content
+     * @returns {string}
+     */
+    this._resolve_content_path = function (data_object, content) {
+        const root = "quizz"
+        const game_name = GAME_NAME || "default"
+        const data_type_folder = data_object.data_type + "s" || "default"
+        const data_name = data_object.name || "all"
+        const content_type = content.type + "s" || "default"
+        var path = []
+        path.push(root)
+        path.push(game_name)
+        path.push(data_type_folder)
+        path.push(content_type)
+        path.push(data_name)
+        var joined = path.join("/")
+        return joined
+    }
+
+
+    /**
+     * 
+     * @returns {bool}
+     */
+    function isUrl(value) {
+        return /^https?:\/\//i.test(value);
+    }
+
+    this.preload = function (data_object, content) {
+        if (!content) return;
+        // ARRAY SUPPORT
+        if (Array.isArray(content)) {
+            content.forEach(co => this.preload(data_object, co));
+            return;
+        }
+        if (!content.type) return;
+
+        switch (content.type) {
+            case "image": {
+                var resource_folder = this._resolve_content_path(data_object, content);
+                const src = isUrl(content.value)
+                    ? content.value
+                    : `${resource_folder}/${content.value}`;
+
+                content.asset = new Image();
+                content.asset.src = src;
+                break;
+            }
+            case "video": {
+                var resource_folder = this._resolve_content_path(data_object, content);
+                const src = isUrl(content.value)
+                    ? content.value
+                    : `${resource_folder}/${content.value}`;
+
+                content.asset = document.createElement("video");
+                content.asset.preload = "auto";
+                content.asset.src = src;
+                break;
+            }
+            case "audio": {
+                var resource_folder = this._resolve_content_path(data_object, content);
+                const src = isUrl(content.value)
+                    ? content.value
+                    : `${resource_folder}/${content.value}`;
+
+                content.asset = new Audio();
+                content.asset.preload = "auto";
+                content.asset.src = src;
+                break;
+            }
+        }
+        return this
+    };
+
+}
+
+
+
+
+function Category() {
+    this.data_type = "category"
+    this.id = Math.floor(Math.random() * 1000000000); // 0-999,999,999
+    this.name = ""
+    this.title = null
+    this.background_image = null
+    this.background_music = null
+}
+
+
+function CategoryFactory() {
+
+    /**
+     * 
+     * @param {Object} data 
+     * @returns {Category}
+     */
+
+    this._content_manager = new QuizzContentManager()
+    this.create = function (data) {
+        const cat = new Category();
+        cat.name = data.name || cat.id
+        cat.title = data.title || cat.name
+        cat.background_image = this._content_manager.from_obj(data.background_image);
+        cat.background_music = this._content_manager.from_obj(data.background_music);
+        return cat
+    };
+
+
+}
+
+
+
+function CategoryManager() {
+
+    this._factory = new CategoryFactory()
+    this._content_manager = new QuizzContentManager()
+    this.categories = []
+
+    /**
+     * @param {Object[]} _list
+     */
+    this.load = function (_list) {
+        for (var q in _list) {
+            const cdata = _list[q]
+            const ncat = this._factory.create(cdata)
+            console.log(ncat.name)
+            this._preload_category_data(ncat)
+            this.categories.push(ncat)
+        }
+        return this
+    }
+    
+    /**
+     * @param {Category} question
+    */
+   this._preload_category_data = function (category) {
+       console.log("preload content")
+       this._content_manager.preload(category, question.content);
+       this._content_manager.preload(category, question.correction);
+       question.options.forEach(option => {
+           this._content_manager.preload(category, option.content);
+        });
+        return this
+    };
+
+
+}
+
+
+
+
 
 
 /**
  * 
- * @param {QuestionContent} content 
+ * @param {QuizzContent} content 
  * @param {bool} valid 
  */
 function QuestionOption(content, valid) {
@@ -339,13 +519,7 @@ function QuestionOption(content, valid) {
 }
 
 
-/**
- * 
- * @param {string} name 
- */
-function QuestionCategory(name) {
-    this.name = name
-}
+
 
 
 function QuestionFactory() {
@@ -355,81 +529,34 @@ function QuestionFactory() {
      * @param {Object} data 
      * @returns {Question}
      */
+    this._content_manager = new QuizzContentManager()
     this.create = function (data) {
 
         const quest = new Question();
         quest.name = data.name || quest.id
-        quest.content = this._parse_content(data.content);
+        quest.content = this._content_manager.from_obj(data.content);
         quest.points = data.points || 1;
         quest.categories = data.categories || [];
         quest.options = data.options.map(option => {
-            const content = this._parse_content(option.content);
+            const content = this._content_manager.from_obj(option.content);
             return new QuestionOption(content, option.valid);
         });
-        quest.correction = this._parse_content(data.correction);
+        quest.correction = this._content_manager.from_obj(data.correction);
         quest.is_demo = data.is_demo || false;
+
+
 
         return quest;
     };
 
-    /**
-     * 
-     * @param {Object} content_data 
-     * @returns {QuestionContent[]}
-     */
-    this._parse_content = function (content_data) {
-
-        // 1) STRING → single text node array
-        if (typeof content_data === "string") {
-            return [new QuestionContent("text", content_data)];
-        }
-
-        // 2) ARRAY → normalize each item
-        if (Array.isArray(content_data)) {
-
-            const result = [];
-
-            content_data.forEach(item => {
-                result.push(...this._parse_content(item));
-            });
-
-            return result;
-        }
-
-        // 3) OBJECT → single content block
-        if (content_data && typeof content_data === "object") {
-
-            if (content_data.type && content_data.value) {
-                return [new QuestionContent(content_data.type, content_data.value)];
-            }
-
-            // legacy flexible format support (optional but useful)
-            if (content_data.text) {
-                return [new QuestionContent("text", content_data.text)];
-            }
-
-            if (content_data.image) {
-                return [new QuestionContent("image", content_data.image)];
-            }
-
-            if (content_data.video) {
-                return [new QuestionContent("video", content_data.video)];
-            }
-
-            if (content_data.sound) {
-                return [new QuestionContent("sound", content_data.sound)];
-            }
-        }
-
-        // 4) fallback safe output (never break UI)
-        console.warn("Unknown content format:", content_data);
-        return [];
-    };
 }
 
 
 
+
+
 function Question() {
+    this.data_type = "question"
     this.id = Math.floor(Math.random() * 1000000000); // 0-999,999,999
     this.name = ""
     this.content = null
@@ -447,27 +574,30 @@ function Question() {
             }
         }
     }
-    this.try = function(){
-        this.atempts+=1
+    this.try = function () {
+        this.atempts += 1
         return this
     }
     /**
      * 
-     * @returns {QuestionContent}
+     * @returns {QuizzContent}
      */
     this.get_content = function () {
         return this.content.value
     }
-    this.burn = function(){
+    this.burn = function () {
         this.is_burned = true
         return this
     }
 }
 
+
+
 function QuestionManager() {
     this.current_index = -1
     this.limit = undefined
     this._factory = new QuestionFactory()
+    this._content_manager = new QuizzContentManager()
     this.questions = []
 
     /**
@@ -477,6 +607,7 @@ function QuestionManager() {
         for (var q in _list) {
             const qdata = _list[q]
             var nquest = this._factory.create(qdata)
+            console.log(nquest.name)
             this._preload_question_data(nquest)
             this.questions.push(nquest)
         }
@@ -488,98 +619,15 @@ function QuestionManager() {
      * @param {Question} question
      */
     this._preload_question_data = function (question) {
-        this.preload_content(question.content);
-        this.preload_content(question.correction);
+        console.log("preload content")
+        this._content_manager.preload(question, question.content);
+        this._content_manager.preload(question, question.correction);
         question.options.forEach(option => {
-            this.preload_content(option.content);
+            this._content_manager.preload(question, option.content);
         });
     };
 
-    /**
-     * @param {Question} question
-     * @param {QuestionContent} content
-     * @returns {string}
-     */
-    this._resolve_question_resource_path = function (question,content) {
-        const root = "quizz" 
-        const game_name =  GAME_NAME || "default"
-        const question_name = question.name || "all"
-        const content_type = content.type || "default"
-        var path = []
-        path.push(root)
-        path.push(game_name)
-        path.push(question_name)
-        path.push(content_type)
-        return path.join("/")
-    }
 
-
-    /**
-     * 
-     * @returns {bool}
-     */
-    function isUrl(value) {
-        return /^https?:\/\//i.test(value);
-    }
-
-    this.preload_content = function (content,question) {
-
-        if (!content) return;
-
-        
-        // ARRAY SUPPORT
-        if (Array.isArray(content)) {
-            content.forEach(c => this.preload_content(c));
-            return;
-        }
-        
-        if (!content.type) return;
-        
-        switch (content.type) {
-            
-            case "image": {
-
-                var game_folder = this._resolve_question_resource_path(question,content);
-
-                const src = isUrl(content.value)
-                    ? content.value
-                    : `${game_folder}/images/${content.value}`;
-
-                content.asset = new Image();
-                content.asset.src = src;
-                break;
-            }
-
-            case "video": {
-
-                var game_folder = this._resolve_question_resource_path(question,content);
-
-                const src = isUrl(content.value)
-                    ? content.value
-                    : `${game_folder}/videos/${content.value}`;
-
-                content.asset = document.createElement("video");
-                content.asset.preload = "auto";
-                content.asset.src = src;
-                break;
-            }
-
-            case "audio": {
-
-                var game_folder = this._resolve_question_resource_path(question,content);
-
-                const src = isUrl(content.value)
-                    ? content.value
-                    : `${game_folder}/audio/${content.value}`;
-
-                content.asset = new Audio();
-                content.asset.preload = "auto";
-                content.asset.src = src;
-                break;
-            }
-        }
-        return this
-    };
 
     /**
      * @param {int} _int 
@@ -614,22 +662,22 @@ function QuestionManager() {
      */
     this.is_last = function () {
         return this.current_index == this.limit - 1
-    }    
+    }
     /**
      * 
      * @returns {bool}
      */
     this.all_burned = function () {
         var burned = 0
-        for(var q = 0 ; q < this.questions.length ; q++){
-            if(this.questions[q].is_burned===true){
-                burned+=1
+        for (var q = 0; q < this.questions.length; q++) {
+            if (this.questions[q].is_burned === true) {
+                burned += 1
             }
         }
-        if(burned>=this.limit){
+        if (burned >= this.limit) {
             return true
         }
-        if(burned==this.questions.length){
+        if (burned == this.questions.length) {
             return true
         }
         return false
@@ -663,8 +711,8 @@ function QuestionManager() {
     this.select_question = function (id) {
         var selected = null
         var selected_index = 0
-        for(var q = 0 ; q < this.questions.length ; q++){
-            if(this.questions[q].id == id){
+        for (var q = 0; q < this.questions.length; q++) {
+            if (this.questions[q].id == id) {
                 selected_index = q
                 break
             }
@@ -684,16 +732,16 @@ function QuestionManager() {
      */
     this.all = function () {
         return this.questions
-    }    
-    
+    }
+
     /**
      * 
      * @returns {Question[]}
      */
     this.limited = function () {
         var list = []
-        for(var q = 0 ; q < this.questions.length ; q++){
-            if(q+1 > this.limit){
+        for (var q = 0; q < this.questions.length; q++) {
+            if (q + 1 > this.limit) {
                 break;
             }
             list.push(this.questions[q])
@@ -709,9 +757,6 @@ function QuestionManager() {
             arr[j] = tmp;
         }
     }
-
-
-
 }
 window.QuestionManager = QuestionManager
 
@@ -776,11 +821,11 @@ function TeamsManager() {
     this.get_current = function () {
         return this.teams[this.current_index]
     }
-    this.select_team = function(id){
+    this.select_team = function (id) {
         var selected = null
         var selected_index = 0
-        for(var q = 0 ; q < this.teams.length ; q++){
-            if(this.teams[q].id == id){
+        for (var q = 0; q < this.teams.length; q++) {
+            if (this.teams[q].id == id) {
                 selected_index = q
                 break
             }
@@ -830,4 +875,6 @@ function TeamsManager() {
 
 }
 window.TeamsManager = TeamsManager
+
+
 

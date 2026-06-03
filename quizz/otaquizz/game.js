@@ -3,7 +3,7 @@
 // ------------------------------
 // QUIZ ENGINE - MODE BUZZER
 // ------------------------------
-const GAME_NAME = "jeopardy"
+const GAME_NAME = "otaquizz"
 
 let selected_option = 0;
 let selected_team = 0;
@@ -28,7 +28,7 @@ game.add_state("intro", function (id) {
     quizz.restart()
 
     document.getElementById(id).innerHTML = "";
-    addCenteredImage(id, "quizz/demo/splash_screen.png",)
+    addCenteredImage(id, "quizz/otaquizz/splash_screen.png",)
 
 })
 game.add_state("menu", function (id) {

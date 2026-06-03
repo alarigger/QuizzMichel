@@ -2,62 +2,136 @@ const QUIZZ_DATA = {
     teams: ["Zebres", "Naruto", "Sylvanias", "Totoro"],
     shuffle_options: false,
     question_limit: 4,
+    categores:[
+        {
+            name: "food",
+            title: "🍣FOOD🍕",
+            hero_image:{ type: "image", value: "FOOD_HOWL_Q.png" },
+            background_image:{ type: "image", value: "FOOD_HOWL_Q.png" },
+            background_music:{}
+        }
+    ],
     questions: [
         {
-            name:"foodQ1",
-            categories: ["🍣FOOD🍕"],
+            name: "foodQ1",
+            categories: ["food"],
             type: "QCM",
-            points: 200,
+            points: 100,
             content: [
-                { type: "image", value: "foodQ1/FOOD_HOWL_Q.png" }
+                { type: "image", value: "FOOD_HOWL_Q.png" }
             ],
             correction: [
-                { type: "image", value: "foodQ1/FOOD_HOWL_A.png" }
+                { type: "image", value: "FOOD_HOWL_A.png" }
             ],
             is_demo: false,
             options: [
-                { content: "V", valid: true },
-                { content: "X", valid: false }
+                { content: "👍", valid: true },
+                { content: "👎", valid: false }
             ]
         },
 
         {
-            name:"foodQ2",
-            categories: ["🍣FOOD🍕"],
+            name: "foodQ2",
+            categories: ["food"],
             type: "QCM",
-            points: 200,
+            points: 300,
             content: [
-                { type: "image", value: "foodQ1/FOOD_DUNGEON_MESHI_Q.png" }
+                { type: "image", value: "FOOD_DUNGEON_MESHI_Q.webp" }
             ],
             correction: [
-                { type: "image", value: "foodQ1/FOOD_DUNGEON_MESHI_A.png" }
+                { type: "image", value: "FOOD_DUNGEON_MESHI_A.jpeg" }
             ],
             is_demo: false,
             options: [
-                { content: "V", valid: true },
-                { content: "X", valid: false }
+                { content: "👍", valid: true },
+                { content: "👎", valid: false }
             ]
         },
         {
-            name:"foodQ3",
-            categories: ["🍣FOOD🍕"],
+            name: "foodQ3",
+            categories: ["food"],
             type: "QCM",
-            points: 200,
+            points: 400,
             content: [
-                { type: "image", value: "foodQ1/FOOD_DUNGEON_MESHI_Q.png" }
+                { type: "image", value: "FOOD_TOKYOGF_Q.png" }
             ],
             correction: [
-                { type: "image", value: "foodQ1/FOOD_DUNGEON_MESHI_A.png" }
+                { type: "image", value: "FOOD_TOKYOGF_A.jpg" }
             ],
             is_demo: false,
             options: [
-                { content: "V", valid: true },
-                { content: "X", valid: false }
+                { content: "👍", valid: true },
+                { content: "👎", valid: false }
+            ]
+        },
+        {
+            name: "foodQ4",
+            categories: ["food"],
+            type: "QCM",
+            points: 500,
+            content: [
+                { type: "image", value: "FOOD_FRIEREN_Q.png" }
+            ],
+            correction: [
+                { type: "image", value: "FOOD_FRIEREN_A.png" }
+            ],
+            is_demo: false,
+            options: [
+                { content: "👍", valid: true },
+                { content: "👎", valid: false }
+            ]
+        }, {
+            name: "foodQ5",
+            categories: ["food"],
+            type: "QCM",
+            points: 600,
+            content: [
+                { type: "image", value: "FOOD_SPIRITEDAWAY_Q.PNG" }
+            ],
+            correction: [
+                { type: "image", value: "FOOD_SPIRITEDAWAY_A.png" }
+            ],
+            is_demo: false,
+            options: [
+                { content: "👍", valid: true },
+                { content: "👎", valid: false }
             ]
         }
-
-        
-
+        , {
+            name: "foodQ6",
+            categories: ["food"],
+            type: "QCM",
+            points: 700,
+            content: [
+                { type: "image", value: "FOOD_DEATHNOTE_Q.PNG" }
+            ],
+            correction: [
+                { type: "image", value: "FOOD_DEATHNOTE_A.gif" }
+            ],
+            is_demo: false,
+            options: [
+                { content: "👍", valid: true },
+                { content: "👎", valid: false }
+            ]
+        }
+        , {
+            name: "foodQ7",
+            categories: ["food"],
+            type: "QCM",
+            points: 800,
+            content: [
+                { type: "image", value: "FOOD_ONEPIECE_Q.webp" }
+            ],
+            correction: [
+                { type: "image", value: "FOOD_ONEPIECE_A.jpg" }
+            ],
+            is_demo: false,
+            options: [
+                { content: "👍", valid: true },
+                { content: "👎", valid: false }
+            ]
+        }
+    
     ]
 
 }

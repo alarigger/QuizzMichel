@@ -1,7 +1,9 @@
 function Quizz(){
     this.teams = new TeamsManager()
     this.questions = new QuestionManager()
+    this.categories = new CategoryManager()
     this.load= function(quizz_data){
+        this.categories.load(quizz_data.categories)
         this.questions.load(quizz_data.questions)
         this.teams.load(quizz_data.teams)
         this.questions.set_limit(quizz_data.question_limit)
