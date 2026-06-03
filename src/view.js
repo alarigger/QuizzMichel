@@ -688,3 +688,34 @@ function dancingLetter(text) {
         })
         .join("");
 }
+/**
+ * @param {HTMLImageElement} image
+ */
+function set_background_image(image) {
+    const container = document.getElementById("snow-container");
+
+    container.style.backgroundImage = `url("${image.src}")`;
+    container.style.backgroundRepeat = "repeat";
+
+    const tileWidth = image.naturalWidth;
+    const tileHeight = image.naturalHeight;
+
+    let y = 0;
+    const speed = 0.3; // pixels per frame
+
+    function animate() {
+        y = (y + speed) % tileHeight;
+        container.style.backgroundPosition = `0 ${y}px`;
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+}
+function reset_background() {
+    const container = document.getElementById("snow-container");
+
+    container.style.backgroundImage = "none";
+    container.style.backgroundPosition = "";
+    container.style.backgroundSize = "";
+    container.style.backgroundRepeat = "";
+}

@@ -27,6 +27,7 @@ var game_sounds = {
 game.add_state("intro", function (id) {
     quizz.restart()
 
+    reset_background()
     document.getElementById(id).innerHTML = "";
     addCenteredImage(id, "quizz/otaquizz/splash_screen.png",)
 
@@ -40,6 +41,8 @@ game.add_state("menu", function (id) {
 
 //======================QUESTION========================
 game.add_state("jeopardy", function (id, state) {
+
+    reset_background()
 
     const questions = quizz.get_questions();
 
@@ -79,7 +82,7 @@ game.add_state("jeopardy", function (id, state) {
     this.categories.forEach(category => {
         const header = document.createElement("div");
         header.className = "jeopardy-header";
-        header.textContent = category;
+        header.textContent = quizz.get_category(category)?.title || category;
 
         board.appendChild(header);
     });
@@ -166,8 +169,18 @@ game.add_state("jeopardy", function (id, state) {
 
 //======================QUESTION========================
 game.add_state("question", function (id, state) {
+
+
     VALID = false
     const question = quizz.get_current_question();
+
+    const category = quizz.get_question_category(question)
+
+    console.log(category)
+    console.log(category.get_background_image())
+
+    set_background_image(category.get_background_image().asset)
+
     if (question != undefined) {
         const view = new QuestionView(question);
         view.render(id);
@@ -269,6 +282,8 @@ game.add_state("correction", function (id) {
 //======================ATTRIBUTION========================
 game.add_state("attribution", function (id, state) {
 
+    reset_background()
+
     console.log("VALID " + VALID)
 
     const teams = quizz.get_teams()
@@ -324,6 +339,7 @@ game.add_state("attribution", function (id, state) {
 //======================SCORE========================
 game.add_state("score", function (id, state) {
 
+    reset_background()
     game.lock()
 
     const chosen_team = quizz.get_current_team()
@@ -352,6 +368,7 @@ game.add_state("score", function (id, state) {
 //======================RESULT========================
 game.add_state("result", function (id, state) {
 
+    reset_background()
     game.lock()
     const card = document.createElement("div");
     card.className = "card";

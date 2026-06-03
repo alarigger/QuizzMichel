@@ -92,6 +92,32 @@ function Quizz(){
     this.all_burned = function(){
         return this.questions.all_burned()
     }
+
+    
+    /**
+     * 
+     * @param {Question} question 
+     * @returns {Category}
+     */
+    this.get_question_category = function(question){
+
+        if(question.categories.length==0){
+            return 
+        }
+        console.log(question.categories)
+        var first_cat = question.categories[0]
+        return this.categories.get_category(first_cat)
+    }    
+    /**
+     * 
+     * @param {string} name 
+     * @returns {Category}
+     */
+    this.get_category = function(name){
+        return this.categories.get_category(name)
+    }
+
+
 }
 window.Quizz = Quizz
 

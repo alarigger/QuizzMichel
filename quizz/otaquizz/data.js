@@ -1,14 +1,14 @@
 const QUIZZ_DATA = {
     teams: ["Zebres", "Naruto", "Sylvanias", "Totoro"],
     shuffle_options: false,
-    question_limit: 4,
-    categores:[
+    question_limit: 30,
+    categories:[
         {
             name: "food",
             title: "🍣FOOD🍕",
             hero_image:{ type: "image", value: "FOOD_HOWL_Q.png" },
-            background_image:{ type: "image", value: "FOOD_HOWL_Q.png" },
-            background_music:{}
+            background_image:[{ type: "image", value: "FOOD_WALLPAPER.PNG" }],
+            background_music:[]
         }
     ],
     questions: [
@@ -34,7 +34,7 @@ const QUIZZ_DATA = {
             name: "foodQ2",
             categories: ["food"],
             type: "QCM",
-            points: 300,
+            points: 200,
             content: [
                 { type: "image", value: "FOOD_DUNGEON_MESHI_Q.webp" }
             ],
@@ -51,7 +51,7 @@ const QUIZZ_DATA = {
             name: "foodQ3",
             categories: ["food"],
             type: "QCM",
-            points: 400,
+            points: 300,
             content: [
                 { type: "image", value: "FOOD_TOKYOGF_Q.png" }
             ],
@@ -68,7 +68,7 @@ const QUIZZ_DATA = {
             name: "foodQ4",
             categories: ["food"],
             type: "QCM",
-            points: 500,
+            points: 400,
             content: [
                 { type: "image", value: "FOOD_FRIEREN_Q.png" }
             ],
@@ -84,7 +84,7 @@ const QUIZZ_DATA = {
             name: "foodQ5",
             categories: ["food"],
             type: "QCM",
-            points: 600,
+            points: 500,
             content: [
                 { type: "image", value: "FOOD_SPIRITEDAWAY_Q.PNG" }
             ],
@@ -101,7 +101,7 @@ const QUIZZ_DATA = {
             name: "foodQ6",
             categories: ["food"],
             type: "QCM",
-            points: 700,
+            points: 600,
             content: [
                 { type: "image", value: "FOOD_DEATHNOTE_Q.PNG" }
             ],
@@ -118,7 +118,7 @@ const QUIZZ_DATA = {
             name: "foodQ7",
             categories: ["food"],
             type: "QCM",
-            points: 800,
+            points: 700,
             content: [
                 { type: "image", value: "FOOD_ONEPIECE_Q.webp" }
             ],

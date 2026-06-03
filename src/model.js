@@ -353,7 +353,7 @@ function QuizzContentManager() {
     this._resolve_content_path = function (data_object, content) {
         const root = "quizz"
         const game_name = GAME_NAME || "default"
-        const data_type_folder = data_object.data_type + "s" || "default"
+        const data_type_folder = data_object.data_type || "default"
         const data_name = data_object.name || "all"
         const content_type = content.type + "s" || "default"
         var path = []
@@ -431,8 +431,15 @@ function Category() {
     this.id = Math.floor(Math.random() * 1000000000); // 0-999,999,999
     this.name = ""
     this.title = null
-    this.background_image = null
-    this.background_music = null
+    this.background_image = []
+    this.background_music = []
+
+    this.get_background_image = function(){
+        if(this.background_image.length==0){
+            return 
+        }
+        return this.background_image[0]
+    }
 }
 
 
@@ -478,19 +485,25 @@ function CategoryManager() {
         }
         return this
     }
-    
+
     /**
-     * @param {Category} question
+     * @param {Category} category
     */
-   this._preload_category_data = function (category) {
-       console.log("preload content")
-       this._content_manager.preload(category, question.content);
-       this._content_manager.preload(category, question.correction);
-       question.options.forEach(option => {
-           this._content_manager.preload(category, option.content);
-        });
+    this._preload_category_data = function (category) {
+        console.log("preload content")
+        this._content_manager.preload(category, category.background_image);
+        this._content_manager.preload(category, category.background_music);
         return this
     };
+
+    this.get_category = function (name) {
+        console.log(this.categories)
+        for (var c = 0; c < this.categories.length; c++) {
+            if (this.categories[c].name == name) {
+                return this.categories[c]
+            }
+        }
+    }
 
 
 }
