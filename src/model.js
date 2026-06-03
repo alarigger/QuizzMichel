@@ -358,6 +358,7 @@ function QuestionFactory() {
     this.create = function (data) {
 
         const quest = new Question();
+        quest.name = data.name || quest.id
         quest.content = this._parse_content(data.content);
         quest.points = data.points || 1;
         quest.categories = data.categories || [];
@@ -430,6 +431,7 @@ function QuestionFactory() {
 
 function Question() {
     this.id = Math.floor(Math.random() * 1000000000); // 0-999,999,999
+    this.name = ""
     this.content = null
     this.options = []
     this.correction = null
@@ -493,9 +495,22 @@ function QuestionManager() {
         });
     };
 
-    this._resolve_game_folder = function () {
-        var name = GAME_NAME || "default"
-        return "quizz/" + name
+    /**
+     * @param {Question} question
+     * @param {QuestionContent} content
+     * @returns {string}
+     */
+    this._resolve_question_resource_path = function (question,content) {
+        const root = "quizz" 
+        const game_name =  GAME_NAME || "default"
+        const question_name = question.name || "all"
+        const content_type = content.type || "default"
+        var path = []
+        path.push(root)
+        path.push(game_name)
+        path.push(question_name)
+        path.push(content_type)
+        return path.join("/")
     }
 
 
@@ -507,23 +522,24 @@ function QuestionManager() {
         return /^https?:\/\//i.test(value);
     }
 
-    this.preload_content = function (content) {
+    this.preload_content = function (content,question) {
 
         if (!content) return;
 
-        const game_folder = this._resolve_game_folder();
-
+        
         // ARRAY SUPPORT
         if (Array.isArray(content)) {
             content.forEach(c => this.preload_content(c));
             return;
         }
-
+        
         if (!content.type) return;
-
+        
         switch (content.type) {
-
+            
             case "image": {
+
+                var game_folder = this._resolve_question_resource_path(question,content);
 
                 const src = isUrl(content.value)
                     ? content.value
@@ -536,6 +552,8 @@ function QuestionManager() {
 
             case "video": {
 
+                var game_folder = this._resolve_question_resource_path(question,content);
+
                 const src = isUrl(content.value)
                     ? content.value
                     : `${game_folder}/videos/${content.value}`;
@@ -547,6 +565,8 @@ function QuestionManager() {
             }
 
             case "audio": {
+
+                var game_folder = this._resolve_question_resource_path(question,content);
 
                 const src = isUrl(content.value)
                     ? content.value

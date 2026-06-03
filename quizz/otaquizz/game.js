@@ -312,8 +312,11 @@ game.add_state("attribution", function (id, state) {
         const teamId = selectedTeam.dataset.teamId; // or Number(...)
         quizz.select_team(teamId);
     }
-    game.next_state();
-
+    if(quizz.all_burned()){
+        game.apply_state("result");
+    }else{
+        game.next_state();
+    }
 });
 
 
@@ -341,11 +344,8 @@ game.add_state("score", function (id, state) {
 }, function (id, state) {
 
 }, function (id, state) {
-    if(quizz.all_burned()){
-        game.apply_state("result");
-    }else{
-        game.next_state();
-    }
+
+    game.next_state();
 
 });
 
