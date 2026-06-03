@@ -83,7 +83,6 @@ game.add_state("jeopardy", function (id, state) {
         const header = document.createElement("div");
         header.className = "jeopardy-header";
         header.textContent = quizz.get_category(category)?.title || category;
-
         board.appendChild(header);
     });
 

@@ -9,7 +9,14 @@ const QUIZZ_DATA = {
             hero_image:{ type: "image", value: "FOOD_HOWL_Q.png" },
             background_image:[{ type: "image", value: "FOOD_WALLPAPER.PNG" }],
             background_music:[]
-        }
+        },        
+        {
+            name: "LIT",
+            title: "Lost In Translation",
+            hero_image:{ type: "image", value: "FOOD_HOWL_Q.png" },
+            background_image:[{ type: "image", value: "FOOD_WALLPAPER.PNG" }],
+            background_music:[]
+        },
     ],
     questions: [
         {
@@ -124,6 +131,132 @@ const QUIZZ_DATA = {
             ],
             correction: [
                 { type: "image", value: "FOOD_ONEPIECE_A.jpg" }
+            ],
+            is_demo: false,
+            options: [
+                { content: "👍", valid: true },
+                { content: "👎", valid: false }
+            ]
+        }
+        /*----------------------------------------------------------LIT----------------------------*/
+        , {
+            name: "LITQ1",
+            categories: ["LIT"],
+            type: "QCM",
+            points: 100,
+            content: [
+                { type: "image", value: "LIT_Q1_Q.PNG" }
+            ],
+            correction: [
+                { type: "image", value: "LIT_Q1_A.PNG" }
+            ],
+            is_demo: false,
+            options: [
+                { content: "👍", valid: true },
+                { content: "👎", valid: false }
+            ]
+        }
+
+        , {
+            name: "LITQ2",
+            categories: ["LIT"],
+            type: "QCM",
+            points: 200,
+            content: [
+                { type: "image", value: "LIT_Q2_Q.PNG" }
+            ],
+            correction: [
+                { type: "image", value: "LIT_Q2_A.PNG" }
+            ],
+            is_demo: false,
+            options: [
+                { content: "👍", valid: true },
+                { content: "👎", valid: false }
+            ]
+        }
+
+        , {
+            name: "LITQ3",
+            categories: ["LIT"],
+            type: "QCM",
+            points: 300,
+            content: [
+                { type: "image", value: "LIT_Q3_Q.PNG" }
+            ],
+            correction: [
+                { type: "image", value: "LIT_Q3_A.PNG" }
+            ],
+            is_demo: false,
+            options: [
+                { content: "👍", valid: true },
+                { content: "👎", valid: false }
+            ]
+        }
+    
+        , {
+            name: "LITQ4",
+            categories: ["LIT"],
+            type: "QCM",
+            points: 400,
+            content: [
+                { type: "image", value: "LIT_Q4_Q.PNG" }
+            ],
+            correction: [
+                { type: "image", value: "LIT_Q4_A.PNG" }
+            ],
+            is_demo: false,
+            options: [
+                { content: "👍", valid: true },
+                { content: "👎", valid: false }
+            ]
+        }
+
+        , {
+            name: "LITQ5",
+            categories: ["LIT"],
+            type: "QCM",
+            points: 500,
+            content: [
+                { type: "image", value: "LIT_Q5_Q.PNG" }
+            ],
+            correction: [
+                { type: "image", value: "LIT_Q5_A.PNG" }
+            ],
+            is_demo: false,
+            options: [
+                { content: "👍", valid: true },
+                { content: "👎", valid: false }
+            ]
+        }
+
+        , {
+            name: "LITQ6",
+            categories: ["LIT"],
+            type: "QCM",
+            points: 600,
+            content: [
+                { type: "image", value: "LIT_Q6_Q.PNG" }
+            ],
+            correction: [
+                { type: "image", value: "LIT_Q6_A.PNG" }
+            ],
+            is_demo: false,
+            options: [
+                { content: "👍", valid: true },
+                { content: "👎", valid: false }
+            ]
+        }
+
+        , {
+            name: "LITQ7",
+            categories: ["LIT"],
+            type: "QCM",
+            points: 700,
+            content: [
+                { type: "image", value: "LIT_Q7_Q.PNG" }
+            ],
+            correction: [
+                { type: "image", value: "LIT_Q7_A.PNG" }
             ],
             is_demo: false,
             options: [
