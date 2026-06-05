@@ -131,6 +131,7 @@ game.add_state("jeopardy", function (id, state) {
 
 }, function (id, state) {
 
+    quizz.sounds.play("move")
     const cells = document.querySelectorAll(".jeopardy-cell");
     cells.forEach(c => c.classList.remove("selected"));
     const index = game.get_selected_index();
@@ -190,7 +191,7 @@ game.add_state("question", function (id, state) {
     document.querySelectorAll(".option")[index].classList.add("selected");
 
 }, function (id) {
-
+    quizz.sounds.play("option")
     game.cursor_position.x = 0
     const index = game.get_selected_index()
     console.log(`select ${index} `)
@@ -313,6 +314,7 @@ game.add_state("attribution", function (id, state) {
     const teams = document.querySelectorAll(".team");
     teams.forEach(el => el.classList.remove("selected"));
     const selectedTeam = teams[index];
+    quizz.sounds.play("attribution")
     if (selectedTeam) {
         const teamId = selectedTeam.dataset.teamId; // or Number(...)
         quizz.select_team(teamId);
@@ -381,8 +383,6 @@ game.add_state("result", function (id, state) {
     document.getElementById(id).innerHTML = "";
     document.getElementById(id).appendChild(card);
 
-
-
     spawn_confetti()
 
     setRandomBg()
@@ -428,25 +428,21 @@ document.addEventListener("keydown", (e) => {
 
     if (e.key === "ArrowDown") {
         game.cursor_down()
-        quizz.sounds.play("tic")
         game.update();
     }
 
     if (e.key === "ArrowUp") {
         game.cursor_up()
-        quizz.sounds.play("tic")
         game.update();
     }
     
     if (e.key === "ArrowLeft") {
         game.cursor_left()
-        quizz.sounds.play("tic")
         game.update();
     }
     
     if (e.key === "ArrowRight") {
         game.cursor_rigth()
-        quizz.sounds.play("tic")
         game.update();
     }
 
