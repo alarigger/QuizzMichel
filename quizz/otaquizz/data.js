@@ -7,9 +7,36 @@ const QUIZZ_DATA = {
     },
     audio:[
         {   
-            name:"arcane_bonus",
-            group:"correct",
-            sound:[{ type: "audio",value: "arcade-bonus.mp3" }],
+            name:"correct",
+            sound:[{ type: "audio",value: "arcade.mp3" }],
+        }        
+        ,{   
+            name:"correct",
+            sound:[{ type: "audio",value: "waaaw.mp3" }],
+        }         
+        ,{   
+            name:"correct",
+            sound:[{ type: "audio",value: "french.mp3" }],
+        }           
+        ,{   
+            name:"correct",
+            sound:[{ type: "audio",value: "mario.mp3" }],
+        }               
+        ,{   
+            name:"incorrect",
+            sound:[{ type: "audio",value: "erro.mp3" }],
+        }        
+        ,{   
+            name:"incorrect",
+            sound:[{ type: "audio",value: "nani.mp3" }],
+        }        
+        ,{   
+            name:"incorrect",
+            sound:[{ type: "audio",value: "samourai.mp3" }],
+        }       
+        ,{   
+            name:"incorrect",
+            sound:[{ type: "audio",value: "anime.mp3" }],
         }
     ],
     shuffle_options: false,

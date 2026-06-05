@@ -219,10 +219,9 @@ game.add_state("correction", function (id) {
     VALID = chosen.valid === true;
     // sound
     if (VALID) {
-        game_sounds.correct.play();
-
+        quizz.sounds.play_random("correct")
     } else {
-        game_sounds.incorrect.play();
+        quizz.sounds.play_random("incorrect")
     }
 
     const verdict = document.createElement("h1");
@@ -429,21 +428,25 @@ document.addEventListener("keydown", (e) => {
 
     if (e.key === "ArrowDown") {
         game.cursor_down()
+        quizz.sounds.play("tic")
         game.update();
     }
 
     if (e.key === "ArrowUp") {
         game.cursor_up()
+        quizz.sounds.play("tic")
         game.update();
     }
-
+    
     if (e.key === "ArrowLeft") {
         game.cursor_left()
+        quizz.sounds.play("tic")
         game.update();
     }
-
+    
     if (e.key === "ArrowRight") {
         game.cursor_rigth()
+        quizz.sounds.play("tic")
         game.update();
     }
 
