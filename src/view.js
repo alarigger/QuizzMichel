@@ -101,7 +101,6 @@ function renderOption(option, index) {
 function QuestionView(question) {
 
     this.question = question;
-
     this.render = function (containerId) {
 
         const card = document.createElement("div");
@@ -142,7 +141,12 @@ function QuestionView(question) {
         const container = document.getElementById(containerId);
         container.innerHTML = "";
         container.appendChild(card);
+
+        if(question.background.length>0){
+            set_background_image(question.background[0].asset)
+        }
     };
+    
 }
 
 

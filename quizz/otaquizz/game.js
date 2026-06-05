@@ -189,7 +189,6 @@ game.add_state("question", function (id, state) {
     state.rows = question.options.length
     state.columns = 1
     game.reload_grid()
-
     game.cursor_position.x = 0
     game.cursor_position.y = 0
     const index = game.get_selected_index()
@@ -223,7 +222,7 @@ game.add_state("correction", function (id) {
     const card = document.createElement("div");
     card.className = "card correction";
     card.id = "card";
-    const chosen = question.options[game.cursor_position.y];
+    const chosen = question.options[game.get_selected_index()];
     VALID = chosen.valid === true;
     // sound
     if (VALID) {

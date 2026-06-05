@@ -1,4 +1,7 @@
 const QUIZZ_DATA = {
+    sounds : {
+
+    },
     teams: ["Zebres", "Naruto", "Sylvanias", "Totoro"],
     shuffle_options: false,
     question_limit: 30,
@@ -30,13 +33,15 @@ const QUIZZ_DATA = {
             correction: [
                 { type: "image", value: "FOOD_HOWL_A.png" }
             ],
+            background : [
+                { type: "image", value: "FOOD_HOWL_A.png" }
+            ],
             is_demo: false,
             options: [
                 { content: "👍", valid: true },
                 { content: "👎", valid: false }
             ]
         },
-
         {
             name: "foodQ2",
             categories: ["food"],

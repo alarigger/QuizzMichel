@@ -85,6 +85,7 @@ function Game() {
     this.id = Math.floor(Math.random() * 1000000000); // 0-999,999,999
     this.transition_time = 100
     this.slides = new AnimatedSlideManager()
+    this.sounds = new SoundManager()
     this.function_table = []
     this.state_table = []
     this.current_state = null
@@ -276,8 +277,75 @@ function Game() {
         this.locked = false
     }
 
+    this.add_sound = function(group_name, sound){
+        this.sounds.register(group_name, sound)
+    }    
+    this.play_sound = function(sound_name){
+        this.sounds.play(sound_name)
+    }    
+    this.play_random_sound = function(group_name){
+        this.sounds.playRandom(group_name)
+    }
+
 }
 window.Game = Game
+
+
+class SoundManager {
+    constructor() {
+        this.sounds = {};
+        this.groups = {};
+    }
+
+    getSoundName(path) {
+        return path.split('/').pop().replace(/\.[^/.]+$/, '');
+        // "assets/audio/correct1.mp3" -> "correct1"
+    }
+
+    register(group, sound) {
+        let name;
+
+        if (typeof sound === "string") {
+            name = this.getSoundName(sound);
+            sound = new Audio(sound);
+        } else {
+            name = sound.name || sound.id;
+        }
+
+        if (!sound || typeof sound.play !== "function") {
+            throw new TypeError("Invalid sound");
+        }
+
+        this.sounds[name] = sound;
+
+        this.groups[group] ??= [];
+        this.groups[group].push(sound);
+
+        return sound;
+    }
+
+    play(name) {
+        const sound = this.sounds[name];
+
+        if (!sound) {
+            console.warn(`Sound '${name}' not found`);
+            return;
+        }
+
+        sound.currentTime = 0;
+        sound.play();
+    }
+    playRandom(group) {
+        const list = this.groups[group];
+        if (!list?.length) return;
+
+        const sound = list[Math.floor(Math.random() * list.length)];
+        sound.currentTime = 0;
+        sound.play();
+    }
+}
+
+
 
 /**
  * 
@@ -550,6 +618,7 @@ function QuestionFactory() {
         quest.content = this._content_manager.from_obj(data.content);
         quest.points = data.points || 1;
         quest.categories = data.categories || [];
+        quest.background = data.background || [];
         quest.options = data.options.map(option => {
             const content = this._content_manager.from_obj(option.content);
             return new QuestionOption(content, option.valid);
@@ -580,6 +649,7 @@ function Question() {
     this.atempts = 0
     this.is_burned = false
     this.is_demo = false
+    this.background = []
     this.get_valid_option = function () {
         for (var a in this.options) {
             if (this.options[a].valid) {
@@ -607,6 +677,7 @@ function Question() {
 
 
 function QuestionManager() {
+
     this.current_index = -1
     this.limit = undefined
     this._factory = new QuestionFactory()
@@ -635,6 +706,7 @@ function QuestionManager() {
         console.log("preload content")
         this._content_manager.preload(question, question.content);
         this._content_manager.preload(question, question.correction);
+        this._content_manager.preload(question, question.background);
         question.options.forEach(option => {
             this._content_manager.preload(question, option.content);
         });
