@@ -1,8 +1,11 @@
-function Quizz(){
-    this.teams = new TeamsManager()
-    this.questions = new QuestionManager()
-    this.categories = new CategoryManager()
+function Quizz(name){
+    var _content_manager = new QuizzContentManager(name)
+    this.teams = new TeamsManager(_content_manager)
+    this.questions = new QuestionManager(_content_manager)
+    this.categories = new CategoryManager(_content_manager)
+    this.sounds = new GameSoundManager(_content_manager)
     this.load= function(quizz_data){
+        this.sounds.load(quizz_data.audio)
         this.categories.load(quizz_data.categories)
         this.questions.load(quizz_data.questions)
         this.teams.load(quizz_data.teams)

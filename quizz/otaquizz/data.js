@@ -1,10 +1,20 @@
 const QUIZZ_DATA = {
-    sounds : {
-
+    game: {
+        name:"otaquizz",
+        backgrounds:[
+            
+        ],
     },
-    teams: ["Zebres", "Naruto", "Sylvanias", "Totoro"],
+    audio:[
+        {   
+            name:"arcane_bonus",
+            group:"correct",
+            sound:[{ type: "audio",value: "arcade-bonus.mp3" }],
+        }
+    ],
     shuffle_options: false,
     question_limit: 30,
+    teams: ["Zebres", "Naruto", "Sylvanias", "Totoro"],
     categories:[
         {
             name: "food",

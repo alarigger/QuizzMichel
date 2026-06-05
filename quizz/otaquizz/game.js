@@ -3,27 +3,20 @@
 // ------------------------------
 // QUIZ ENGINE - MODE BUZZER
 // ------------------------------
-const GAME_NAME = "otaquizz"
+
 
 let selected_option = 0;
 let selected_team = 0;
 var VALID = false
 
-
+/* loading game data */
+var quizz = new Quizz("otaquizz")
+quizz.load(QUIZZ_DATA)
 var game = new Game()
-var quizz = new Quizz()
 game.unlock()
 
-quizz.load(QUIZZ_DATA)
 
-
-// game. add sound
-var game_sounds = {
-    correct: new Audio('assets/correct.mp3'),
-    incorrect: new Audio('assets/incorrect.mp3')
-}
-
-
+/*======================INTRO===========================*/
 game.add_state("intro", function (id) {
     quizz.restart()
 

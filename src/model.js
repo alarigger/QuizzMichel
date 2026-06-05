@@ -1,91 +1,14 @@
 
-/**
- * 
- * @param {string} _name 
- * @param {function} _render_func 
- * @param {function} _update_func 
- * @param {function} _validate_func 
- */
-function GameState(_name, _render_func, _update_func, _validate_func) {
-    this.id = Math.floor(Math.random() * 1000000000); // 0-999,999,999
-    this.type = "render"
-    this.name = _name
-    this.rows = null
-    this.columns = null
-    this._render = _render_func || function (id, state) { }
-    this._update = _update_func || function (id, state) { }
-    this._validate = _validate_func || function (id, state) { game.next_state(); }
-    this.last_cursor_position = { x: 0, y: 0 }
-    this._get_state_element = function () {
-        return this.name
-    }
-    this.render = function () {
-        var state_element = this._get_state_element()
-        this._render(state_element, this)
-    }
-    this.update = function () {
-        var state_element = this._get_state_element()
-        this._update(state_element, this)
-    }
-    this.validate = function () {
-        var state_element = this._get_state_element()
-        this._validate(state_element, this)
-    }
-    this.load_cursor_position = function () {
-        this.last_cursor_position.x = Math.max(
-            0,
-            Math.min(this.last_cursor_position.x, this.columns - 1)
-        );
-        this.last_cursor_position.y = Math.max(
-            0,
-            Math.min(this.last_cursor_position.y, this.rows - 1)
-        );
-        game.cursor.x = this.last_cursor_position.x;
-        game.cursor.y = this.last_cursor_position.y;
-    }
-    this.save_cursor_position = function () {
-        this.last_cursor_position = {
-            x: game.cursor.x,
-            y: game.cursor.y
-        };
-    }
-}
-window.GameState = GameState
 
 
-function GameConditionnalState(_name, _decide_func, _state_true, _state_false) {
-    this.type = "condition"
-    this.name = _name
-    this._decide = _decide_func
-    this.state_true = _state_true
-    this.state_false = _state_false
-    this.decide = function () {
-        if (this._decide()) {
-            return this._state_true
-        }
-        return this._state_false
-    }
-}
-window.GameState = GameState
-
-
-function GameStateConnection(_state_A, _state_B) {
-    this._state_A = _state_A
-    this._state_B = _state_B
-    this._condtion = true
-    this.next = function () {
-        if (this._condtion) {
-            return this._state_B
-        }
-    }
-}
-window.GameStateConnection = GameStateConnection
 
 function Game() {
+
     this.id = Math.floor(Math.random() * 1000000000); // 0-999,999,999
+    this.data_type ="game"
+    this.name = "GAME-"+this.id
     this.transition_time = 100
     this.slides = new AnimatedSlideManager()
-    this.sounds = new SoundManager()
     this.function_table = []
     this.state_table = []
     this.current_state = null
@@ -277,21 +200,155 @@ function Game() {
         this.locked = false
     }
 
-    this.add_sound = function(group_name, sound){
-        this.sounds.register(group_name, sound)
-    }    
-    this.play_sound = function(sound_name){
-        this.sounds.play(sound_name)
-    }    
-    this.play_random_sound = function(group_name){
-        this.sounds.playRandom(group_name)
-    }
 
 }
 window.Game = Game
 
+function GameConditionnalState(_name, _decide_func, _state_true, _state_false) {
+    this.type = "condition"
+    this.name = _name
+    this._decide = _decide_func
+    this.state_true = _state_true
+    this.state_false = _state_false
+    this.decide = function () {
+        if (this._decide()) {
+            return this._state_true
+        }
+        return this._state_false
+    }
+}
+window.GameState = GameState
 
-class SoundManager {
+
+function GameStateConnection(_state_A, _state_B) {
+    this._state_A = _state_A
+    this._state_B = _state_B
+    this._condtion = true
+    this.next = function () {
+        if (this._condtion) {
+            return this._state_B
+        }
+    }
+}
+window.GameStateConnection = GameStateConnection
+
+
+
+
+
+
+
+/**
+ * 
+ * @param {string} _name 
+ * @param {function} _render_func 
+ * @param {function} _update_func 
+ * @param {function} _validate_func 
+ */
+function GameState(_name, _render_func, _update_func, _validate_func) {
+    this.id = Math.floor(Math.random() * 1000000000); // 0-999,999,999
+    this.type = "render"
+    this.name = _name
+    this.rows = null
+    this.columns = null
+    this._render = _render_func || function (id, state) { }
+    this._update = _update_func || function (id, state) { }
+    this._validate = _validate_func || function (id, state) { game.next_state(); }
+    this.last_cursor_position = { x: 0, y: 0 }
+    this._get_state_element = function () {
+        return this.name
+    }
+    this.render = function () {
+        var state_element = this._get_state_element()
+        this._render(state_element, this)
+    }
+    this.update = function () {
+        var state_element = this._get_state_element()
+        this._update(state_element, this)
+    }
+    this.validate = function () {
+        var state_element = this._get_state_element()
+        this._validate(state_element, this)
+    }
+    this.load_cursor_position = function () {
+        this.last_cursor_position.x = Math.max(
+            0,
+            Math.min(this.last_cursor_position.x, this.columns - 1)
+        );
+        this.last_cursor_position.y = Math.max(
+            0,
+            Math.min(this.last_cursor_position.y, this.rows - 1)
+        );
+        game.cursor.x = this.last_cursor_position.x;
+        game.cursor.y = this.last_cursor_position.y;
+    }
+    this.save_cursor_position = function () {
+        this.last_cursor_position = {
+            x: game.cursor.x,
+            y: game.cursor.y
+        };
+    }
+}
+window.GameState = GameState
+
+
+
+
+function GameSound(){
+    this.id = Math.floor(Math.random() * 1000000000); // 0-999,999,999
+    this.data_type="audio"
+    this.group="all"
+    this.name=this.id
+    this.sound=[]
+    this.get_sound = function(){
+        if(this.sound.length==0){
+            return 
+        }
+        return this.sound[0]
+    }
+}
+
+
+function GameSoundFactory(content_manager){
+    /**
+     * 
+     * @param {Object} data 
+     * @returns {GameSound}
+     */
+    this._content_manager = content_manager || new QuizzContentManager()
+    this.create = function (data) {
+        const sound = new GameSound();
+        sound.name = data.name || sound.id
+        sound.group = data.group || sound.group
+        sound.sound = this._content_manager.from_obj(data.sound);
+        return sound
+    };
+}
+/**
+ * @param {QuizzContentManager} content_manager
+ */
+function GameSoundManager(content_manager){
+    this._factory = new GameSoundFactory(content_manager)
+    this._bank = new SoundBank()
+    this._content_manager = content_manager || new QuizzContentManager()
+    this.load = function(data){
+        for (var s = 0 ; s < data.length ;s++){
+            const sound_data = data[s]
+            const game_sound = this._factory.create(sound_data)
+            this._content_manager.preload(game_sound,game_sound.sound)
+            this._bank.register(game_sound)
+        } 
+    }
+    this.play_random = function(group_name){
+        this._bank.playRandom(group_name)
+    }
+    this.play = function(name){
+        this._bank.play(name)
+    }
+
+
+}
+class SoundBank {
     constructor() {
         this.sounds = {};
         this.groups = {};
@@ -302,14 +359,28 @@ class SoundManager {
         // "assets/audio/correct1.mp3" -> "correct1"
     }
 
-    register(group, sound) {
-        let name;
+    /**
+     * 
+     * @param {GameSound} 
+     * @returns 
+     */
+    register(game_sound) {
+
+        const group = game_sound.group
+        var sound = game_sound.get_sound()
+        if(sound===undefined){
+            return 
+        }
+        sound = sound.asset
+        var name = game_sound.name || game_sound.id
+
+        console.log("")
+        console.log(game_sound)
+        console.log(sound)
 
         if (typeof sound === "string") {
             name = this.getSoundName(sound);
             sound = new Audio(sound);
-        } else {
-            name = sound.name || sound.id;
         }
 
         if (!sound || typeof sound.play !== "function") {
@@ -347,18 +418,26 @@ class SoundManager {
 
 
 
+
+
+
+
+
 /**
  * 
  * @param {string} type 
  * @param {*} value 
  */
 function QuizzContent(type, value) {
+    this.id = Math.floor(Math.random() * 1000000000); // 0-999,999,999
     this.type = type;
     this.value = value;
     this.asset = null;
 }
 
-function QuizzContentManager() {
+function QuizzContentManager(game_name) {
+
+    this._game_name = game_name || "default"
     /**
      * 
      * @param {Object} content_data 
@@ -409,7 +488,8 @@ function QuizzContentManager() {
         }
 
         // 4) fallback safe output (never break UI)
-        console.warn("Unknown content format:", content_data);
+        console.log(content_data);
+        console.log("Unknown content format:", content_data);
         return [];
     };
 
@@ -420,7 +500,7 @@ function QuizzContentManager() {
      */
     this._resolve_content_path = function (data_object, content) {
         const root = "quizz"
-        const game_name = GAME_NAME || "default"
+        const game_name = this._game_name 
         const data_type_folder = data_object.data_type || "default"
         const data_name = data_object.name || "all"
         const content_type = content.type + "s" || "default"
@@ -511,7 +591,7 @@ function Category() {
 }
 
 
-function CategoryFactory() {
+function CategoryFactory(content_manager) {
 
     /**
      * 
@@ -519,7 +599,7 @@ function CategoryFactory() {
      * @returns {Category}
      */
 
-    this._content_manager = new QuizzContentManager()
+    this._content_manager = content_manager || new QuizzContentManager()
     this.create = function (data) {
         const cat = new Category();
         cat.name = data.name || cat.id
@@ -533,11 +613,13 @@ function CategoryFactory() {
 }
 
 
+/**
+ * @param {QuizzContentManager} content_manager
+ */
+function CategoryManager(content_manager) {
 
-function CategoryManager() {
-
-    this._factory = new CategoryFactory()
-    this._content_manager = new QuizzContentManager()
+    this._content_manager = content_manager || new QuizzContentManager()
+    this._factory = new CategoryFactory(content_manager)
     this.categories = []
 
     /**
@@ -603,14 +685,14 @@ function QuestionOption(content, valid) {
 
 
 
-function QuestionFactory() {
+function QuestionFactory(content_manager) {
 
     /**
      * 
      * @param {Object} data 
      * @returns {Question}
      */
-    this._content_manager = new QuizzContentManager()
+    this._content_manager = content_manager || new QuizzContentManager()
     this.create = function (data) {
 
         const quest = new Question();
@@ -675,13 +757,15 @@ function Question() {
 }
 
 
-
-function QuestionManager() {
+/**
+ * @param {QuizzContentManager} content_manager
+ */
+function QuestionManager(content_manager) {
 
     this.current_index = -1
     this.limit = undefined
     this._factory = new QuestionFactory()
-    this._content_manager = new QuizzContentManager()
+    this._content_manager = content_manager || new QuizzContentManager()
     this.questions = []
 
     /**
@@ -857,8 +941,10 @@ function Team(name) {
         this.score = 0
     }
 }
-
-function TeamsManager() {
+/**
+ * @param {QuizzContentManager} content_manager
+ */
+function TeamsManager(content_manager) {
     this.current_index = -1
     this.teams = []
     this._score_history = []
