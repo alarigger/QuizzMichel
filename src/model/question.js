@@ -80,6 +80,7 @@ function Question() {
         this.atempts += 1
         return this
     }
+
     /**
      * 
      * @returns {QuizzContent}
@@ -87,6 +88,7 @@ function Question() {
     this.get_content = function () {
         return this.content.value
     }
+    
     this.burn = function () {
         this.is_burned = true
         return this
@@ -118,7 +120,6 @@ function QuestionManager(content_manager) {
         for (var q in _list) {
             const qdata = _list[q]
             var nquest = this._factory.create(qdata)
-            console.log(nquest.name)
             this._preload_question_data(nquest)
             this.questions.push(nquest)
         }
@@ -130,7 +131,6 @@ function QuestionManager(content_manager) {
      * @param {Question} question
      */
     this._preload_question_data = function (question) {
-        console.log("preload content")
         this._content_manager.preload(question, question.content);
         this._content_manager.preload(question, question.correction);
         this._content_manager.preload(question, question.background);
@@ -138,8 +138,6 @@ function QuestionManager(content_manager) {
             this._content_manager.preload(question, option.content);
         });
     };
-
-
 
     /**
      * @param {int} _int 
@@ -168,6 +166,7 @@ function QuestionManager(content_manager) {
         this.current_index = 0
         return this.questions[this.current_index]
     }
+
     /**
      * 
      * @returns {bool}
@@ -175,6 +174,7 @@ function QuestionManager(content_manager) {
     this.is_last = function () {
         return this.current_index == this.limit - 1
     }
+
     /**
      * 
      * @returns {bool}

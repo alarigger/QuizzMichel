@@ -150,7 +150,11 @@ class SoundBank {
      * 🎵 MUSIC SYSTEM WITH FADE
      */
     playAsMusic(group, { fadeTime = 1500, loop = true } = {}) {
+
         const list = this.groups[group];
+        if(list==undefined){
+            return
+        }
         const newMusic = list[Math.floor(Math.random() * list.length)];
         if (!newMusic) {
             console.warn(`Music '${name}' not found`);

@@ -1,14 +1,18 @@
 const QUIZZ_DATA = {
     game: {
-        name: "otaquizz",
-        backgrounds: [
-
-        ],
+        name: "otaquizz"
     },
-    audio: [
+
+    shuffle_options: false,
+    question_limit: 2,
+    teams: ["Zebres", "Naruto", "Sylvanias", "Totoro"],
+    backgrounds:[
+        { name:"result", image: [{ type: "image", value: "dance_anime.webp" }] }
+    ],
+    audio: [     
         {
-            name: "correct",
-            sound: [{ type: "audio", value: "arcade.mp3" }],
+            name: "select",
+            sound: [{ type: "audio", value: "coin.mp3" }],
         }
         , {
             name: "correct",
@@ -51,10 +55,6 @@ const QUIZZ_DATA = {
             sound: [{ type: "audio", value: "bloub.mp3" }],
         }
         , {
-            name: "music_grid",
-            sound: [{ type: "audio", value: "bloub.mp3" }],
-        }
-        , {
             name: "music_easy",
             sound: [{ type: "audio", value: "AC.mp3" }],
         }
@@ -77,13 +77,10 @@ const QUIZZ_DATA = {
             sound: [{ type: "audio", value: "AA.mp3" }],
         }
         , {
-            name: "music_End",
+            name: "final",
             sound: [{ type: "audio", value: "EDN.mp3" }],
         }
     ],
-    shuffle_options: false,
-    question_limit: 200,
-    teams: ["Zebres", "Naruto", "Sylvanias", "Totoro"],
     categories: [
         {
             name: "FOOD",
@@ -94,13 +91,11 @@ const QUIZZ_DATA = {
         {
             name: "LIT",
             title: "💬Lost In Translation💬",
-            background_image: [{ type: "image", value: "FOOD_WALLPAPER.PNG" }],
             background_music: []
         },
         {
             name: "BO",
             title: "🎶Pon Pon Pouet🎶",
-            background_image: [{ type: "image", value: "FOOD_WALLPAPER.PNG" }],
             background_music: []
         },
         {
@@ -118,13 +113,11 @@ const QUIZZ_DATA = {
         {
             name: "POKE",
             title: "Who's that pokemon ? ",
-            background_image: [{ type: "image", value: "FOOD_WALLPAPER.PNG" }],
             background_music: []
         },
         {
             name: "IKE",
             title: "🤓Ikemen à lunettes🤓",
-            background_image: [{ type: "image", value: "FOOD_WALLPAPER.PNG" }],
             background_music: []
         },
     ],
@@ -138,9 +131,6 @@ const QUIZZ_DATA = {
                 { type: "image", value: "FOOD_HOWL_Q.png" }
             ],
             correction: [
-                { type: "image", value: "FOOD_HOWL_A.png" }
-            ],
-            background: [
                 { type: "image", value: "FOOD_HOWL_A.png" }
             ],
             is_demo: false,

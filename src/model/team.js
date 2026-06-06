@@ -49,9 +49,6 @@ function TeamsManager(content_manager) {
         return this
     }
     this.next = function () {
-        console.log("NEXT")
-        console.log(this.current_index)
-
         if (this.current_index < this.teams.length - 1) {
             this.current_index += 1
             return this.teams[this.current_index]
@@ -101,7 +98,6 @@ function TeamsManager(content_manager) {
 
         for (t = 0; t < this.teams.length; t++) {
             const cur_team = this.teams[t]
-            console.log(cur_team.score)
             if (cur_team.score > high_score) {
                 high_score = cur_team.score
                 winners = [cur_team.name]

@@ -25,12 +25,7 @@ function Game() {
      * @returns {Game}
      */
     this.add_state = function (state_name, _render_function, _update_function, _validate_function) {
-        console.log(state_name)
-        console.log(_render_function)
-        console.log(_update_function)
-        console.log(_validate_function)
         var state = new GameState(state_name, _render_function, _update_function, _validate_function)
-
         this.state_table[state_name] = state
         this.slides.register(state_name, state_name)
         return this

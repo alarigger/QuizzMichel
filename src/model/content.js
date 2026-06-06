@@ -101,7 +101,6 @@ function QuizzContentManager(game_name) {
 
     this.preload = function (data_object, content) {
         if (!content) return;
-        // ARRAY SUPPORT
         if (Array.isArray(content)) {
             content.forEach(co => this.preload(data_object, co));
             return;

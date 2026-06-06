@@ -1,18 +1,23 @@
 function Quizz(name){
+
     var _content_manager = new QuizzContentManager(name)
     this.teams = new TeamsManager(_content_manager)
     this.questions = new QuestionManager(_content_manager)
     this.categories = new CategoryManager(_content_manager)
     this.sounds = new GameSoundManager(_content_manager)
+    this.backgrounds = new BackgroundManager(_content_manager)
+    this.valid = false
     this.load= function(quizz_data){
         this.sounds.load(quizz_data.audio)
         this.categories.load(quizz_data.categories)
         this.questions.load(quizz_data.questions)
         this.teams.load(quizz_data.teams)
+        this.backgrounds.load(quizz_data.backgrounds)
         this.questions.set_limit(quizz_data.question_limit)
         if(quizz_data.shuffle_options){
             this.questions.shuffle_options()
         }
+        console.log("quizz data loaded ")
     }
     this.restart = function(){
         this.questions.restart()
@@ -89,6 +94,11 @@ function Quizz(name){
     this.select_question = function(id){
         return this.questions.select_question(id)
     }    
+    /**
+     * 
+     * @param {*} id 
+     * @returns {Team}
+     */
     this.select_team = function(id){
         return this.teams.select_team(id)
     }    
@@ -103,11 +113,9 @@ function Quizz(name){
      * @returns {Category}
      */
     this.get_question_category = function(question){
-
         if(question.categories.length==0){
             return 
         }
-        console.log(question.categories)
         var first_cat = question.categories[0]
         return this.categories.get_category(first_cat)
     }    

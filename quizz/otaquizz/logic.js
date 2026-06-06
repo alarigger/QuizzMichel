@@ -5,9 +5,7 @@
 // ------------------------------
 
 
-let selected_option = 0;
-let selected_team = 0;
-var VALID = false
+
 
 /* loading game data */
 var quizz = new Quizz("otaquizz")
@@ -15,6 +13,8 @@ quizz.load(QUIZZ_DATA)
 var game = new Game()
 game.unlock()
 
+// question answered correctly 
+quizz.valid = false
 
 function play_point_music(question) {
     quizz.sounds.stop_music();
@@ -36,7 +36,9 @@ game.add_state("intro", function (id) {
 
     reset_background()
     document.getElementById(id).innerHTML = "";
-    addCenteredImage(id, "quizz/otaquizz/splash_screen.png",)
+    addCenteredImage(id, "quizz/otaquizz/otaquizz.jpg")
+    var background = quizz.backgrounds.get_background("result")
+
 
 })
 game.add_state("menu", function (id) {
@@ -166,6 +168,7 @@ game.add_state("jeopardy", function (id, state) {
             !selected_cell.classList.contains("empty") &&
             !selected_cell.classList.contains("burned")
         ){
+            quizz.sounds.play_random("select")
             const question_id = selected_cell.dataset.questionId;
             const question = quizz.select_question(question_id);
             const category = quizz.get_question_category(question)
@@ -184,11 +187,10 @@ game.add_state("jeopardy", function (id, state) {
 game.add_state("question", function (id, state) {
 
 
-    VALID = false
+    quizz.valid = false
     const question = quizz.get_current_question();
     const category = quizz.get_question_category(question)
     var background = question.get_background_image() || category.get_background_image()
-    console.log(background)
     if(background){
         set_background_image(background.asset)
     }
@@ -206,7 +208,6 @@ game.add_state("question", function (id, state) {
     game.cursor_position.x = 0
     game.cursor_position.y = 0
     const index = game.get_selected_index()
-    console.log(`select ${index} `)
     document.querySelectorAll(".option").forEach(el => el.classList.remove("selected"));
     document.querySelectorAll(".option")[index].classList.add("selected");
 
@@ -214,7 +215,6 @@ game.add_state("question", function (id, state) {
     quizz.sounds.play("option")
     game.cursor_position.x = 0
     const index = game.get_selected_index()
-    console.log(`select ${index} `)
     document.querySelectorAll(".option").forEach(el => el.classList.remove("selected"));
     document.querySelectorAll(".option")[index].classList.add("selected");
 
@@ -239,19 +239,19 @@ game.add_state("correction", function (id) {
     card.className = "card correction";
     card.id = "card";
     const chosen = question.options[game.get_selected_index()];
-    VALID = chosen.valid === true;
+    quizz.valid = chosen.valid === true;
     // sound
-    if (VALID) {
+    if (quizz.valid) {
         quizz.sounds.play_random("correct")
     } else {
         quizz.sounds.play_random("incorrect")
     }
 
     const verdict = document.createElement("h1");
-    verdict.textContent = VALID ? "Bonne réponse !" : "Mauvaise réponse !";
+    verdict.textContent = quizz.valid ? "Bonne réponse !" : "Mauvaise réponse !";
     card.appendChild(verdict);
 
-    if (VALID) {
+    if (quizz.valid) {
         question.burn()
         if (question.correction) {
             card.appendChild(renderContentList(question.correction));
@@ -260,7 +260,7 @@ game.add_state("correction", function (id) {
     }
 
     // background
-    card.style.backgroundColor = VALID ? "#82e082" : "#ff8b8b";
+    card.style.backgroundColor = quizz.valid ? "#82e082" : "#ff8b8b";
     card.style.transition = "background-color 0.3s ease";
     const container = document.getElementById(id);
     container.innerHTML = "";
@@ -276,7 +276,7 @@ game.add_state("correction", function (id) {
     console.log("ATEMPS")
     console.log(question.atempts)
     quizz.sounds.resume_music()
-    if (VALID) {
+    if (quizz.valid) {
         game.apply_state("attribution");
     } else {
         if(question.atempts <= max_retry){
@@ -296,13 +296,8 @@ game.add_state("correction", function (id) {
 //======================ATTRIBUTION========================
 game.add_state("attribution", function (id, state) {
 
-
     reset_background()
-
-    console.log("VALID " + VALID)
-
     const teams = quizz.get_teams()
-
     state.rows = teams.length
     state.columns = 1
     game.reload_grid()
@@ -341,7 +336,12 @@ game.add_state("attribution", function (id, state) {
     quizz.sounds.play("attribution")
     if (selectedTeam) {
         const teamId = selectedTeam.dataset.teamId; // or Number(...)
-        quizz.select_team(teamId);
+        const chosen_team  = quizz.select_team(teamId);
+        const question = quizz.get_current_question();
+        var points = question.points
+        if (quizz.valid == true && question.is_demo == false) {
+            chosen_team.increment_score(points)
+        }
     }
     if(quizz.all_burned()){
         game.apply_state("result");
@@ -359,11 +359,7 @@ game.add_state("score", function (id, state) {
     game.lock()
 
     const chosen_team = quizz.get_current_team()
-    const question = quizz.get_current_question();
-    var points = question.points
-    if (VALID == true && question.is_demo == false) {
-        chosen_team.increment_score(points)
-    }
+
     const card = document.createElement("div");
     card.className = "card";
     card.id = "card";
@@ -391,6 +387,11 @@ game.add_state("result", function (id, state) {
     card.id = "card";
     var winner_team_names = quizz.get_winners()
 
+    quizz.sounds.play_music("final")
+    var final_background = quizz.backgrounds.get_background("result")
+    console.log(final_background)
+    set_background_image(final_background.get_image())
+
     const winner_text = winner_team_names.length > 1
         ? `Égalité entre ${winner_team_names.join(" & ")} !`
         : `Team ${winner_team_names[0]} remporte le quizz !`;
@@ -406,11 +407,7 @@ game.add_state("result", function (id, state) {
     `;
     document.getElementById(id).innerHTML = "";
     document.getElementById(id).appendChild(card);
-
     spawn_confetti()
-
-    setRandomBg()
-
     game.unlock()
 
 }, function (id, state) {

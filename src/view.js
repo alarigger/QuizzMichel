@@ -118,8 +118,8 @@ function QuestionView(question) {
         
         // Name pill
         const qname = document.createElement("div");
-        points.className = "category-pill";
-        points.innerHTML = `${question.name ?? 0}`;
+        qname.className = "category-pill";
+        qname.innerHTML = `${question.name ?? 0}`;
         meta.appendChild(qname);
 
         // Category pills
@@ -316,9 +316,6 @@ function render_scores_podium(quizz,name,glowing_teams_names,slow) {
     const max_score = Math.max(...Object.values(scores), 1);
 
     var suffix = name || "score"
-
-    console.log(scores)
-
     var html = `
     <div id="podium" style="
         display: flex;
@@ -500,7 +497,6 @@ class ImageCarousel {
         if (!this.container) throw new Error("Carousel container not found.");
 
         this.images = imageList;
-        console.log(this.images)
         this.index = 0;
 
         this.imgElement = document.createElement("img");
@@ -519,7 +515,6 @@ class ImageCarousel {
         this.imgElement.style.opacity = 0;
 
         setTimeout(() => {
-            console.log(this.images[i])
             this.imgElement.src = this.images[i];
             this.imgElement.style.opacity = 1;
         }, 200);
