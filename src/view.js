@@ -657,7 +657,7 @@ function spawn_candles() {
     const centerX = window.innerWidth / 2;
     const centerY = window.innerHeight / 2;
 
-    const radius = 350; // circle size
+    const radius = 450; // circle size
 
     const candles = [];
 

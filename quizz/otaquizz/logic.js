@@ -36,11 +36,8 @@ game.add_state("intro", function (id) {
     reset_background()
     document.getElementById(id).innerHTML = "";
     addCenteredImage(id, "quizz/otaquizz/otaquizz.jpg")
-    
-
 }, function (id) {
-    quizz.sounds.play_random("waaw")
-    spawn_candles()
+
 }, function (id) {
     game.next_state();
 })

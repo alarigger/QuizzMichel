@@ -2,7 +2,6 @@ const QUIZZ_DATA = {
     game: {
         name: "otaquizz"
     },
-
     shuffle_options: false,
     question_limit: 2,
     teams: ["Zebres", "Naruto", "Sylvanias", "Totoro"],
