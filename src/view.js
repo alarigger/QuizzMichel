@@ -653,6 +653,50 @@ function spawn_confetti() {
     }
 }
 
+function spawn_candles() {
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+
+    const radius = 350; // circle size
+
+    const candles = [];
+
+    for (let i = 0; i < 40; i++) {
+        const candle = document.createElement("div");
+
+        candle.textContent = "🕯️";
+        candle.style.position = "fixed";
+        candle.style.fontSize = (20 + Math.random() * 12) + "px";
+        candle.style.zIndex = 9999;
+        candle.style.pointerEvents = "none";
+
+        document.body.appendChild(candle);
+
+        candles.push({
+            el: candle,
+            angle: (i / 40) * Math.PI * 2, // evenly spaced
+            speed: 0.001 + Math.random() * 0.001, // rotation speed
+            radius: radius + (Math.random() * 40 - 20) // slight variation
+        });
+    }
+
+    function animate() {
+        for (const c of candles) {
+            c.angle += c.speed;
+
+            const x = centerX + Math.cos(c.angle) * c.radius;
+            const y = centerY + Math.sin(c.angle) * c.radius;
+
+            c.el.style.left = x + "px";
+            c.el.style.top = y + "px";
+        }
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+}
+
 
 const palettes = [
     "linear-gradient(135deg,#1a2a6c,#b21f1f,#fdbb2d)",

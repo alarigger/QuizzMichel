@@ -33,15 +33,21 @@ function play_point_music(question) {
 /*======================INTRO===========================*/
 game.add_state("intro", function (id) {
     quizz.restart()
-
     reset_background()
     document.getElementById(id).innerHTML = "";
     addCenteredImage(id, "quizz/otaquizz/otaquizz.jpg")
-    var background = quizz.backgrounds.get_background("result")
+    
 
-
+}, function (id) {
+    quizz.sounds.play_random("waaw")
+    spawn_candles()
+}, function (id) {
+    game.next_state();
 })
 game.add_state("menu", function (id) {
+
+}, function (id) {
+
 
 }, function (id) {
     game.next_state();
@@ -87,7 +93,7 @@ game.add_state("jeopardy", function (id, state) {
     // Render board
     const board = document.createElement("div");
     board.className = "jeopardy-board";
-    board.style.gridTemplateColumns =`repeat(${this.categories.length}, 1fr)`;
+    board.style.gridTemplateColumns = `repeat(${this.categories.length}, 1fr)`;
 
     // Headers
     this.categories.forEach(category => {
@@ -154,25 +160,25 @@ game.add_state("jeopardy", function (id, state) {
     cells.forEach(c => c.classList.remove("selected"));
     const index = game.get_selected_index();
     const selected_cell = cells[index];
-    if (selected_cell){
+    if (selected_cell) {
         selected_cell.classList.add("selected");
     }
 
 }, function (id, state) {
-    
+
     const cells = document.querySelectorAll(".jeopardy-cell");
     const index = game.get_selected_index();
     const selected_cell = cells[index];
-    if (selected_cell){
-        if(
+    if (selected_cell) {
+        if (
             !selected_cell.classList.contains("empty") &&
             !selected_cell.classList.contains("burned")
-        ){
+        ) {
             quizz.sounds.play_random("select")
             const question_id = selected_cell.dataset.questionId;
             const question = quizz.select_question(question_id);
             const category = quizz.get_question_category(question)
-            if(category.name!="BO"){
+            if (category.name != "BO") {
                 play_point_music(question)
             }
             game.next_state();
@@ -191,7 +197,7 @@ game.add_state("question", function (id, state) {
     const question = quizz.get_current_question();
     const category = quizz.get_question_category(question)
     var background = question.get_background_image() || category.get_background_image()
-    if(background){
+    if (background) {
         set_background_image(background.asset)
     }
 
@@ -220,7 +226,7 @@ game.add_state("question", function (id, state) {
 
 }, function (id, state) {
     const question = quizz.get_current_question();
-    if(question){
+    if (question) {
         question.try()
     }
     game.next_state();
@@ -256,7 +262,6 @@ game.add_state("correction", function (id) {
         if (question.correction) {
             card.appendChild(renderContentList(question.correction));
         }
-    
     }
 
     // background
@@ -279,13 +284,16 @@ game.add_state("correction", function (id) {
     if (quizz.valid) {
         game.apply_state("attribution");
     } else {
-        if(question.atempts <= max_retry){
+        if (question.atempts <= max_retry) {
             game.apply_state("question");
-        }else{
+        } else {
             question.burn()
-            game.apply_state("score");
+            if(quizz.all_burned()){
+                game.apply_state("result")
+            }else{
+                game.apply_state("score");
+            }
         }
-        
     }
 });
 ;
@@ -321,6 +329,7 @@ game.add_state("attribution", function (id, state) {
     document.getElementById(id).appendChild(card);
 
 }, function (id) {
+    quizz.sounds.play("move")
     const index = game.get_selected_index();
     const teams = document.querySelectorAll(".team");
     teams.forEach(el => el.classList.remove("selected"));
@@ -336,16 +345,16 @@ game.add_state("attribution", function (id, state) {
     quizz.sounds.play("attribution")
     if (selectedTeam) {
         const teamId = selectedTeam.dataset.teamId; // or Number(...)
-        const chosen_team  = quizz.select_team(teamId);
+        const chosen_team = quizz.select_team(teamId);
         const question = quizz.get_current_question();
         var points = question.points
         if (quizz.valid == true && question.is_demo == false) {
             chosen_team.increment_score(points)
         }
     }
-    if(quizz.all_burned()){
+    if (quizz.all_burned()) {
         game.apply_state("result");
-    }else{
+    } else {
         game.next_state();
     }
 });
@@ -363,7 +372,7 @@ game.add_state("score", function (id, state) {
     const card = document.createElement("div");
     card.className = "card";
     card.id = "card";
-    card.innerHTML = render_scores_podium(quizz,"score",[chosen_team.name]);
+    card.innerHTML = render_scores_podium(quizz, "score", [chosen_team.name]);
     document.getElementById(id).innerHTML = "";
     document.getElementById(id).appendChild(card);
 
@@ -372,9 +381,7 @@ game.add_state("score", function (id, state) {
 }, function (id, state) {
 
 }, function (id, state) {
-
     game.next_state();
-
 });
 
 //======================RESULT========================
@@ -411,19 +418,26 @@ game.add_state("result", function (id, state) {
     game.unlock()
 
 }, function (id, state) {
-
+    quizz.sounds.play_random("waaw")
+    spawn_confetti()
 }, function (id, state) {
-
+    game.next_state();
 });
 
 
 //======================OUTRO========================
 game.add_state("outro", function (id) {
+    quizz.restart()
+    quizz.sounds.play_music("music_outro")
+    reset_background()
+    document.getElementById(id).innerHTML = "";
+    addCenteredImage(id, "quizz/otaquizz/otaquizz.jpg")
 
 }, function (id, state) {
-
+    quizz.sounds.play_random("waaw")
+    spawn_candles()
 }, function (id, state) {
-
+    game.next_state();
 });
 
 // Connections 
@@ -456,12 +470,12 @@ document.addEventListener("keydown", (e) => {
         game.cursor_up()
         game.update();
     }
-    
+
     if (e.key === "ArrowLeft") {
         game.cursor_left()
         game.update();
     }
-    
+
     if (e.key === "ArrowRight") {
         game.cursor_rigth()
         game.update();

@@ -6,10 +6,18 @@ const QUIZZ_DATA = {
     shuffle_options: false,
     question_limit: 2,
     teams: ["Zebres", "Naruto", "Sylvanias", "Totoro"],
-    backgrounds:[
-        { name:"result", image: [{ type: "image", value: "dance_anime.webp" }] }
+    backgrounds: [
+        { name: "result", image: [{ type: "image", value: "dance_anime.webp" }] }
     ],
-    audio: [     
+    audio: [
+         {
+            name: "music_intro",
+            sound: [{ type: "audio", value: "GG.mp3" }],
+        },         
+        {
+            name: "waaw",
+            sound: [{ type: "audio", value: "waaaw.mp3" }],
+        },
         {
             name: "select",
             sound: [{ type: "audio", value: "coin.mp3" }],
@@ -79,6 +87,10 @@ const QUIZZ_DATA = {
         , {
             name: "final",
             sound: [{ type: "audio", value: "EDN.mp3" }],
+        }
+        , {
+            name: "music_outro",
+            sound: [{ type: "audio", value: "ENG.mp3" }],
         }
     ],
     categories: [
