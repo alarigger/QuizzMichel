@@ -51,6 +51,15 @@ function GameSoundManager(content_manager){
     }    
     this.play_music = function(group_name){
         this._bank.playAsMusic(group_name)
+    }    
+    this.stop_music = function(){
+        this._bank.stopMusic()
+    }
+    this.pause_music = function(){
+        this._bank.pauseMusic()
+    }    
+    this.resume_music = function(){
+        this._bank.resumeMusic()
     }
     this.play = function(name){
         this._bank.play(name)
@@ -126,12 +135,23 @@ class SoundBank {
         sound.play();
     }
 
+    pauseMusic(){
+        if (this.current_music) {
+            this._fadeOutAndPause(this.current_music)
+        }
+    }    
+    resumeMusic(){
+        if (this.current_music) {
+            this._fadeInAndPlay(this.current_music)
+        }
+    }
+
     /**
      * 🎵 MUSIC SYSTEM WITH FADE
      */
-    playAsMusic(name, { fadeTime = 1500, loop = true } = {}) {
-        const newMusic = this.sounds[name];
-
+    playAsMusic(group, { fadeTime = 1500, loop = true } = {}) {
+        const list = this.groups[group];
+        const newMusic = list[Math.floor(Math.random() * list.length)];
         if (!newMusic) {
             console.warn(`Music '${name}' not found`);
             return;
@@ -190,12 +210,43 @@ class SoundBank {
      */
     stopMusic() {
         if (this.current_music) {
-            this.current_music.pause();
+            this._fadeOutAndPause(this.current_music);
             this.current_music.currentTime = 0;
         }
         this.current_music = null;
     }
-}
+    _fadeOutAndPause(audio, duration = 1000) {
+        const stepTime = 50;
+        const step = audio.volume / (duration / stepTime);
+
+        const fade = setInterval(() => {
+            audio.volume = Math.max(0, audio.volume - step);
+
+            if (audio.volume <= 0) {
+            clearInterval(fade);
+            audio.pause();
+            audio.volume = 0;
+            }
+        }, stepTime);
+    }
+
+    _fadeInAndPlay(audio, duration = 1000) {
+        audio.play();
+        audio.volume = 0;
+
+        const stepTime = 50;
+        const step = 1 / (duration / stepTime);
+
+        const fade = setInterval(() => {
+            audio.volume = Math.min(1, audio.volume + step);
+
+            if (audio.volume >= 1) {
+            clearInterval(fade);
+            audio.volume = 1;
+            }
+        }, stepTime);
+        }
+    }
 
 
 

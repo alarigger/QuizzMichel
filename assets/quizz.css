@@ -481,3 +481,19 @@
             transform: translateY(-2px) rotate(5deg);
         }
     }
+
+
+
+/* keep slides on top */
+.slides{
+  position: relative;
+  z-index: 10;
+}
+#snow-container {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+

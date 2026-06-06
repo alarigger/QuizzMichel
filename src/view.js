@@ -114,8 +114,13 @@ function QuestionView(question) {
         const points = document.createElement("div");
         points.className = "points-pill";
         points.innerHTML = `🏆 ${question.points ?? 0} pts`;
-
         meta.appendChild(points);
+        
+        // Name pill
+        const qname = document.createElement("div");
+        points.className = "category-pill";
+        points.innerHTML = `${question.name ?? 0}`;
+        meta.appendChild(qname);
 
         // Category pills
         (question.categories || []).forEach(cat => {

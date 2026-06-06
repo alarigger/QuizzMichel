@@ -91,6 +91,12 @@ function Question() {
         this.is_burned = true
         return this
     }
+    this.get_background_image = function(){
+        if(this.background.length==0){
+            return 
+        }
+        return this.background[0]
+    }
 }
 
 
@@ -254,6 +260,8 @@ function QuestionManager(content_manager) {
         }
         return list
     }
+
+
 
     function shuffleArray(arr) {
         for (let i = arr.length - 1; i > 0; i--) {

@@ -16,6 +16,20 @@ var game = new Game()
 game.unlock()
 
 
+function play_point_music(question) {
+    quizz.sounds.stop_music();
+    const music_name =
+        [
+            { name: "music_easy", points: [100, 200] },
+            { name: "music_medium", points: [300, 400] },
+            { name: "music_hard", points: [500, 600] },
+            { name: "music_epic", points: [700] }
+        ].find(m => m.points.includes(question.points))?.name ?? "music_easy";
+
+    quizz.sounds.play_music(music_name);
+}
+
+
 /*======================INTRO===========================*/
 game.add_state("intro", function (id) {
     quizz.restart()
@@ -36,6 +50,8 @@ game.add_state("menu", function (id) {
 game.add_state("jeopardy", function (id, state) {
 
     reset_background()
+    quizz.sounds.stop_music()
+    quizz.sounds.play_music("music_grid")
 
     const questions = quizz.get_questions();
 
@@ -151,7 +167,11 @@ game.add_state("jeopardy", function (id, state) {
             !selected_cell.classList.contains("burned")
         ){
             const question_id = selected_cell.dataset.questionId;
-            quizz.select_question(question_id);
+            const question = quizz.select_question(question_id);
+            const category = quizz.get_question_category(question)
+            if(category.name!="BO"){
+                play_point_music(question)
+            }
             game.next_state();
         }
     }
@@ -166,19 +186,19 @@ game.add_state("question", function (id, state) {
 
     VALID = false
     const question = quizz.get_current_question();
-
     const category = quizz.get_question_category(question)
-
-    console.log(category)
-    console.log(category.get_background_image())
-
-    set_background_image(category.get_background_image().asset)
+    var background = question.get_background_image() || category.get_background_image()
+    console.log(background)
+    if(background){
+        set_background_image(background.asset)
+    }
 
     if (question != undefined) {
         const view = new QuestionView(question);
         view.render(id);
 
     }
+
 
     state.rows = question.options.length
     state.columns = 1
@@ -211,6 +231,8 @@ game.add_state("question", function (id, state) {
 
 //======================CORRECTION========================
 game.add_state("correction", function (id) {
+
+    quizz.sounds.pause_music()
 
     const question = quizz.get_current_question();
     const card = document.createElement("div");
@@ -253,6 +275,7 @@ game.add_state("correction", function (id) {
     const question = quizz.get_current_question();
     console.log("ATEMPS")
     console.log(question.atempts)
+    quizz.sounds.resume_music()
     if (VALID) {
         game.apply_state("attribution");
     } else {
@@ -272,6 +295,7 @@ game.add_state("correction", function (id) {
 
 //======================ATTRIBUTION========================
 game.add_state("attribution", function (id, state) {
+
 
     reset_background()
 

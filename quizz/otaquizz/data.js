@@ -41,7 +41,7 @@ const QUIZZ_DATA = {
         , {
             name: "move",
             sound: [{ type: "audio", value: "grid_move.mp3" }],
-        }        
+        }
         , {
             name: "option",
             sound: [{ type: "audio", value: "option.mp3" }],
@@ -51,64 +51,79 @@ const QUIZZ_DATA = {
             sound: [{ type: "audio", value: "bloub.mp3" }],
         }
         , {
-            name: "music",
-            sound: [{ type: "audio", value: "anime.mp3" }],
+            name: "music_grid",
+            sound: [{ type: "audio", value: "bloub.mp3" }],
         }
         , {
-            name: "final",
+            name: "music_easy",
+            sound: [{ type: "audio", value: "AC.mp3" }],
+        }
+        , {
+            name: "music_medium",
+            sound: [{ type: "audio", value: "FW.mp3" }],
+        }
+        , {
+            name: "music_medium",
+            sound: [{ type: "audio", value: "BBB.mp3" }],
+        }
+        , {
+            name: "music_hard",
+            sound: [{ type: "audio", value: "SF.mp3" }],
+        }, {
+            name: "music_hard",
+            sound: [{ type: "audio", value: "FFVII.mp3" }],
+        }, {
+            name: "music_epic",
+            sound: [{ type: "audio", value: "AA.mp3" }],
+        }
+        , {
+            name: "music_End",
             sound: [{ type: "audio", value: "EDN.mp3" }],
         }
     ],
     shuffle_options: false,
-    question_limit: 30,
+    question_limit: 200,
     teams: ["Zebres", "Naruto", "Sylvanias", "Totoro"],
     categories: [
         {
             name: "FOOD",
             title: "🍣Buffet🍕",
-            hero_image: { type: "image", value: "FOOD_HOWL_Q.png" },
             background_image: [{ type: "image", value: "FOOD_WALLPAPER.PNG" }],
             background_music: []
         },
         {
             name: "LIT",
             title: "💬Lost In Translation💬",
-            hero_image: { type: "image", value: "FOOD_HOWL_Q.png" },
             background_image: [{ type: "image", value: "FOOD_WALLPAPER.PNG" }],
             background_music: []
         },
         {
             name: "BO",
             title: "🎶Pon Pon Pouet🎶",
-            hero_image: { type: "image", value: "FOOD_HOWL_Q.png" },
             background_image: [{ type: "image", value: "FOOD_WALLPAPER.PNG" }],
             background_music: []
         },
         {
             name: "BG",
             title: "🏔️Shoutout à l'équipe BG🏔️",
-            hero_image: { type: "image", value: "FOOD_HOWL_Q.png" },
             background_image: [{ type: "image", value: "BG_Wallpaper.PNG" }],
             background_music: []
         },
         {
             name: "TRO",
             title: "👀Trop près👀",
-            hero_image: { type: "image", value: "FOOD_HOWL_Q.png" },
             background_image: [{ type: "image", value: "TOOCLOSEwallpaper.PNG" }],
             background_music: []
         },
         {
             name: "POKE",
             title: "Who's that pokemon ? ",
-            hero_image: { type: "image", value: "FOOD_HOWL_Q.png" },
             background_image: [{ type: "image", value: "FOOD_WALLPAPER.PNG" }],
             background_music: []
-        },        
+        },
         {
             name: "IKE",
             title: "🤓Ikemen à lunettes🤓",
-            hero_image: { type: "image", value: "FOOD_HOWL_Q.png" },
             background_image: [{ type: "image", value: "FOOD_WALLPAPER.PNG" }],
             background_music: []
         },
@@ -117,7 +132,7 @@ const QUIZZ_DATA = {
         {
             name: "foodQ1",
             categories: ["FOOD"],
-            type: "QCM",
+
             points: 100,
             content: [
                 { type: "image", value: "FOOD_HOWL_Q.png" }
@@ -137,7 +152,7 @@ const QUIZZ_DATA = {
         {
             name: "foodQ2",
             categories: ["FOOD"],
-            type: "QCM",
+
             points: 200,
             content: [
                 { type: "image", value: "FOOD_DUNGEON_MESHI_Q.webp" }
@@ -154,7 +169,7 @@ const QUIZZ_DATA = {
         {
             name: "foodQ3",
             categories: ["FOOD"],
-            type: "QCM",
+
             points: 300,
             content: [
                 { type: "image", value: "FOOD_TOKYOGF_Q.png" }
@@ -171,7 +186,7 @@ const QUIZZ_DATA = {
         {
             name: "foodQ4",
             categories: ["FOOD"],
-            type: "QCM",
+
             points: 400,
             content: [
                 { type: "image", value: "FOOD_FRIEREN_Q.png" }
@@ -187,7 +202,7 @@ const QUIZZ_DATA = {
         }, {
             name: "foodQ5",
             categories: ["FOOD"],
-            type: "QCM",
+
             points: 500,
             content: [
                 { type: "image", value: "FOOD_SPIRITEDAWAY_Q.PNG" }
@@ -204,7 +219,7 @@ const QUIZZ_DATA = {
         , {
             name: "foodQ6",
             categories: ["FOOD"],
-            type: "QCM",
+
             points: 600,
             content: [
                 { type: "image", value: "FOOD_DEATHNOTE_Q.PNG" }
@@ -221,7 +236,7 @@ const QUIZZ_DATA = {
         , {
             name: "foodQ7",
             categories: ["FOOD"],
-            type: "QCM",
+
             points: 700,
             content: [
                 { type: "image", value: "FOOD_ONEPIECE_Q.webp" }
@@ -239,7 +254,7 @@ const QUIZZ_DATA = {
         , {
             name: "LITQ1",
             categories: ["LIT"],
-            type: "QCM",
+
             points: 100,
             content: [
                 { type: "image", value: "LIT_Q1_Q.PNG" }
@@ -257,7 +272,7 @@ const QUIZZ_DATA = {
         , {
             name: "LITQ2",
             categories: ["LIT"],
-            type: "QCM",
+
             points: 200,
             content: [
                 { type: "image", value: "LIT_Q2_Q.PNG" }
@@ -275,7 +290,7 @@ const QUIZZ_DATA = {
         , {
             name: "LITQ3",
             categories: ["LIT"],
-            type: "QCM",
+
             points: 300,
             content: [
                 { type: "image", value: "LIT_Q3_Q.PNG" }
@@ -293,7 +308,7 @@ const QUIZZ_DATA = {
         , {
             name: "LITQ4",
             categories: ["LIT"],
-            type: "QCM",
+
             points: 400,
             content: [
                 { type: "image", value: "LIT_Q4_Q.PNG" }
@@ -311,7 +326,7 @@ const QUIZZ_DATA = {
         , {
             name: "LITQ5",
             categories: ["LIT"],
-            type: "QCM",
+
             points: 500,
             content: [
                 { type: "image", value: "LIT_Q5_Q.PNG" }
@@ -329,7 +344,7 @@ const QUIZZ_DATA = {
         , {
             name: "LITQ6",
             categories: ["LIT"],
-            type: "QCM",
+
             points: 600,
             content: [
                 { type: "image", value: "LIT_Q6_Q.PNG" }
@@ -347,7 +362,7 @@ const QUIZZ_DATA = {
         , {
             name: "LITQ7",
             categories: ["LIT"],
-            type: "QCM",
+
             points: 700,
             content: [
                 { type: "image", value: "LIT_Q7_Q.PNG" }
@@ -365,7 +380,7 @@ const QUIZZ_DATA = {
         , {
             name: "IKEQ1",
             categories: ["IKE"],
-            type: "QCM",
+
             points: 100,
             content: [
                 { type: "image", value: "Q.PNG" }
@@ -385,7 +400,7 @@ const QUIZZ_DATA = {
         , {
             name: "IKEQ2",
             categories: ["IKE"],
-            type: "QCM",
+
             points: 200,
             content: [
                 { type: "image", value: "Q.PNG" }
@@ -405,7 +420,7 @@ const QUIZZ_DATA = {
         , {
             name: "IKEQ3",
             categories: ["IKE"],
-            type: "QCM",
+
             points: 300,
             content: [
                 { type: "image", value: "Q.PNG" }
@@ -425,7 +440,7 @@ const QUIZZ_DATA = {
         , {
             name: "IKEQ4",
             categories: ["IKE"],
-            type: "QCM",
+
             points: 400,
             content: [
                 { type: "image", value: "Q.PNG" }
@@ -445,7 +460,7 @@ const QUIZZ_DATA = {
         , {
             name: "IKEQ5",
             categories: ["IKE"],
-            type: "QCM",
+
             points: 500,
             content: [
                 { type: "image", value: "Q.PNG" }
@@ -465,7 +480,7 @@ const QUIZZ_DATA = {
         , {
             name: "IKEQ6",
             categories: ["IKE"],
-            type: "QCM",
+
             points: 600,
             content: [
                 { type: "image", value: "Q.PNG" }
@@ -485,7 +500,7 @@ const QUIZZ_DATA = {
         , {
             name: "IKEQ7",
             categories: ["IKE"],
-            type: "QCM",
+
             points: 700,
             content: [
                 { type: "image", value: "Q.PNG" }
@@ -506,7 +521,7 @@ const QUIZZ_DATA = {
         , {
             name: "TROQ1",
             categories: ["TRO"],
-            type: "QCM",
+
             points: 100,
             content: [
                 { type: "image", value: "Q.gif" }
@@ -522,7 +537,7 @@ const QUIZZ_DATA = {
         }, {
             name: "TROQ2",
             categories: ["TRO"],
-            type: "QCM",
+
             points: 200,
             content: [
                 { type: "image", value: "Q.gif" }
@@ -537,8 +552,8 @@ const QUIZZ_DATA = {
             ]
         }, {
             name: "TROQ3",
-            categories: ["IKE"],
-            type: "QCM",
+            categories: ["TRO"],
+
             points: 300,
             content: [
                 { type: "image", value: "Q.gif" }
@@ -554,7 +569,7 @@ const QUIZZ_DATA = {
         }, {
             name: "TROQ4",
             categories: ["TRO"],
-            type: "QCM",
+
             points: 400,
             content: [
                 { type: "image", value: "Q.gif" }
@@ -570,7 +585,7 @@ const QUIZZ_DATA = {
         }, {
             name: "TROQ5",
             categories: ["TRO"],
-            type: "QCM",
+
             points: 500,
             content: [
                 { type: "image", value: "Q.gif" }
@@ -585,8 +600,8 @@ const QUIZZ_DATA = {
             ]
         }, {
             name: "TROQ6",
-            categories: ["IKE"],
-            type: "QCM",
+            categories: ["TRO"],
+
             points: 600,
             content: [
                 { type: "image", value: "Q.gif" }
@@ -602,7 +617,7 @@ const QUIZZ_DATA = {
         }, {
             name: "TROQ7",
             categories: ["TRO"],
-            type: "QCM",
+
             points: 700,
             content: [
                 { type: "image", value: "Q.gif" }
@@ -617,10 +632,10 @@ const QUIZZ_DATA = {
             ]
         }
         /**************************************BO************** */
-, {
+        , {
             name: "BOQ1",
             categories: ["BO"],
-            type: "QCM",
+
             points: 100,
             content: [
                 { type: "image", value: "Q.PNG" }
@@ -629,7 +644,7 @@ const QUIZZ_DATA = {
                 { type: "image", value: "A.PNG" }
             ],
             background: [
-                { type: "image", value: "Q1wallpaper.PNG" }
+                { type: "image", value: "Q1walpaper.PNG" }
             ],
             is_demo: false,
             options: [
@@ -639,7 +654,7 @@ const QUIZZ_DATA = {
         }, {
             name: "BOQ2",
             categories: ["BO"],
-            type: "QCM",
+
             points: 200,
             content: [
                 { type: "image", value: "Q.PNG" }
@@ -658,7 +673,7 @@ const QUIZZ_DATA = {
         }, {
             name: "BOQ3",
             categories: ["BO"],
-            type: "QCM",
+
             points: 300,
             content: [
                 { type: "image", value: "Q.PNG" }
@@ -677,7 +692,7 @@ const QUIZZ_DATA = {
         }, {
             name: "BOQ4",
             categories: ["BO"],
-            type: "QCM",
+
             points: 400,
             content: [
                 { type: "image", value: "Q.PNG" }
@@ -696,7 +711,7 @@ const QUIZZ_DATA = {
         }, {
             name: "BOQ5",
             categories: ["BO"],
-            type: "QCM",
+
             points: 500,
             content: [
                 { type: "image", value: "Q.PNG" }
@@ -715,7 +730,7 @@ const QUIZZ_DATA = {
         }, {
             name: "BOQ6",
             categories: ["BO"],
-            type: "QCM",
+
             points: 600,
             content: [
                 { type: "image", value: "Q.PNG" }
@@ -734,7 +749,7 @@ const QUIZZ_DATA = {
         }, {
             name: "BOQ7",
             categories: ["BO"],
-            type: "QCM",
+
             points: 700,
             content: [
                 { type: "image", value: "Q.PNG" }
@@ -744,6 +759,119 @@ const QUIZZ_DATA = {
             ],
             background: [
                 { type: "image", value: "Q7wallpaper.PNG" }
+            ],
+            is_demo: false,
+            options: [
+                { content: "👍", valid: true },
+                { content: "👎", valid: false }
+            ]
+        }, {
+            name: "BGQ1",
+            categories: ["BG"],
+
+            points: 100,
+            content: [
+                { type: "image", value: "Q.PNG" }
+            ],
+            correction: [
+                { type: "image", value: "A.PNG" }
+            ],
+            is_demo: false,
+            options: [
+                { content: "👍", valid: true },
+                { content: "👎", valid: false }
+            ]
+        },
+        {
+            name: "BGQ2",
+            categories: ["BG"],
+
+            points: 200,
+            content: [
+                { type: "image", value: "Q.PNG" }
+            ],
+            correction: [
+                { type: "image", value: "A.PNG" }
+            ],
+            is_demo: false,
+            options: [
+                { content: "👍", valid: true },
+                { content: "👎", valid: false }
+            ]
+        }, {
+            name: "BGQ3",
+            categories: ["BG"],
+
+            points: 300,
+            content: [
+                { type: "image", value: "Q.PNG" }
+            ],
+            correction: [
+                { type: "image", value: "A.PNG" }
+            ],
+            is_demo: false,
+            options: [
+                { content: "👍", valid: true },
+                { content: "👎", valid: false }
+            ]
+        }, {
+            name: "BGQ4",
+            categories: ["BG"],
+
+            points: 400,
+            content: [
+                { type: "image", value: "Q.PNG" }
+            ],
+            correction: [
+                { type: "image", value: "A.PNG" }
+            ],
+            is_demo: false,
+            options: [
+                { content: "👍", valid: true },
+                { content: "👎", valid: false }
+            ]
+        }, {
+            name: "BGQ5",
+            categories: ["BG"],
+
+            points: 500,
+            content: [
+                { type: "image", value: "Q.PNG" }
+            ],
+            correction: [
+                { type: "image", value: "A.PNG" }
+            ],
+            is_demo: false,
+            options: [
+                { content: "👍", valid: true },
+                { content: "👎", valid: false }
+            ]
+        }, {
+            name: "BGQ6",
+            categories: ["BG"],
+
+            points: 600,
+            content: [
+                { type: "image", value: "Q.PNG" }
+            ],
+            correction: [
+                { type: "image", value: "A.PNG" }
+            ],
+            is_demo: false,
+            options: [
+                { content: "👍", valid: true },
+                { content: "👎", valid: false }
+            ]
+        }, {
+            name: "BGQ7",
+            categories: ["BG"],
+
+            points: 700,
+            content: [
+                { type: "image", value: "Q.PNG" }
+            ],
+            correction: [
+                { type: "image", value: "A.PNG" }
             ],
             is_demo: false,
             options: [
