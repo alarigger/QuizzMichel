@@ -3,16 +3,16 @@ const QUIZZ_DATA = {
         name: "otaquizz"
     },
     shuffle_options: false,
-    question_limit: 2,
-    teams: ["Zebres", "Naruto", "Sylvanias", "Totoro"],
+    question_limit: 200,
+    teams: ["Yamete", "Baka", "Yemorro", "Eleganiansson"],
     backgrounds: [
         { name: "result", image: [{ type: "image", value: "dance_anime.webp" }] }
     ],
     audio: [
-         {
+        {
             name: "music_intro",
             sound: [{ type: "audio", value: "GG.mp3" }],
-        },         
+        },
         {
             name: "waaw",
             sound: [{ type: "audio", value: "waaaw.mp3" }],
@@ -873,6 +873,130 @@ const QUIZZ_DATA = {
             ],
             correction: [
                 { type: "image", value: "A.PNG" }
+            ],
+            is_demo: false,
+            options: [
+                { content: "👍", valid: true },
+                { content: "👎", valid: false }
+            ]
+        }
+        /*********************************************************POKEMON */
+        , {
+            name: "POKQ1",
+            categories: ["POKE"],
+            points: 100,
+            content: [
+                { type: "image", value: "Q.PNG" }
+            ],
+            correction: [
+                { type: "image", value: "A.PNG" }
+            ], background: [
+                { type: "image", value: "Q1wallpaper.PNG" }
+            ],
+            is_demo: false,
+            options: [
+                { content: "👍", valid: true },
+                { content: "👎", valid: false }
+            ]
+        }
+    , {
+            name: "POKQ2",
+            categories: ["POKE"],
+            points: 200,
+            content: [
+                { type: "image", value: "Q.PNG" }
+            ],
+            correction: [
+                { type: "image", value: "A.PNG" }
+            ], background: [
+                { type: "image", value: "Q2wallpaper.PNG" }
+            ],
+            is_demo: false,
+            options: [
+                { content: "👍", valid: true },
+                { content: "👎", valid: false }
+            ]
+        }
+        , {
+            name: "POKQ3",
+            categories: ["POKE"],
+            points: 300,
+            content: [
+                { type: "image", value: "Q.PNG" }
+            ],
+            correction: [
+                { type: "image", value: "A.PNG" }
+            ], background: [
+                { type: "image", value: "Q3wallpaper.PNG" }
+            ],
+            is_demo: false,
+            options: [
+                { content: "👍", valid: true },
+                { content: "👎", valid: false }
+            ]
+        }
+        , {
+            name: "POKQ4",
+            categories: ["POKE"],
+            points: 400,
+            content: [
+                { type: "image", value: "Q.PNG" }
+            ],
+            correction: [
+                { type: "image", value: "A.PNG" }
+            ], background: [
+                { type: "image", value: "Q4wallpaper.PNG" }
+            ],
+            is_demo: false,
+            options: [
+                { content: "👍", valid: true },
+                { content: "👎", valid: false }
+            ]
+        }, {
+            name: "POKQ5",
+            categories: ["POKE"],
+            points: 500,
+            content: [
+                { type: "image", value: "Q.PNG" }
+            ],
+            correction: [
+                { type: "image", value: "A.PNG" }
+            ], background: [
+                { type: "image", value: "Q5wallpaper.PNG" }
+            ],
+            is_demo: false,
+            options: [
+                { content: "👍", valid: true },
+                { content: "👎", valid: false }
+            ]
+        }, {
+            name: "POKQ6",
+            categories: ["POKE"],
+            points: 600,
+            content: [
+                { type: "image", value: "Q.PNG" }
+            ],
+            correction: [
+                { type: "image", value: "A.PNG" }
+            ], background: [
+                { type: "image", value: "Q6wallpaper.PNG" }
+            ],
+            is_demo: false,
+            options: [
+                { content: "👍", valid: true },
+                { content: "👎", valid: false }
+            ]
+        }, {
+            name: "POKQ7",
+            categories: ["POKE"],
+            points: 700,
+            content: [
+                { type: "image", value: "Q.PNG" }
+            ],
+            correction: [
+                { type: "image", value: "A.PNG" }
+            ], background: [
+                { type: "image", value: "Q7wallpaper.PNG" }
             ],
             is_demo: false,
             options: [
