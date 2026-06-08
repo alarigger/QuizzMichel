@@ -115,7 +115,7 @@ function QuestionView(question) {
         points.className = "points-pill";
         points.innerHTML = `🏆 ${question.points ?? 0} pts`;
         meta.appendChild(points);
-        
+
         // Name pill
         const qname = document.createElement("div");
         qname.className = "category-pill";
@@ -147,11 +147,11 @@ function QuestionView(question) {
         container.innerHTML = "";
         container.appendChild(card);
 
-        if(question.background.length>0){
+        if (question.background.length > 0) {
             set_background_image(question.background[0].asset)
         }
     };
-    
+
 }
 
 
@@ -309,7 +309,7 @@ function animate_value(from, to, duration, callback) {
  * @param {Quizz} quizz 
  * @returns 
  */
-function render_scores_podium(quizz,name,glowing_teams_names,slow) {
+function render_scores_podium(quizz, name, glowing_teams_names, slow) {
     const previous_scores = quizz.get_previous_scores();
     const scores = quizz.get_current_scores();
     const teams = Object.keys(scores);
@@ -359,7 +359,7 @@ function render_scores_podium(quizz,name,glowing_teams_names,slow) {
     html += `</div>`;
 
     const animation_time = 100
-    const animation_factor = slow || 5 
+    const animation_factor = slow || 5
 
     // After HTML is placed in the DOM, animate the bars
     setTimeout(() => {
@@ -627,7 +627,7 @@ function spawn_confetti() {
         c.style.top = "-10px";
         c.style.width = "6px";
         c.style.height = "10px";
-        c.style.background = ["#4aa3ff", "#ff4ad8", "#ffe14a"][Math.random()*3|0];
+        c.style.background = ["#4aa3ff", "#ff4ad8", "#ffe14a"][Math.random() * 3 | 0];
         c.style.opacity = "0.9";
         c.style.transform = "rotate(45deg)";
         c.style.zIndex = 9999;
@@ -636,10 +636,10 @@ function spawn_confetti() {
 
         let y = 0;
         let x = (Math.random() - 0.5) * 2;
-        c.vy = 1+(Math.random()*1)
+        c.vy = 1 + (Math.random() * 1)
 
         const fall = setInterval(() => {
-            var vx = (Math.random()*2)-1
+            var vx = (Math.random() * 2) - 1
             x += vx
             y += c.vy;
             c.style.top = y + "px";
@@ -697,6 +697,157 @@ function spawn_candles() {
     animate();
 }
 
+
+
+const ImagePopup = (() => {
+
+    let overlay = null;
+    let popup = null;
+
+    function init() {
+        overlay = document.createElement("div");
+        overlay.style.position = "fixed";
+        overlay.style.inset = "0";
+        overlay.style.pointerEvents = "none";
+        overlay.style.zIndex = "9999";
+        overlay.style.overflow = "hidden";
+
+        popup = document.createElement("img");
+        popup.style.position = "absolute";
+        popup.style.left = "50%";
+        popup.style.maxWidth = "60vw";
+        popup.style.maxHeight = "60vh";
+
+        overlay.appendChild(popup);
+        document.body.appendChild(overlay);
+    }
+
+    function show(img, on_finish = null) {
+
+        if (!overlay) init();
+
+        const x_pos_range = ["50%", "30%", "80%", "20%"];
+        const x = x_pos_range[Math.floor(Math.random() * x_pos_range.length)];
+        const rot = (Math.random() * 30) - 15;
+
+        popup.src = img.src;
+
+        popup.style.left = x;
+
+        requestAnimationFrame(() => {
+
+            const h = popup.getBoundingClientRect().height;
+
+            // Completely hidden below screen
+            popup.style.bottom = `${-h}px`;
+
+            popup.style.transition =
+                "bottom 0.6s cubic-bezier(.2,.9,.3,1.2), transform 0.6s ease";
+
+            const up_speed = 800
+            const down_speed = up_speed * 1.5
+
+            requestAnimationFrame(() => {
+
+                const up_position = Math.round(0 - (h * 0.3))
+
+                // Visible position
+                popup.style.bottom = `${up_position}px`;
+                popup.style.transform =
+                    "translateX(-50%) rotate(8deg)";
+
+                setTimeout(() => {
+
+                    // Completely hidden again
+                    popup.style.bottom = `${-h}px`;
+                    popup.style.transform =
+                        "translateX(-50%) rotate(-8deg)";
+
+                    setTimeout(() => {
+                        overlay.remove();
+                        if (on_finish) on_finish();
+                    }, down_speed);
+
+                }, up_speed);
+            });
+        });
+    }
+
+    return { show };
+})();
+
+
+
+/**
+ * 
+ * @param {Image} img 
+ */
+/**
+ * @param {HTMLImageElement|Image} img
+ */
+function image_popup(img, on_finish = null) {
+
+    const overlay = document.createElement("div");
+    overlay.style.position = "fixed";
+    overlay.style.inset = "0";
+    overlay.style.pointerEvents = "none";
+    overlay.style.zIndex = "9999";
+    overlay.style.overflow = "hidden";
+
+    const popup = img.cloneNode(true);
+
+    const x_pos_range = ["50%", "30%", "80%", "20%"];
+
+    const x = x_pos_range[Math.floor(Math.random() * x_pos_range.length)];
+
+    popup.style.position = "absolute";
+    popup.style.left = x;
+    popup.style.maxWidth = "60vw";
+    popup.style.maxHeight = "60vh";
+    const random_rot = (Math.random() * 30) - 15; // -15 → +15
+    popup.style.transform = `translateX(-50%) rotate(${random_rot}deg)`;
+
+    overlay.appendChild(popup);
+    document.body.appendChild(overlay);
+
+    requestAnimationFrame(() => {
+
+        const h = popup.getBoundingClientRect().height;
+
+        // Completely hidden below screen
+        popup.style.bottom = `${-h}px`;
+
+        popup.style.transition =
+            "bottom 0.6s cubic-bezier(.2,.9,.3,1.2), transform 0.6s ease";
+
+        const up_speed = 800
+        const down_speed = up_speed * 1.5
+
+        requestAnimationFrame(() => {
+
+            const up_position = Math.round(0 - (h * 0.3))
+
+            // Visible position
+            popup.style.bottom = `${up_position}px`;
+            popup.style.transform =
+                "translateX(-50%) rotate(8deg)";
+
+            setTimeout(() => {
+
+                // Completely hidden again
+                popup.style.bottom = `${-h}px`;
+                popup.style.transform =
+                    "translateX(-50%) rotate(-8deg)";
+
+                setTimeout(() => {
+                    overlay.remove();
+                    if (on_finish) on_finish();
+                }, down_speed);
+
+            }, up_speed);
+        });
+    });
+}
 
 const palettes = [
     "linear-gradient(135deg,#1a2a6c,#b21f1f,#fdbb2d)",

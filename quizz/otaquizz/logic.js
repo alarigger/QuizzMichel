@@ -166,19 +166,30 @@ game.add_state("jeopardy", function (id, state) {
     const cells = document.querySelectorAll(".jeopardy-cell");
     const index = game.get_selected_index();
     const selected_cell = cells[index];
+
+    
+    
+    
     if (selected_cell) {
         if (
             !selected_cell.classList.contains("empty") &&
             !selected_cell.classList.contains("burned")
         ) {
             quizz.sounds.play_random("select")
+            
+            game.lock()
+            const popup_image = quizz.backgrounds.get_background("popup").get_random()
+            image_popup(popup_image,function(){});
+
             const question_id = selected_cell.dataset.questionId;
             const question = quizz.select_question(question_id);
             const category = quizz.get_question_category(question)
             if (category.name != "BO") {
                 play_point_music(question)
             }
+            game.unlock()
             game.next_state();
+
         }
     }
 
@@ -255,6 +266,8 @@ game.add_state("correction", function (id) {
     card.appendChild(verdict);
 
     if (quizz.valid) {
+        const popup_image = quizz.backgrounds.get_background("popup").get_random()
+        image_popup(popup_image,function(){});
         question.burn()
         if (question.correction) {
             card.appendChild(renderContentList(question.correction));

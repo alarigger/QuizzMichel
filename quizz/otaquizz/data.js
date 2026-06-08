@@ -3,10 +3,18 @@ const QUIZZ_DATA = {
         name: "otaquizz"
     },
     shuffle_options: false,
-    question_limit: 200,
+    question_limit: 30,
     teams: ["Yamete", "Baka", "Yemorro", "Eleganiansson"],
     backgrounds: [
         { name: "result", image: [{ type: "image", value: "dance_anime.webp" }] }
+        ,
+        {
+            name: "popup", image: [
+                { type: "image", value: "stickman.png" },
+                { type: "image", value: "blob_2.png" },
+                { type: "image", value: "blob.png" }
+            ]
+        }
     ],
     audio: [
         {
@@ -899,7 +907,7 @@ const QUIZZ_DATA = {
                 { content: "👎", valid: false }
             ]
         }
-    , {
+        , {
             name: "POKQ2",
             categories: ["POKE"],
             points: 200,

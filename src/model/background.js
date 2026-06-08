@@ -6,11 +6,25 @@ function Background() {
     this.id = Math.floor(Math.random() * 1000000000); // 0-999,999,999
     this.name = ""
     this.image = []
+    /**
+     * 
+     * @returns {Image}
+     */
     this.get_image = function(){
         if(this.image.length==0){
             return 
         }
         return this.image[0].asset
+    }    
+    /**
+     * 
+     * @returns {Image}
+     */
+    this.get_random = function () {
+        if (this.image.length === 0) return;
+
+        const index = Math.floor(Math.random() * this.image.length);
+        return this.image[index].asset;
     }
 }
 
