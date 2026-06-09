@@ -12,6 +12,7 @@ const QUIZZ_DATA = {
             name: "popup", image: [
                 { type: "image", value: "stickman.png" },
                 { type: "image", value: "blob_2.png" },
+                { type: "image", value: "square.png" },
                 { type: "image", value: "blob.png" }
             ]
         }

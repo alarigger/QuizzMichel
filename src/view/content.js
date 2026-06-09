@@ -1,0 +1,80 @@
+
+
+function BaseContentRenderer() {
+    this.render = function (content) {
+        throw new Error("render() not implemented");
+    };
+}
+
+function TextContentRenderer() {
+    this.render = function (content) {
+        const el = document.createElement("span");
+        el.classList.add("question-content", "question-content--text");
+        el.innerHTML = content.value;
+        //el.innerHTML = smartLineBreak(content.value);
+        return el;
+    };
+}
+function ImageContentRenderer() {
+    this.render = function (content) {
+        const img = content.asset || new Image();
+        img.classList.add("question-content", "question-content--image");
+        if (!content.asset) {
+            img.src = "images/" + content.value;
+        }
+        return img;
+    };
+}
+function VideoContentRenderer() {
+    this.render = function (content) {
+        const video = content.asset || document.createElement("video");
+        video.classList.add("question-content", "question-content--video");
+        video.controls = true;
+        if (!content.asset) {
+            video.src = "videos/" + content.value;
+        }
+
+        return video;
+    };
+}
+
+const ContentRendererRegistry = {
+    text: new TextContentRenderer(),
+    image: new ImageContentRenderer(),
+    video: new VideoContentRenderer()
+};
+
+
+
+/**
+ * @param {QuestionContent|QuestionContent[]} contents
+ * @returns {HTMLDivElement}
+ */
+function renderContentList(contents) {
+    contents = Array.isArray(contents) ? contents : [contents];
+    const wrapper = document.createElement("span");
+    wrapper.className = "";
+    const sorted = [...contents].sort((a, b) => {
+        const rank = {
+            image: 0,
+            video: 0,
+            audio: 0,
+            text: 1
+        };
+        return (rank[a.type] || 0) - (rank[b.type] || 0);
+    });
+    sorted.forEach(c => {
+        wrapper.appendChild(renderContent(c));
+    });
+    return wrapper;
+}
+
+function renderContent(content) {
+    const renderer = ContentRendererRegistry[content.type];
+    if (!renderer) {
+        console.warn("No renderer for type:", content.type);
+        return document.createTextNode("");
+    }
+    return renderer.render(content);
+}
+
