@@ -5,20 +5,54 @@
  * @param {*} value 
  */
 function QuizzContent(type, value) {
-    this.id = Math.floor(Math.random() * 1000000000); // 0-999,999,999
+    this.id = Math.floor(Math.random() * 1000000000);
     this.type = type;
     this.value = value;
+
     this.asset = null;
+    this.loaded = false;
 }
+/**
+ * 
+ * @param {string} game_name 
+ * @param {string} folder_policy 
+ * @param {function[]} hooks 
+ */
+function QuizzContentManager(game_name, folder_policy, hooks) {
 
-function QuizzContentManager(game_name,folder_policy) {
+    this._game_name = game_name || "default";
+    this._folder_policy = folder_policy || "entity/content_type/name";
 
-    this._folder_policy = folder_policy || "entity/content_type/name"
+    this._hooks = hooks || {};
+    this._call = function(name, ...args){
+        if (this._hooks && typeof this._hooks[name] === "function") {
+            this._hooks[name](...args);
+        }
+    };
+
+    this._game_name = game_name || "default";
+    this._folder_policy = folder_policy || "entity/content_type/name";
     this._folder_policies = ["entity/content_type/name","entity/name/content_type"]
-
     this.set_policy = function(str){
         this._folder_policy = str
     }
+
+    this._pending = 0;
+    this._onReady = null;
+
+    this.whenReady = function (callback) {
+        this._onReady = callback;
+    };
+
+    this._checkReady = function () {
+        if (this._pending === 0 && this._onReady) {
+            this._onReady();
+        }
+    };
+
+
+
+
 
     this._game_name = game_name || "default"
     /**
@@ -28,51 +62,31 @@ function QuizzContentManager(game_name,folder_policy) {
      */
     this.from_obj = function (content_data) {
 
-        // 1) STRING → single text node array
         if (typeof content_data === "string") {
             return [new QuizzContent("text", content_data)];
         }
 
-        // 2) ARRAY → normalize each item
         if (Array.isArray(content_data)) {
-
-            const result = [];
-
+            let result = [];
             content_data.forEach(item => {
-                result.push(...this.from_obj(item));
+                result = result.concat(this.from_obj(item));
             });
-
             return result;
         }
 
-        // 3) OBJECT → single content block
         if (content_data && typeof content_data === "object") {
 
             if (content_data.type && content_data.value) {
                 return [new QuizzContent(content_data.type, content_data.value)];
             }
 
-            // legacy flexible format support (optional but useful)
-            if (content_data.text) {
-                return [new QuizzContent("text", content_data.text)];
-            }
-
-            if (content_data.image) {
-                return [new QuizzContent("image", content_data.image)];
-            }
-
-            if (content_data.video) {
-                return [new QuizzContent("video", content_data.video)];
-            }
-
-            if (content_data.sound) {
-                return [new QuizzContent("sound", content_data.sound)];
-            }
+            if (content_data.text)   return [new QuizzContent("text", content_data.text)];
+            if (content_data.image)  return [new QuizzContent("image", content_data.image)];
+            if (content_data.video)  return [new QuizzContent("video", content_data.video)];
+            if (content_data.sound)  return [new QuizzContent("audio", content_data.sound)];
         }
 
-        // 4) fallback safe output (never break UI)
-        console.log(content_data);
-        console.log("Unknown content format:", content_data);
+        console.warn("Unknown content format:", content_data);
         return [];
     };
 
@@ -82,37 +96,26 @@ function QuizzContentManager(game_name,folder_policy) {
      * @returns {string}
      */
     this._resolve_content_path = function (data_object, content) {
-        const root = "quizz";
-        const game_name = this._game_name;
-        const data_folder = "data";
-        const policy = this._folder_policy || "entity/content_type/name";
-
-        const entity = data_object.entity || "default";
-        const name = data_object.name || "all";
-        const content_type = (content.type ? content.type + "s" : "default");
 
         const map = {
-            root,
-            game_name,
-            data_folder,
-            entity,
-            name,
-            content_type
+            root: "quizz",
+            game_name: this._game_name,
+            data_folder: "data",
+            entity: data_object.entity || "default",
+            name: data_object.name || "all",
+            content_type: content.type ? content.type + "s" : "default"
         };
 
-        // base fixed prefix
-        const base = [map.root, map.game_name, map.data_folder];
+        const base = [
+            map.root,
+            map.game_name,
+            map.data_folder
+        ];
 
-        // apply policy dynamically
-        const policyParts = policy.split("/").filter(Boolean);
+        const parts = this._folder_policy.split("/").filter(Boolean);
 
-        for (const key of policyParts) {
-            if (map[key] !== undefined) {
-                base.push(map[key]);
-            } else {
-                // fallback for unknown policy tokens
-                base.push("default");
-            }
+        for (const key of parts) {
+            base.push(map[key] !== undefined ? map[key] : "default");
         }
 
         return base.join("/");
@@ -130,62 +133,104 @@ function QuizzContentManager(game_name,folder_policy) {
     }
 
     this.preload = function (data_object, content) {
+
         if (!content) return;
+
         if (Array.isArray(content)) {
-            content.forEach(co => this.preload(data_object, co));
-            return;
+            content.forEach(c => this.preload(data_object, c));
+            return this;
         }
-        if (!content.type) return;
 
-        switch (content.type) {
-            case "image": {
-                var resource_folder = this._resolve_content_path(data_object, content);
-                const src = isUrl(content.value)
-                    ? content.value
-                    : `${resource_folder}/${content.value}`;
+        if (!content.type) return this;
+        if (!content) return this;
 
-                content.asset = new Image();
-                content.asset.src = src;
-                break;
-            }
-            case "video": {
-                var resource_folder = this._resolve_content_path(data_object, content);
-                const src = isUrl(content.value)
-                    ? content.value
-                    : `${resource_folder}/${content.value}`;
+        if (content.type === "image") {
 
-                content.asset = document.createElement("video");
-                content.asset.preload = "auto";
-                content.asset.src = src;
-                break;
-            }
-            case "audio": {
-                var resource_folder = this._resolve_content_path(data_object, content);
-                const src = isUrl(content.value)
-                    ? content.value
-                    : `${resource_folder}/${content.value}`;
+            const folder = this._resolve_content_path(data_object, content);
+            const src = isUrl(content.value)
+                ? content.value
+                : `${folder}/${content.value}`;
 
-                content.asset = new Audio();
-                content.asset.preload = "auto";
-                content.asset.src = src;
-                break;
-            }
-            case "text": {
-                var resource_folder = this._resolve_content_path(data_object, content);
+            this._pending++;
 
-                const src = isUrl(content.value)
-                    ? content.value
-                    : `${resource_folder}/${content.value}`;
+            const img = new Image();
+            content.asset = img;
 
-                fetch(src)
-                    .then(r => r.text())
-                    .then(text => {
-                        content.asset = text;
-                    });
+            img.onload = () => {
+                content.loaded = true;
+                this._call("onLoadEnd", content);
+            };
 
-                break;
-            }
+            img.src = src;
         }
+        if (content.type === "video") {
+
+            const folder = this._resolve_content_path(data_object, content);
+            const src = isUrl(content.value)
+                ? content.value
+                : `${folder}/${content.value}`;
+
+            this._pending++;
+
+            const video = document.createElement("video");
+            video.preload = "auto";
+
+            content.asset = video;
+
+            video.onloadeddata = () => {
+                content.loaded = true;
+                this._call("onLoadEnd", content);
+            };
+
+            video.src = src;
+        }
+
+        if (content.type === "audio") {
+
+            const folder = this._resolve_content_path(data_object, content);
+            const src = isUrl(content.value)
+                ? content.value
+                : `${folder}/${content.value}`;
+
+            this._pending++;
+
+            const audio = new Audio();
+            audio.preload = "auto";
+
+            content.asset = audio;
+
+            audio.oncanplaythrough = () => {
+                content.loaded = true;
+                this._call("onLoadEnd", content);
+            };
+
+            audio.src = src;
+        }
+
+        if (content.type === "text") {
+
+            const folder = this._resolve_content_path(data_object, content);
+            const src = isUrl(content.value)
+                ? content.value
+                : `${folder}/${content.value}`;
+
+            this._pending++;
+
+            fetch(src)
+                .then(r => r.text())
+                .then(text => {
+                    content.asset = text;
+                    content.loaded = true;
+                })
+                .catch(err => {
+                    console.warn("Text load failed:", src, err);
+                    content.asset = "";
+                })
+                .finally(() => {
+                    this._call("onLoadEnd", content);
+                });
+        }
+
         return this
     };
 

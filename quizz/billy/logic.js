@@ -8,7 +8,7 @@
 
 
 /* loading game data */
-var quizz = new Quizz("otaquizz")
+var quizz = new Quizz("billy")
 quizz.load(QUIZZ_DATA,"entity/name/content_type")
 
 var game = new Game()

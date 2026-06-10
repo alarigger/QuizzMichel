@@ -1,6 +1,24 @@
 function Quizz(name){
 
-    var _content_manager = new QuizzContentManager(name)
+    /* LOADING */
+    var _content_manager = new QuizzContentManager(name, {
+        onLoadStart: () => this._registerLoad(),
+        onLoadEnd: () => this._finishLoad()
+    });
+    this._pendingLoads = 0;
+    this._registerLoad = function(){
+        this._pendingLoads++;
+    };
+
+    this._finishLoad = function(){
+        this._pendingLoads--;
+
+        if(this._pendingLoads === 0){
+            this.valid = true;
+            console.log("ALL QUIZ ASSETS LOADED");
+        }
+    };
+
     this.teams = new TeamsManager(_content_manager)
     this.questions = new QuestionManager(_content_manager)
     this.categories = new CategoryManager(_content_manager)
@@ -21,7 +39,7 @@ function Quizz(name){
         }
         console.log("quizz data loaded ")
     }
-    
+
     this.restart = function(){
         this.questions.restart()
         this.teams.restart()

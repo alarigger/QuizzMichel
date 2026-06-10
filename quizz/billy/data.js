@@ -2,7 +2,7 @@ const QUIZZ_DATA = {
     game: {
         name: "billy"
     },
-    shuffle_options: false,
+    shuffle_options: true,
     question_limit: 30,
     teams: ["JC", "Billy", "Jack", "Suzie"],
     backgrounds: [
@@ -128,7 +128,7 @@ const QUIZZ_DATA = {
             points: 100,
             content: [
                 { type: "image", value: "Question.png" },
-                { type: "image", value: "Question.txt" }
+                { type: "text", value: "Question.txt" }
             ],
             correction: [
                 { type: "image", value: "Answer.png" },
@@ -137,8 +137,8 @@ const QUIZZ_DATA = {
             is_demo: false,
             options: [
                 { content: [{ type: "text", value: "Correct.txt" }], valid: true },
-                { content: [{ type: "text", value: "Incorrect1.txt" }], valid: true },
-                { content: [{ type: "text", value: "Incorrect2.txt" }], valid: true }
+                { content: [{ type: "text", value: "Incorrect1.txt" }], valid: false },
+                { content: [{ type: "text", value: "Incorrect2.txt" }], valid: false }
             ]
         },
         {
@@ -147,7 +147,7 @@ const QUIZZ_DATA = {
             points: 100,
             content: [
                 { type: "image", value: "Question.png" },
-                { type: "image", value: "Question.txt" }
+                { type: "text", value: "Question.txt" }
             ],
             correction: [
                 { type: "image", value: "Answer.png" },
@@ -156,8 +156,8 @@ const QUIZZ_DATA = {
             is_demo: false,
             options: [
                 { content: [{ type: "text", value: "Correct.txt" }], valid: true },
-                { content: [{ type: "text", value: "Incorrect1.txt" }], valid: true },
-                { content: [{ type: "text", value: "Incorrect2.txt" }], valid: true }
+                { content: [{ type: "text", value: "Incorrect1.txt" }], valid: false },
+                { content: [{ type: "text", value: "Incorrect2.txt" }], valid: false }
             ]
         },
     ]
