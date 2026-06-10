@@ -2,7 +2,7 @@
 
 
 function Category() {
-    this.data_type = "category"
+    this.entity = "category"
     this.id = Math.floor(Math.random() * 1000000000); // 0-999,999,999
     this.name = ""
     this.title = null

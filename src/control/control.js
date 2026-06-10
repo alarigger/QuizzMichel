@@ -7,7 +7,9 @@ function Quizz(name){
     this.sounds = new GameSoundManager(_content_manager)
     this.backgrounds = new BackgroundManager(_content_manager)
     this.valid = false
-    this.load= function(quizz_data){
+
+    this.load= function(quizz_data,folder_policy){
+        _content_manager.set_policy(folder_policy || "entity/content_type/name")
         this.sounds.load(quizz_data.audio)
         this.categories.load(quizz_data.categories)
         this.questions.load(quizz_data.questions)
@@ -19,6 +21,7 @@ function Quizz(name){
         }
         console.log("quizz data loaded ")
     }
+    
     this.restart = function(){
         this.questions.restart()
         this.teams.restart()

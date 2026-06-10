@@ -11,7 +11,14 @@ function QuizzContent(type, value) {
     this.asset = null;
 }
 
-function QuizzContentManager(game_name) {
+function QuizzContentManager(game_name,folder_policy) {
+
+    this._folder_policy = folder_policy || "entity/content_type/name"
+    this._folder_policies = ["entity/content_type/name","entity/name/content_type"]
+
+    this.set_policy = function(str){
+        this._folder_policy = str
+    }
 
     this._game_name = game_name || "default"
     /**
@@ -75,20 +82,43 @@ function QuizzContentManager(game_name) {
      * @returns {string}
      */
     this._resolve_content_path = function (data_object, content) {
-        const root = "quizz"
-        const game_name = this._game_name 
-        const data_type_folder = data_object.data_type || "default"
-        const data_name = data_object.name || "all"
-        const content_type = content.type + "s" || "default"
-        var path = []
-        path.push(root)
-        path.push(game_name)
-        path.push(data_type_folder)
-        path.push(content_type)
-        path.push(data_name)
-        var joined = path.join("/")
-        return joined
-    }
+        const root = "quizz";
+        const game_name = this._game_name;
+        const data_folder = "data";
+        const policy = this._folder_policy || "entity/content_type/name";
+
+        const entity = data_object.entity || "default";
+        const name = data_object.name || "all";
+        const content_type = (content.type ? content.type + "s" : "default");
+
+        const map = {
+            root,
+            game_name,
+            data_folder,
+            entity,
+            name,
+            content_type
+        };
+
+        // base fixed prefix
+        const base = [map.root, map.game_name, map.data_folder];
+
+        // apply policy dynamically
+        const policyParts = policy.split("/").filter(Boolean);
+
+        for (const key of policyParts) {
+            if (map[key] !== undefined) {
+                base.push(map[key]);
+            } else {
+                // fallback for unknown policy tokens
+                base.push("default");
+            }
+        }
+
+        return base.join("/");
+    };
+
+
 
 
     /**
@@ -138,6 +168,21 @@ function QuizzContentManager(game_name) {
                 content.asset = new Audio();
                 content.asset.preload = "auto";
                 content.asset.src = src;
+                break;
+            }
+            case "text": {
+                var resource_folder = this._resolve_content_path(data_object, content);
+
+                const src = isUrl(content.value)
+                    ? content.value
+                    : `${resource_folder}/${content.value}`;
+
+                fetch(src)
+                    .then(r => r.text())
+                    .then(text => {
+                        content.asset = text;
+                    });
+
                 break;
             }
         }

@@ -5,7 +5,7 @@
 function Game() {
 
     this.id = Math.floor(Math.random() * 1000000000); // 0-999,999,999
-    this.data_type ="game"
+    this.entity ="game"
     this.name = "GAME-"+this.id
     this.transition_time = 100
     this.slides = new AnimatedSlideManager()

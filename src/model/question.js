@@ -57,7 +57,7 @@ function QuestionFactory(content_manager) {
 
 
 function Question() {
-    this.data_type = "question"
+    this.entity = "question"
     this.id = Math.floor(Math.random() * 1000000000); // 0-999,999,999
     this.name = ""
     this.content = null
@@ -72,7 +72,7 @@ function Question() {
     this.get_valid_option = function () {
         for (var a in this.options) {
             if (this.options[a].valid) {
-                return this.options[a].value
+                return this.options[a].asset
             }
         }
     }
@@ -86,7 +86,7 @@ function Question() {
      * @returns {QuizzContent}
      */
     this.get_content = function () {
-        return this.content.value
+        return this.content.asset
     }
     
     this.burn = function () {

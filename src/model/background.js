@@ -2,7 +2,7 @@
 
 
 function Background() {
-    this.data_type = "background"
+    this.entity = "background"
     this.id = Math.floor(Math.random() * 1000000000); // 0-999,999,999
     this.name = ""
     this.image = []

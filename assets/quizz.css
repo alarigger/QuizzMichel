@@ -1,7 +1,31 @@
+    :root {
+        --color-primary: #0e8a53;
+        --color-secondary: #c73b3b;
+        --color-quizz_background: #2f2e2c;
+        --color-card_background: #d9d9d9;
+        --color-card_box-shadow: #c73b3b;
+        --color-text: #ffffff;
+        --color-card_text: #0e8a53;
+        --color-card_text-shadow: #c73b3b;
+        --color-option_text: #0e8a53;
+        --color-option_background: #fff;
+        --color-option_text-shadow: #73d8e6;
+        --color-correct: #0e8a53;
+        --color-wrong: #ef4444;
+        --color-jeopardy: #ef4444;
+        --color-jeopardy-cell-background: #8044ef;
+        --color-jeopardy-cell-text: #ffee00;
+        --color-jeopardy-header-background: #5544ef;
+        --color-jeopardy-header-text: #ffc813;
+    }
+
+
+
+
     body {
         margin: 0;
         /*background: #e8e1d5;*/
-        background: #2f2e2c;
+        background: var(--color-quizz_background);
         font-family: "Fredoka", "Holywood", sans-serif;
         display: flex;
         justify-content: center;
@@ -47,8 +71,8 @@
         width: 820px;
         border-radius: 40px;
         padding: 40px;
-        background: #d9d9d9;
-        box-shadow: 0 12px 0 #c73b3b;
+        background: var(--color-card_background);
+        box-shadow: 0 12px 0 var(--color-card_box-shadow);
         text-align: left;
         opacity: 0;
         transform: translateY(20px);
@@ -73,6 +97,7 @@
         display: block;
         margin: 0 auto;
     }
+
     .option.question-content--image {
         max-width: 95%;
         border-radius: 30px;
@@ -80,19 +105,19 @@
         margin: 0 auto;
     }
 
-    
+
     .question-content--text {
         font-size: 25px;
     }
 
     .correction.question-content--text {
-        color: #0e8a53;
+        color: var(--color-card_text);
         margin-bottom: 20px;
         font-size: 25px;
-        text-shadow: 1px 1px #c73b3b;
+        text-shadow: 1px 1px var(--color-card_text-shadow);
         text-align: center;
     }
-    
+
 
     @keyframes fadeIn {
         to {
@@ -109,24 +134,24 @@
     }
 
     .quizz_style {
-        color: #0e8a53;
+        color: var(--color-card_text);
         margin-bottom: 20px;
         font-size: 30px;
-        text-shadow: 1px 1px #c73b3b;
+        text-shadow: 1px 1px var(--color-card_text-shadow);
     }
 
     .quizz_style_ligth {
         color: #0e2f8a;
         margin-bottom: 20px;
         font-size: 25px;
-        text-shadow: 1px 1px #c73b3b;
+        text-shadow: 1px 1px var(--color-card_text-shadow);
     }
 
     h1 {
-        color: #0e8a53;
+        color: var(--color-card_text);
         margin-bottom: 20px;
         font-size: 25px;
-        text-shadow: 1px 1px #c73b3b;
+        text-shadow: 1px 1px var(--color-card_text-shadow);
         text-align: center;
     }
 
@@ -134,8 +159,8 @@
         padding: 14px 20px;
         margin: 12px 0;
         border-radius: 20px;
-        box-shadow: 0 12px 0 #73d8e6;
-        background: #fff;
+        box-shadow: 0 12px 0 var(--color-option_text-shadow);
+        background: var(--color-option_background);
         cursor: pointer;
         font-size: 20px;
         transition: 0.15s;
@@ -143,17 +168,17 @@
     }
 
     .option.selected {
-        background: #0e8a53;
-        color: white;
-        border-color: #0e8a53;
+        background: var(--color-card_text);
+        color: var(--color-option_background);
+        border-color:var(--color-card_text);
     }
 
     .team {
         padding: 14px 20px;
         margin: 12px 0;
         border-radius: 20px;
-        box-shadow: 0 12px 0 #73d8e6;
-        background: #fff;
+        box-shadow: 0 12px 0 var(--color-option_text-shadow);
+        background: var(--color-option_background);
         cursor: pointer;
         font-size: 20px;
         transition: 0.15s;
@@ -161,16 +186,16 @@
     }
 
     .team.selected {
-        background: #0e8a53;
-        color: white;
-        border-color: #0e8a53;
+        background: var(--color-option_text-shadow);
+        color: var(--color-option_background);
+        border-color:var(--color-option_text-shadow);
     }
 
     .correction {
-        color: #0e8a53;
+        color: var(--color-option_text-shadow);
         margin-bottom: 20px;
         font-size: 25px;
-        text-shadow: 1px 1px #c73b3b;
+        text-shadow: 1px 1px var(--color-card_box-shadow);
         text-align: center;
     }
 
@@ -189,7 +214,7 @@
         justify-content: space-between;
         align-items: center;
         padding-bottom: 14px;
-        background: rgb(213 213 213);
+        background: var(--color-option_background);
         backdrop-filter: blur(10px);
     }
 
@@ -318,16 +343,16 @@
     }
 
     .jeopardy-header {
-        background: #0c2d8a;
-        color: white;
+        background: var(--color-jeopardy-header-background);
+        color: var(--color-jeopardy-header-text);
         padding: 16px;
         text-align: center;
         font-weight: bold;
     }
 
     .jeopardy-cell {
-        background: #001b66;
-        color: #ffcc33;
+        background: var(--color-jeopardy-cell-background);
+        color:  var(--color-jeopardy-cell-text);
         font-size: 2rem;
         font-weight: bold;
         border-radius: 30px;
@@ -484,16 +509,16 @@
 
 
 
-/* keep slides on top */
-.slides{
-  position: relative;
-  z-index: 10;
-}
-#snow-container {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-    z-index: 0;
-}
+    /* keep slides on top */
+    .slides {
+        position: relative;
+        z-index: 10;
+    }
 
+    #snow-container {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 0;
+    }

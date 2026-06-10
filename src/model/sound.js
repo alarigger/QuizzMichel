@@ -3,7 +3,7 @@
 
 function GameSound(){
     this.id = Math.floor(Math.random() * 1000000000); // 0-999,999,999
-    this.data_type="audio"
+    this.entity="audio"
     this.group="all"
     this.name=this.id
     this.sound=[]

@@ -10,8 +10,7 @@ function TextContentRenderer() {
     this.render = function (content) {
         const el = document.createElement("span");
         el.classList.add("question-content", "question-content--text");
-        el.innerHTML = content.value;
-        //el.innerHTML = smartLineBreak(content.value);
+        el.innerHTML = content.asset ?? "Loading...";
         return el;
     };
 }
@@ -44,6 +43,15 @@ const ContentRendererRegistry = {
     video: new VideoContentRenderer()
 };
 
+function renderContent(content) {
+    const renderer = ContentRendererRegistry[content.type];
+    if (!renderer) {
+        console.warn("No renderer for type:", content.type);
+        return document.createTextNode("");
+    }
+    return renderer.render(content);
+}
+
 
 
 /**
@@ -67,14 +75,5 @@ function renderContentList(contents) {
         wrapper.appendChild(renderContent(c));
     });
     return wrapper;
-}
-
-function renderContent(content) {
-    const renderer = ContentRendererRegistry[content.type];
-    if (!renderer) {
-        console.warn("No renderer for type:", content.type);
-        return document.createTextNode("");
-    }
-    return renderer.render(content);
 }
 
