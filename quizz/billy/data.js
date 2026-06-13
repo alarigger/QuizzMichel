@@ -105,19 +105,19 @@ const QUIZZ_DATA = {
         {
             name: "RIG",
             title: "Hyper RIGoureux",
-            background_image: [{ type: "image", value: "FOOD_WALLPAPER.PNG" }],
+            //background_image: [{ type: "image", value: "FOOD_WALLPAPER.PNG" }],
             background_music: []
         },
         {
             name: "JTB",
             title: "J'ai tout binge watché!",
-            background_image: [{ type: "image", value: "FOOD_WALLPAPER.PNG" }],
+            //background_image: [{ type: "image", value: "FOOD_WALLPAPER.PNG" }],
             background_music: []
         },
         {
             name: "EC",
             title: "Expert Comptable",
-            background_image: [{ type: "image", value: "FOOD_WALLPAPER.PNG" }],
+            //background_image: [{ type: "image", value: "FOOD_WALLPAPER.PNG" }],
             background_music: []
         }
     ],
@@ -132,6 +132,99 @@ const QUIZZ_DATA = {
             ],
             correction: [
                 { type: "image", value: "Answer.png" },
+                { type: "text", value: "Answer.txt" },
+            ],
+            is_demo: false,
+            options: [
+                { content: [{ type: "text", value: "Correct.txt" }], valid: true },
+                { content: [{ type: "text", value: "Incorrect1.txt" }], valid: false },
+                { content: [{ type: "text", value: "Incorrect2.txt" }], valid: false }
+            ]
+        },        
+        {
+            name: "JTB2",
+            categories: ["JTB"],
+            points: 200,
+            content: [
+                { type: "image", value: "Q.png" },
+                { type: "text", value: "Question.txt" }
+            ],
+            correction: [
+                { type: "image", value: "A.png" },
+                { type: "text", value: "Answer.txt" },
+            ],
+            is_demo: false,
+            options: [
+                { content: [{ type: "text", value: "Correct.txt" }], valid: true },
+                { content: [{ type: "text", value: "Incorrect1.txt" }], valid: false },
+                { content: [{ type: "text", value: "Incorrect2.txt" }], valid: false }
+            ]
+        },       
+        {
+            name: "JTB3",
+            categories: ["JTB"],
+            points: 300,
+            content: [
+                { type: "image", value: "Q.png" },
+                { type: "text", value: "Question.txt" }
+            ],
+            correction: [
+                { type: "image", value: "A.png" },
+                { type: "text", value: "Answer.txt" },
+            ],
+            is_demo: false,
+            options: [
+                { content: [{ type: "text", value: "Correct.txt" }], valid: true },
+                { content: [{ type: "text", value: "Incorrect1.txt" }], valid: false },
+                { content: [{ type: "text", value: "Incorrect2.txt" }], valid: false }
+            ]
+        },        
+        {
+            name: "JTB4",
+            categories: ["JTB"],
+            points: 400,
+            content: [
+                { type: "image", value: "Q.png" },
+                { type: "text", value: "Question.txt" }
+            ],
+            correction: [
+                { type: "image", value: "A.png" },
+                { type: "text", value: "Answer.txt" },
+            ],
+            is_demo: false,
+            options: [
+                { content: [{ type: "text", value: "Correct.txt" }], valid: true },
+                { content: [{ type: "text", value: "Incorrect1.txt" }], valid: false },
+                { content: [{ type: "text", value: "Incorrect2.txt" }], valid: false }
+            ]
+        },        {
+            name: "JTB5",
+            categories: ["JTB"],
+            points: 500,
+            content: [
+                { type: "image", value: "Q.png" },
+                { type: "text", value: "Question.txt" }
+            ],
+            correction: [
+                { type: "image", value: "A.png" },
+                { type: "text", value: "Answer.txt" },
+            ],
+            is_demo: false,
+            options: [
+                { content: [{ type: "text", value: "Correct.txt" }], valid: true },
+                { content: [{ type: "text", value: "Incorrect1.txt" }], valid: false },
+                { content: [{ type: "text", value: "Incorrect2.txt" }], valid: false }
+            ]
+        },        {
+            name: "JTB6",
+            categories: ["JTB"],
+            points: 600,
+            content: [
+                { type: "image", value: "Q.png" },
+                { type: "text", value: "Question.txt" }
+            ],
+            correction: [
+                { type: "image", value: "A.png" },
                 { type: "text", value: "Answer.txt" },
             ],
             is_demo: false,
@@ -160,6 +253,63 @@ const QUIZZ_DATA = {
                 { content: [{ type: "text", value: "Incorrect2.txt" }], valid: false }
             ]
         },
+        {
+            name: "RIG2",
+            categories: ["RIG"],
+            points: 200,
+            content: [
+                { type: "image", value: "Question.png" },
+                { type: "text", value: "Question.txt" }
+            ],
+            correction: [
+                { type: "image", value: "Answer.png" },
+                { type: "text", value: "Answer.txt" },
+            ],
+            is_demo: false,
+            options: [
+                { content: [{ type: "text", value: "Correct.txt" }], valid: true },
+                { content: [{ type: "text", value: "Incorrect1.txt" }], valid: false },
+                { content: [{ type: "text", value: "Incorrect2.txt" }], valid: false }
+            ]
+        },
+        {
+            name: "RIG3",
+            categories: ["RIG"],
+            points: 300,
+            content: [
+                { type: "image", value: "Question.png" },
+                { type: "text", value: "Question.txt" }
+            ],
+            correction: [
+                { type: "image", value: "Answer.png" },
+                { type: "text", value: "Answer.txt" },
+            ],
+            is_demo: false,
+            options: [
+                { content: [{ type: "text", value: "Correct.txt" }], valid: true },
+                { content: [{ type: "text", value: "Incorrect1.txt" }], valid: false },
+                { content: [{ type: "text", value: "Incorrect2.txt" }], valid: false }
+            ]
+        },
+        {
+            name: "RIG4",
+            categories: ["RIG"],
+            points: 400,
+            content: [
+                { type: "image", value: "Question.png" },
+                { type: "text", value: "Question.txt" }
+            ],
+            correction: [
+                { type: "image", value: "Answer.png" },
+                { type: "text", value: "Answer.txt" },
+            ],
+            is_demo: false,
+            options: [
+                { content: [{ type: "text", value: "Correct.txt" }], valid: true },
+                { content: [{ type: "text", value: "Incorrect1.txt" }], valid: false },
+                { content: [{ type: "text", value: "Incorrect2.txt" }], valid: false }
+            ]
+        }
     ]
 
 }
