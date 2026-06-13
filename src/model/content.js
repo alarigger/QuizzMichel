@@ -21,7 +21,7 @@ function QuizzContent(type, value) {
 function QuizzContentManager(game_name, folder_policy, hooks) {
 
     this._game_name = game_name || "default";
-    this._folder_policy = folder_policy || "entity/content_type/name";
+    this._folder_policy = folder_policy || "entity/name";
 
     this._hooks = hooks || {};
     this._call = function(name, ...args){
@@ -32,7 +32,7 @@ function QuizzContentManager(game_name, folder_policy, hooks) {
 
     this._game_name = game_name || "default";
     this._folder_policy = folder_policy || "entity/content_type/name";
-    this._folder_policies = ["entity/content_type/name","entity/name/content_type"]
+    this._folder_policies = ["entity/name","entity/content_type/name","entity/name/content_type"]
     this.set_policy = function(str){
         this._folder_policy = str
     }
@@ -209,10 +209,22 @@ function QuizzContentManager(game_name, folder_policy, hooks) {
 
         if (content.type === "text") {
 
+            const value = content.value || "";
+
+            // Plain text value -> use directly
+            if (!value.toLowerCase().endsWith(".txt")) {
+                content.asset = value;
+                content.loaded = true;
+                this._call("onLoadEnd", content);
+                return this;
+            }
+
             const folder = this._resolve_content_path(data_object, content);
+
             const src = isUrl(content.value)
                 ? content.value
                 : `${folder}/${content.value}`;
+            
 
             this._pending++;
 

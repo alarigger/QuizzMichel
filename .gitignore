@@ -191,3 +191,5 @@ cython_debug/
 /quizz/otaquizz/data/question/images
 /quizz/otaquizz/question/images
 /quizz/billy/data/question
+/quizz/billy/data/audio
+/quizz/billy/data/audio

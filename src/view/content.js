@@ -10,7 +10,9 @@ function TextContentRenderer() {
     this.render = function (content) {
         const el = document.createElement("span");
         el.classList.add("question-content", "question-content--text");
-        el.innerHTML = content.asset ?? "Loading...";
+        if(content.asset){
+            el.innerHTML = content.asset ?? "Loading...";
+        }
         return el;
     };
 }

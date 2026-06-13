@@ -9,7 +9,7 @@
 
 /* loading game data */
 var quizz = new Quizz("billy")
-quizz.load(QUIZZ_DATA,"entity/name/content_type")
+quizz.load(QUIZZ_DATA,"entity/name")
 
 var game = new Game()
 game.unlock()

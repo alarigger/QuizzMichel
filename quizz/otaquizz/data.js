@@ -3,7 +3,7 @@ const QUIZZ_DATA = {
         name: "otaquizz"
     },
     shuffle_options: false,
-    question_limit: 30,
+    question_limit: 100,
     teams: ["Yamete", "Baka", "Yemorro", "Eleganiansson"],
     backgrounds: [
         { name: "result", image: [{ type: "image", value: "dance_anime.webp" }] }
