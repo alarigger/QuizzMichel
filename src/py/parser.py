@@ -41,6 +41,8 @@ def make_content(filename):
 def infer_category(question_name):
     match = re.match(r"([A-Za-z]+)", question_name)
     if match:
+        category =match.group(1)
+        #print(category)
         return match.group(1)
 
     return "Unknown"
@@ -50,6 +52,8 @@ def infer_points(question_name):
     match = re.search(r"(\d+)$", question_name)
 
     if match:
+        points = int(match.group(1)) * 100
+        #print(points)
         return int(match.group(1)) * 100
 
     return 100
@@ -82,6 +86,8 @@ def parse_background(background_dir):
 
 def parse_category(category_dir):
     name = os.path.basename(category_dir)
+    
+    #print(name)
 
     category = Category(name=name)
 
@@ -116,6 +122,7 @@ def parse_category(category_dir):
 
 def parse_question(question_dir):
     question_name = os.path.basename(question_dir)
+    #print(question_name)
 
     question = Question(
         name=question_name,
@@ -177,7 +184,6 @@ def parse_question(question_dir):
 
 def build_quiz(quizz_name,folder):
     
-    
 
     root = os.path.join(folder, "data")
 
@@ -197,15 +203,6 @@ def build_quiz(quizz_name,folder):
         
     
 
-    # AUDIO
-    audio_root = os.path.join(root, "audio")
-
-    if os.path.exists(audio_root):
-        for entry in sorted(os.listdir(audio_root)):
-            path = os.path.join(audio_root, entry)
-
-            if os.path.isdir(path):
-                quiz.audio.append(parse_audio(path))
 
     # BACKGROUNDS
     background_root = os.path.join(root, "background")
@@ -235,7 +232,21 @@ def build_quiz(quizz_name,folder):
             path = os.path.join(question_root, entry)
 
             if os.path.isdir(path):
-                quiz.questions.append(parse_question(path))
+                #print(path)
+                question = parse_question(path)
+                quiz.questions.append(question)
+                #print(question)
+                
+
+    # AUDIO
+    audio_root = os.path.join(root, "audio")
+
+    if os.path.exists(audio_root):
+        for entry in sorted(os.listdir(audio_root)):
+            path = os.path.join(audio_root, entry)
+
+            if os.path.isdir(path):
+                quiz.audio.append(parse_audio(path))
 
     return quiz
 
@@ -249,7 +260,7 @@ def generate_data_json(quiz_name:str,folder:str):
         "data.json"
     )
     
-    print(output_file)
+    #print(output_file)
 
     with open(output_file, "w", encoding="utf-8") as f:
         json.dump(
@@ -259,7 +270,7 @@ def generate_data_json(quiz_name:str,folder:str):
             ensure_ascii=False
         )
 
-    print(f"Generated {output_file}")
+    #print(f"Generated {output_file}")
 
 def main():
     parser = argparse.ArgumentParser()
@@ -277,7 +288,7 @@ def main():
         "data.json"
     )
     
-    print(output_file)
+    #print(output_file)
 
     with open(output_file, "w", encoding="utf-8") as f:
         json.dump(
@@ -287,7 +298,7 @@ def main():
             ensure_ascii=False
         )
 
-    print(f"Generated {output_file}")
+    #print(f"Generated {output_file}")
 
 
 if __name__ == "__main__":

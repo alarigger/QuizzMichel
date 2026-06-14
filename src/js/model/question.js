@@ -131,6 +131,8 @@ function QuestionManager(content_manager) {
      * @param {Question} question
      */
     this._preload_question_data = function (question) {
+       console.log("PRELOAD QUESTION")
+        console.log(question.name)
         this._content_manager.preload(question, question.content);
         this._content_manager.preload(question, question.correction);
         this._content_manager.preload(question, question.background);

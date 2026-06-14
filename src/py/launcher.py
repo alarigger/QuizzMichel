@@ -1,16 +1,15 @@
-# launcher.py
+from functools import partial
 import http.server
 import socketserver
 import webbrowser
 import threading
-import sys
 import time
-import os 
+import os
 
+PORT = 8000
 
 from parser import generate_data_json
 
-PORT = 8000
 
 
 # ----------------------------
@@ -34,11 +33,18 @@ def open_browser(page):
     webbrowser.open(url)
 
 
+
 def run_server():
-    handler = http.server.SimpleHTTPRequestHandler
+    root = os.getenv("QMROOT")
+
+    handler = partial(
+        http.server.SimpleHTTPRequestHandler,
+        directory=root
+    )
 
     with socketserver.TCPServer(("", PORT), handler) as httpd:
-        print(f" Server running at http://localhost:{PORT}")
+        print(f"Server running at http://localhost:{PORT}")
+        print("SERVING FROM:", os.path.abspath(root))
         httpd.serve_forever()
 
 
@@ -50,6 +56,7 @@ if __name__ == "__main__":
     # -----------------------------------
         
     QuizzManager.parse_quizz_data()
+    
 
     page = "index.html"
     print(f"🎮 Opening: {page}")

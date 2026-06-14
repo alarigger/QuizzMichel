@@ -33,8 +33,8 @@ function Quizz(name){
         this.questions.load(quizz_data.questions)
         this.teams.load(quizz_data.teams)
         this.backgrounds.load(quizz_data.backgrounds)
-        this.questions.set_limit(quizz_data.question_limit)
-        if(quizz_data.shuffle_options){
+        this.questions.set_limit(quizz_data.options.question_limit)
+        if(quizz_data.options.shuffle_options){
             this.questions.shuffle_options()
         }
         console.log("quizz data loaded ")

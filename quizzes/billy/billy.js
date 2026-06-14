@@ -159,7 +159,11 @@ game.add_state("jeopardy", function (id, state) {
     const index = game.get_selected_index();
     const selected_cell = cells[index];
     if (selected_cell) {
+        const question_id = selected_cell.dataset.questionId;
+        const question = quizz.select_question(question_id);
+        console.log(question.name)
         selected_cell.classList.add("selected");
+        console.log()
     }
 
 }, function (id, state) {

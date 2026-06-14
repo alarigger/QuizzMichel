@@ -127,7 +127,11 @@ function QuizzContentManager(game_name, folder_policy, hooks) {
             base.push(map[key] !== undefined ? map[key] : "default");
         }
 
-        return base.join("/");
+        const path = base.join("/")
+        console.log("-------------------------------")
+        console.log(path)
+
+        return path;
     };
 
 
@@ -156,9 +160,9 @@ function QuizzContentManager(game_name, folder_policy, hooks) {
         if (content.type === "image") {
 
             const folder = this._resolve_content_path(data_object, content);
-            const src = isUrl(content.value)
-                ? content.value
-                : `${folder}/${content.value}`;
+            const file = `${folder}/${content.value}`
+            console.log(file)
+            const src = isUrl(content.value) ? content.value: file;
 
             this._pending++;
 
@@ -175,9 +179,9 @@ function QuizzContentManager(game_name, folder_policy, hooks) {
         if (content.type === "video") {
 
             const folder = this._resolve_content_path(data_object, content);
-            const src = isUrl(content.value)
-                ? content.value
-                : `${folder}/${content.value}`;
+            const file = `${folder}/${content.value}`
+            console.log(file)
+            const src = isUrl(content.value) ? content.value: file;
 
             this._pending++;
 
@@ -197,9 +201,9 @@ function QuizzContentManager(game_name, folder_policy, hooks) {
         if (content.type === "audio") {
 
             const folder = this._resolve_content_path(data_object, content);
-            const src = isUrl(content.value)
-                ? content.value
-                : `${folder}/${content.value}`;
+            const file = `${folder}/${content.value}`
+            console.log(file)
+            const src = isUrl(content.value) ? content.value: file;
 
             this._pending++;
 
@@ -225,23 +229,29 @@ function QuizzContentManager(game_name, folder_policy, hooks) {
                 content.asset = value;
                 content.loaded = true;
                 this._call("onLoadEnd", content);
+                console.log("load string ")
                 return this;
             }
 
             const folder = this._resolve_content_path(data_object, content);
-
-            const src = isUrl(content.value)
-                ? content.value
-                : `${folder}/${content.value}`;
-            
+            const file = `${folder}/${content.value}`
+            console.log(file)
+            const src = isUrl(content.value) ? content.value: file;
+            console.log("LOADING", content.value, content);
 
             this._pending++;
 
-            fetch(src)
+            fetch(src + "?v=" + Date.now(), { cache: "no-store" })
+                .then(r => r.text())
                 .then(r => r.text())
                 .then(text => {
                     content.asset = text;
                     content.loaded = true;
+
+                    console.log("CHECK CONTENT")
+                    console.log(file)
+                    console.log(text)
+                    console.log("RESOLVED", content.value, content);
                 })
                 .catch(err => {
                     console.warn("Text load failed:", src, err);
@@ -249,7 +259,7 @@ function QuizzContentManager(game_name, folder_policy, hooks) {
                 })
                 .finally(() => {
                     this._call("onLoadEnd", content);
-                });
+            });
         }
 
         return this

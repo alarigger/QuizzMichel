@@ -174,38 +174,49 @@
             ]
         }
     ],
-    "backgrounds": [],
+    "backgrounds": [
+        {
+            "name": "intro",
+            "image": []
+        },
+        {
+            "name": "jeopardy",
+            "image": []
+        },
+        {
+            "name": "outro",
+            "image": []
+        }
+    ],
     "categories": [
         {
-            "name": "BEP",
+            "name": "JTB",
             "title": [
                 {
                     "type": "text",
                     "value": "Title.txt"
                 }
             ],
-            "background": [
-                {
-                    "type": "image",
-                    "value": "Background.PNG"
-                }
-            ],
+            "background": [],
             "images": [],
-            "music": [
-                {
-                    "type": "audio",
-                    "value": "Music.mp3"
-                }
-            ],
-            "description": [
-                {
-                    "type": "text",
-                    "value": "Description.txt"
-                }
-            ]
+            "music": [],
+            "description": []
         },
         {
-            "name": "JTB",
+            "name": "QSC",
+            "title": [
+                {
+                    "type": "text",
+                    "value": "Title.txt"
+                }
+            ],
+            "background": [],
+            "images": [],
+            "music": [],
+            "description": []
+        },
+        {
+            "name": "RIG",
             "title": [
                 {
                     "type": "text",
@@ -219,63 +230,6 @@
         }
     ],
     "questions": [
-        {
-            "name": "EX01",
-            "categories": [
-                "EX"
-            ],
-            "points": 100,
-            "content": [
-                {
-                    "type": "image",
-                    "value": "Question.PNG"
-                },
-                {
-                    "type": "text",
-                    "value": "Question.txt"
-                }
-            ],
-            "correction": [
-                {
-                    "type": "image",
-                    "value": "Answer.PNG"
-                },
-                {
-                    "type": "text",
-                    "value": "Answer.txt"
-                }
-            ],
-            "is_demo": false,
-            "options": [
-                {
-                    "content": [
-                        {
-                            "type": "text",
-                            "value": "Correct.txt"
-                        }
-                    ],
-                    "valid": true
-                },
-                {
-                    "content": [
-                        {
-                            "type": "text",
-                            "value": "Incorrect1.txt"
-                        }
-                    ],
-                    "valid": false
-                },
-                {
-                    "content": [
-                        {
-                            "type": "text",
-                            "value": "Incorrect2.txt"
-                        }
-                    ],
-                    "valid": false
-                }
-            ]
-        },
         {
             "name": "JTB1",
             "categories": [
@@ -398,11 +352,19 @@
             "points": 300,
             "content": [
                 {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
                     "type": "text",
                     "value": "Question.txt"
                 }
             ],
             "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
                 {
                     "type": "text",
                     "value": "Answer.txt"
@@ -497,145 +459,442 @@
             ]
         },
         {
-            "name": "JTB5",
+            "name": "QSC1",
             "categories": [
-                "JTB"
+                "QSC"
+            ],
+            "points": 100,
+            "content": [
+                {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
+                    "type": "text",
+                    "value": "Question.txt"
+                }
+            ],
+            "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
+                {
+                    "type": "text",
+                    "value": "Answer.txt"
+                }
+            ],
+            "is_demo": false,
+            "options": [
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Correct.txt"
+                        }
+                    ],
+                    "valid": true
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect1.txt"
+                        }
+                    ],
+                    "valid": false
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect2.txt"
+                        }
+                    ],
+                    "valid": false
+                }
+            ]
+        },
+        {
+            "name": "QSC2",
+            "categories": [
+                "QSC"
+            ],
+            "points": 200,
+            "content": [
+                {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
+                    "type": "text",
+                    "value": "Question.txt"
+                }
+            ],
+            "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
+                {
+                    "type": "text",
+                    "value": "Answer.txt"
+                }
+            ],
+            "is_demo": false,
+            "options": [
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Correct.txt"
+                        }
+                    ],
+                    "valid": true
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect1.txt"
+                        }
+                    ],
+                    "valid": false
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect2.txt"
+                        }
+                    ],
+                    "valid": false
+                }
+            ]
+        },
+        {
+            "name": "QSC3",
+            "categories": [
+                "QSC"
+            ],
+            "points": 300,
+            "content": [
+                {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
+                    "type": "text",
+                    "value": "Question.txt"
+                }
+            ],
+            "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
+                {
+                    "type": "text",
+                    "value": "Answer.txt"
+                }
+            ],
+            "is_demo": false,
+            "options": [
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Correct.txt"
+                        }
+                    ],
+                    "valid": true
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect1.txt"
+                        }
+                    ],
+                    "valid": false
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect2.txt"
+                        }
+                    ],
+                    "valid": false
+                }
+            ]
+        },
+        {
+            "name": "QSC4",
+            "categories": [
+                "QSC"
+            ],
+            "points": 400,
+            "content": [
+                {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
+                    "type": "text",
+                    "value": "Question.txt"
+                }
+            ],
+            "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
+                {
+                    "type": "text",
+                    "value": "Answer.txt"
+                }
+            ],
+            "is_demo": false,
+            "options": [
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Correct.txt"
+                        }
+                    ],
+                    "valid": true
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect1.txt"
+                        }
+                    ],
+                    "valid": false
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect2.txt"
+                        }
+                    ],
+                    "valid": false
+                }
+            ]
+        },
+        {
+            "name": "RIG1",
+            "categories": [
+                "RIG"
+            ],
+            "points": 100,
+            "content": [
+                {
+                    "type": "image",
+                    "value": "Question.png"
+                },
+                {
+                    "type": "text",
+                    "value": "Question.txt"
+                }
+            ],
+            "correction": [],
+            "is_demo": false,
+            "options": [
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Correct.txt"
+                        }
+                    ],
+                    "valid": true
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect1.txt"
+                        }
+                    ],
+                    "valid": false
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect2.txt"
+                        }
+                    ],
+                    "valid": false
+                }
+            ]
+        },
+        {
+            "name": "RIG2",
+            "categories": [
+                "RIG"
+            ],
+            "points": 200,
+            "content": [
+                {
+                    "type": "image",
+                    "value": "Question.png"
+                },
+                {
+                    "type": "text",
+                    "value": "Question.txt"
+                }
+            ],
+            "correction": [],
+            "is_demo": false,
+            "options": [
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Correct.txt"
+                        }
+                    ],
+                    "valid": true
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect1.txt"
+                        }
+                    ],
+                    "valid": false
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect2.txt"
+                        }
+                    ],
+                    "valid": false
+                }
+            ]
+        },
+        {
+            "name": "RIG3",
+            "categories": [
+                "RIG"
+            ],
+            "points": 300,
+            "content": [
+                {
+                    "type": "image",
+                    "value": "Question.png"
+                },
+                {
+                    "type": "text",
+                    "value": "Question.txt"
+                }
+            ],
+            "correction": [],
+            "is_demo": false,
+            "options": [
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Correct.txt"
+                        }
+                    ],
+                    "valid": true
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect1.txt"
+                        }
+                    ],
+                    "valid": false
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect2.txt"
+                        }
+                    ],
+                    "valid": false
+                }
+            ]
+        },
+        {
+            "name": "RIG4",
+            "categories": [
+                "RIG"
+            ],
+            "points": 400,
+            "content": [
+                {
+                    "type": "image",
+                    "value": "Question.png"
+                },
+                {
+                    "type": "text",
+                    "value": "Question.txt"
+                }
+            ],
+            "correction": [],
+            "is_demo": false,
+            "options": [
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Correct.txt"
+                        }
+                    ],
+                    "valid": true
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect1.txt"
+                        }
+                    ],
+                    "valid": false
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect2.txt"
+                        }
+                    ],
+                    "valid": false
+                }
+            ]
+        },
+        {
+            "name": "RIG5",
+            "categories": [
+                "RIG"
             ],
             "points": 500,
             "content": [
                 {
                     "type": "image",
-                    "value": "Question.PNG"
+                    "value": "Question.png"
                 },
                 {
                     "type": "text",
                     "value": "Question.txt"
                 }
             ],
-            "correction": [
-                {
-                    "type": "image",
-                    "value": "Answer.PNG"
-                },
-                {
-                    "type": "text",
-                    "value": "Answer.txt"
-                }
-            ],
-            "is_demo": false,
-            "options": [
-                {
-                    "content": [
-                        {
-                            "type": "text",
-                            "value": "Correct.txt"
-                        }
-                    ],
-                    "valid": true
-                },
-                {
-                    "content": [
-                        {
-                            "type": "text",
-                            "value": "Incorrect1.txt"
-                        }
-                    ],
-                    "valid": false
-                },
-                {
-                    "content": [
-                        {
-                            "type": "text",
-                            "value": "Incorrect2.txt"
-                        }
-                    ],
-                    "valid": false
-                }
-            ]
-        },
-        {
-            "name": "JTB6",
-            "categories": [
-                "JTB"
-            ],
-            "points": 600,
-            "content": [
-                {
-                    "type": "image",
-                    "value": "Question.PNG"
-                },
-                {
-                    "type": "text",
-                    "value": "Question.txt"
-                }
-            ],
-            "correction": [
-                {
-                    "type": "image",
-                    "value": "Answer.PNG"
-                },
-                {
-                    "type": "text",
-                    "value": "Answer.txt"
-                }
-            ],
-            "is_demo": false,
-            "options": [
-                {
-                    "content": [
-                        {
-                            "type": "text",
-                            "value": "Correct.txt"
-                        }
-                    ],
-                    "valid": true
-                },
-                {
-                    "content": [
-                        {
-                            "type": "text",
-                            "value": "Incorrect1.txt"
-                        }
-                    ],
-                    "valid": false
-                },
-                {
-                    "content": [
-                        {
-                            "type": "text",
-                            "value": "Incorrect2.txt"
-                        }
-                    ],
-                    "valid": false
-                }
-            ]
-        },
-        {
-            "name": "JTB7",
-            "categories": [
-                "JTB"
-            ],
-            "points": 700,
-            "content": [
-                {
-                    "type": "image",
-                    "value": "Question.PNG"
-                },
-                {
-                    "type": "text",
-                    "value": "Question.txt"
-                }
-            ],
-            "correction": [
-                {
-                    "type": "image",
-                    "value": "Answer.PNG"
-                },
-                {
-                    "type": "text",
-                    "value": "Answer.txt"
-                }
-            ],
+            "correction": [],
             "is_demo": false,
             "options": [
                 {
