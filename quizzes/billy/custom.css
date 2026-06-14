@@ -1,21 +1,33 @@
-    :root {
-        --color-primary: #0e8a53;
-        --color-secondary: #c73b3b;
-        --color-quizz_background: #2f2e2c;
-        --color-card_background: #d9d9d9;
-        --color-card_box-shadow: #c73b3b;
-        --color-text: #ffffff;
-        --color-card_text: #0e8a53;
-        --color-card_text-shadow: #c73b3b;
-        --color-option_text: #0e8a53;
-        --color-option_background: #fff;
-        --color-option_text-shadow: #73d8e6;
-        --color-correct: #0e8a53;
-        --color-wrong: #ef4444;
-        --color-jeopardy: #ef4444;
-        --color-jeopardy-cell-background: #8044ef;
-        --color-jeopardy-cell-text: #ffee00;
-        --color-jeopardy-header-background: #5544ef;
-        --color-jeopardy-header-text: #ffc813;
-    }
+:root {
+    /* Core atmosphere */
+    --color-primary: #a66a3f;              /* worn leather / wood */
+    --color-secondary: #8b3a3a;            /* faded outlaw red */
 
+    /* Backgrounds */
+    --color-quizz_background: #1f1a16;     /* dark saloon wood */
+    --color-card_background: #e7d6b6;      /* aged paper / parchment */
+
+    /* Shadows & depth */
+    --color-card_box-shadow: #5a2b1e;      /* deep wood shadow */
+
+    /* Text */
+    --color-text: #f3e7d3;                 /* warm bone white */
+    --color-card_text: #3b2a1f;           /* ink on paper */
+    --color-card_text-shadow: #c79b63;    /* dust glow */
+
+    /* Options */
+    --color-option_text: #3b2a1f;
+    --color-option_background: #f7ecd6;   /* faded parchment */
+    --color-option_text-shadow: #b0894a;  /* brass hint */
+
+    /* States */
+    --color-correct: #3c7a3c;             /* muted cactus green */
+    --color-wrong: #b23b2b;               /* dusty warning red */
+
+    /* Jeopardy / special UI */
+    --color-jeopardy: #b23b2b;
+    --color-jeopardy-cell-background: #2a1f1a;  /* dark wood grid */
+    --color-jeopardy-cell-text: #f2d36b;        /* gold coin */
+    --color-jeopardy-header-background: #6b3f1f; /* tavern wood plank */
+    --color-jeopardy-header-text: #f2d36b;       /* gold signage */
+}
