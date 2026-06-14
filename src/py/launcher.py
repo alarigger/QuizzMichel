@@ -39,6 +39,8 @@ if __name__ == "__main__":
 
     if len(sys.argv) > 1:
         page = "quizz_"+sys.argv[1]+".html"
+        
+    page = "index.html"
 
     print(f"🎮 Opening: {page}")
 
