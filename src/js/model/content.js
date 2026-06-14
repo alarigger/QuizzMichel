@@ -62,6 +62,11 @@ function QuizzContentManager(game_name, folder_policy, hooks) {
      */
     this.from_obj = function (content_data) {
 
+        if(!content_data){
+            console.warn("Undefined content data:", content_data);
+            return []
+        }
+
         if (typeof content_data === "string") {
             return [new QuizzContent("text", content_data)];
         }
@@ -90,6 +95,14 @@ function QuizzContentManager(game_name, folder_policy, hooks) {
         return [];
     };
 
+    this.validate = function(content_data){
+        if (!content_data || !content_data.type || !content_data.value) {
+            console.warn("Invalid content object:", content_data);
+            return false;
+        }
+        return true
+    }
+
     /**
      * @param {Question | Category} data_object
      * @param {QuizzContent} content
@@ -98,8 +111,6 @@ function QuizzContentManager(game_name, folder_policy, hooks) {
     this._resolve_content_path = function (data_object, content) {
 
         const map = {
-            root: "quizz",
-            game_name: this._game_name,
             data_folder: "data",
             entity: data_object.entity || "default",
             name: data_object.name || "all",
@@ -107,8 +118,6 @@ function QuizzContentManager(game_name, folder_policy, hooks) {
         };
 
         const base = [
-            map.root,
-            map.game_name,
             map.data_folder
         ];
 

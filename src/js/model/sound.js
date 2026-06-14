@@ -8,6 +8,9 @@ function GameSound(){
     this.name=this.id
     this.sound=[]
     this.get_sound = function(){
+        if (!this.sound){
+            return 
+        }
         if(this.sound.length==0){
             return 
         }

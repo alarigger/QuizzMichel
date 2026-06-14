@@ -1,0 +1,65 @@
+{
+    "name": "otaquizz",
+    "options": {
+        "shuffle_options": false,
+        "question_limit": 0
+    },
+    "teams": [],
+    "audio": [
+        {
+            "name": "audios",
+            "sound": []
+        }
+    ],
+    "backgrounds": [
+        {
+            "name": "images",
+            "image": []
+        }
+    ],
+    "categories": [
+        {
+            "name": "images",
+            "title": [],
+            "background": [],
+            "images": [],
+            "music": [],
+            "description": []
+        }
+    ],
+    "questions": [
+        {
+            "name": "images",
+            "categories": [
+                "images"
+            ],
+            "points": 100,
+            "content": [],
+            "correction": [],
+            "is_demo": false,
+            "options": []
+        },
+        {
+            "name": "sounds",
+            "categories": [
+                "sounds"
+            ],
+            "points": 100,
+            "content": [],
+            "correction": [],
+            "is_demo": false,
+            "options": []
+        },
+        {
+            "name": "videos",
+            "categories": [
+                "videos"
+            ],
+            "points": 100,
+            "content": [],
+            "correction": [],
+            "is_demo": false,
+            "options": []
+        }
+    ]
+}

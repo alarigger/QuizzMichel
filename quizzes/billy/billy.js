@@ -4,12 +4,12 @@
 // QUIZ ENGINE - MODE BUZZER
 // ------------------------------
 
-
-
+const QUIZZ_NAME = "billy"
+const DATA = await fetch("/quizzes/"+QUIZZ_NAME+"/data.json").then(r => r.json());
 
 /* loading game data */
-var quizz = new Quizz("billy")
-quizz.load(QUIZZ_DATA,"entity/name")
+var quizz = new Quizz(name)
+quizz.load(DATA,"entity/name")
 
 var game = new Game()
 game.unlock()
@@ -168,9 +168,6 @@ game.add_state("jeopardy", function (id, state) {
     const index = game.get_selected_index();
     const selected_cell = cells[index];
 
-    
-    
-    
     if (selected_cell) {
         if (
             !selected_cell.classList.contains("empty") &&
@@ -179,14 +176,19 @@ game.add_state("jeopardy", function (id, state) {
             quizz.sounds.play_random("select")
             
             game.lock()
-            const popup_image = quizz.backgrounds.get_background("popup").get_random()
-            image_popup(popup_image,function(){});
+            const popup = quizz.backgrounds.get_background("popup")
+            if(popup!==undefined){
+                popup_image = popup.get_random()
+                image_popup(popup_image,function(){});
+            }
 
             const question_id = selected_cell.dataset.questionId;
             const question = quizz.select_question(question_id);
             const category = quizz.get_question_category(question)
-            if (category.name != "BO") {
-                play_point_music(question)
+            if (category!=undefined){
+                if (category.name != "BO") {
+                    play_point_music(question)
+                }
             }
             game.unlock()
             game.next_state();
@@ -205,7 +207,11 @@ game.add_state("question", function (id, state) {
     quizz.valid = false
     const question = quizz.get_current_question();
     const category = quizz.get_question_category(question)
-    var background = question.get_background_image() || category.get_background_image()
+    var cat_bg = undefined
+    if (category!=undefined){
+        cat_bg = category.get_background_image()
+    }
+    var background = question.get_background_image() || cat_bg
     if (background) {
         set_background_image(background.asset)
     }
@@ -267,8 +273,11 @@ game.add_state("correction", function (id) {
     card.appendChild(verdict);
 
     if (quizz.valid) {
-        const popup_image = quizz.backgrounds.get_background("popup").get_random()
-        image_popup(popup_image,function(){});
+        const popup = quizz.backgrounds.get_background("popup")
+        if(popup!==undefined){
+            popup_image = popup.get_random()
+            image_popup(popup_image,function(){});
+        }
         question.burn()
         if (question.correction) {
             card.appendChild(renderContentList(question.correction));

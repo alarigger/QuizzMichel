@@ -30,7 +30,7 @@ function CategoryFactory(content_manager) {
     this.create = function (data) {
         const cat = new Category();
         cat.name = data.name || cat.id
-        cat.title = data.title || cat.name
+        cat.title = this._content_manager.from_obj(data.title) || cat.name
         cat.background_image = this._content_manager.from_obj(data.background_image);
         cat.background_music = this._content_manager.from_obj(data.background_music);
         return cat

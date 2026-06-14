@@ -5,6 +5,10 @@ import webbrowser
 import threading
 import sys
 import time
+import os 
+
+
+from parser import generate_data_json
 
 PORT = 8000
 
@@ -13,6 +17,15 @@ PORT = 8000
 # CONFIG: default page
 # ----------------------------
 DEFAULT_PAGE = "index.html"
+
+class QuizzManager():
+    
+    def parse_quizz_data():
+        root = os.getenv("QMROOT")+"/quizzes"
+        for dir in os.listdir(root):
+            name = dir
+            folder = root+"/"+dir
+            generate_data_json(name,folder)
 
 
 def open_browser(page):
@@ -25,7 +38,7 @@ def run_server():
     handler = http.server.SimpleHTTPRequestHandler
 
     with socketserver.TCPServer(("", PORT), handler) as httpd:
-        print(f"🚀 Server running at http://localhost:{PORT}")
+        print(f" Server running at http://localhost:{PORT}")
         httpd.serve_forever()
 
 
@@ -35,13 +48,10 @@ if __name__ == "__main__":
     # ARG = which quiz HTML to open
     # python launcher.py JTB1.html
     # -----------------------------------
-    page = DEFAULT_PAGE
-
-    if len(sys.argv) > 1:
-        page = "quizz_"+sys.argv[1]+".html"
         
-    page = "index.html"
+    QuizzManager.parse_quizz_data()
 
+    page = "index.html"
     print(f"🎮 Opening: {page}")
 
     # start browser in background
