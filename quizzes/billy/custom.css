@@ -1,0 +1,21 @@
+    :root {
+        --color-primary: #0e8a53;
+        --color-secondary: #c73b3b;
+        --color-quizz_background: #2f2e2c;
+        --color-card_background: #d9d9d9;
+        --color-card_box-shadow: #c73b3b;
+        --color-text: #ffffff;
+        --color-card_text: #0e8a53;
+        --color-card_text-shadow: #c73b3b;
+        --color-option_text: #0e8a53;
+        --color-option_background: #fff;
+        --color-option_text-shadow: #73d8e6;
+        --color-correct: #0e8a53;
+        --color-wrong: #ef4444;
+        --color-jeopardy: #ef4444;
+        --color-jeopardy-cell-background: #8044ef;
+        --color-jeopardy-cell-text: #ffee00;
+        --color-jeopardy-header-background: #5544ef;
+        --color-jeopardy-header-text: #ffc813;
+    }
+

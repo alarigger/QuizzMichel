@@ -2,7 +2,7 @@ const QUIZZ_DATA = {
     "name": "billy",
     "options": {
         "shuffle_options": true,
-        "question_limit": 30
+        "question_limit": 3
     },
     "teams": [
         "JC",
@@ -177,18 +177,78 @@ const QUIZZ_DATA = {
     "backgrounds": [
         {
             "name": "intro",
-            "image": []
+            "image": [
+                {
+                    "type": "image",
+                    "value": "Background.png"
+                }
+            ]
         },
         {
             "name": "jeopardy",
-            "image": []
+            "image": [
+                {
+                    "type": "image",
+                    "value": "Background.png"
+                }
+            ]
         },
         {
             "name": "outro",
-            "image": []
+            "image": [
+                {
+                    "type": "image",
+                    "value": "Background copy.webp"
+                }
+            ]
+        },
+        {
+            "name": "result",
+            "image": [
+                {
+                    "type": "image",
+                    "value": "dance_anime.webp"
+                }
+            ]
         }
     ],
     "categories": [
+        {
+            "name": "DEL",
+            "title": [
+                {
+                    "type": "text",
+                    "value": "Title.txt"
+                }
+            ],
+            "background": [
+                {
+                    "type": "image",
+                    "value": "Background.gif"
+                }
+            ],
+            "images": [],
+            "music": [],
+            "description": []
+        },
+        {
+            "name": "EXC",
+            "title": [
+                {
+                    "type": "text",
+                    "value": "Title.txt"
+                }
+            ],
+            "background": [
+                {
+                    "type": "image",
+                    "value": "Background.PNG"
+                }
+            ],
+            "images": [],
+            "music": [],
+            "description": []
+        },
         {
             "name": "JTB",
             "title": [
@@ -197,7 +257,12 @@ const QUIZZ_DATA = {
                     "value": "Title.txt"
                 }
             ],
-            "background": [],
+            "background": [
+                {
+                    "type": "image",
+                    "value": "Background.gif"
+                }
+            ],
             "images": [],
             "music": [],
             "description": []
@@ -210,7 +275,12 @@ const QUIZZ_DATA = {
                     "value": "Title.txt"
                 }
             ],
-            "background": [],
+            "background": [
+                {
+                    "type": "image",
+                    "value": "Background.gif"
+                }
+            ],
             "images": [],
             "music": [],
             "description": []
@@ -223,7 +293,12 @@ const QUIZZ_DATA = {
                     "value": "Title.txt"
                 }
             ],
-            "background": [],
+            "background": [
+                {
+                    "type": "image",
+                    "value": "Background.gif"
+                }
+            ],
             "images": [],
             "music": [],
             "description": []
@@ -231,11 +306,418 @@ const QUIZZ_DATA = {
     ],
     "questions": [
         {
+            "name": "DEL1",
+            "categories": [
+                "DEL"
+            ],
+            "points": 10,
+            "content": [
+                {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
+                    "type": "text",
+                    "value": "Question.txt"
+                }
+            ],
+            "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
+                {
+                    "type": "text",
+                    "value": "Answer.txt"
+                }
+            ],
+            "is_demo": false,
+            "options": [
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Correct.txt"
+                        }
+                    ],
+                    "valid": true
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect1.txt"
+                        }
+                    ],
+                    "valid": false
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect2.txt"
+                        }
+                    ],
+                    "valid": false
+                }
+            ]
+        },
+        {
+            "name": "DEL2",
+            "categories": [
+                "DEL"
+            ],
+            "points": 20,
+            "content": [
+                {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
+                    "type": "text",
+                    "value": "Question.txt"
+                }
+            ],
+            "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                }
+            ],
+            "is_demo": false,
+            "options": [
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Correct.txt"
+                        }
+                    ],
+                    "valid": true
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect1.txt"
+                        }
+                    ],
+                    "valid": false
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect2.txt"
+                        }
+                    ],
+                    "valid": false
+                }
+            ]
+        },
+        {
+            "name": "DEL3",
+            "categories": [
+                "DEL"
+            ],
+            "points": 30,
+            "content": [
+                {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
+                    "type": "text",
+                    "value": "Question.txt"
+                }
+            ],
+            "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                }
+            ],
+            "is_demo": false,
+            "options": [
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Correct.txt"
+                        }
+                    ],
+                    "valid": true
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect1.txt"
+                        }
+                    ],
+                    "valid": false
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect2.txt"
+                        }
+                    ],
+                    "valid": false
+                }
+            ]
+        },
+        {
+            "name": "DEL4",
+            "categories": [
+                "DEL"
+            ],
+            "points": 40,
+            "content": [
+                {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
+                    "type": "text",
+                    "value": "Question.txt"
+                }
+            ],
+            "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                }
+            ],
+            "is_demo": false,
+            "options": [
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Correct.txt"
+                        }
+                    ],
+                    "valid": true
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect1.txt"
+                        }
+                    ],
+                    "valid": false
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect2.txt"
+                        }
+                    ],
+                    "valid": false
+                }
+            ]
+        },
+        {
+            "name": "EXC1",
+            "categories": [
+                "EXC"
+            ],
+            "points": 10,
+            "content": [
+                {
+                    "type": "text",
+                    "value": "Question.txt"
+                }
+            ],
+            "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.png"
+                }
+            ],
+            "is_demo": false,
+            "options": [
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Correct.txt"
+                        }
+                    ],
+                    "valid": true
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect1.txt"
+                        }
+                    ],
+                    "valid": false
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect2.txt"
+                        }
+                    ],
+                    "valid": false
+                }
+            ]
+        },
+        {
+            "name": "EXC2",
+            "categories": [
+                "EXC"
+            ],
+            "points": 20,
+            "content": [
+                {
+                    "type": "text",
+                    "value": "Question.txt"
+                }
+            ],
+            "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.png"
+                }
+            ],
+            "is_demo": false,
+            "options": [
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Correct.txt"
+                        }
+                    ],
+                    "valid": true
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect1.txt"
+                        }
+                    ],
+                    "valid": false
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect2.txt"
+                        }
+                    ],
+                    "valid": false
+                }
+            ]
+        },
+        {
+            "name": "EXC3",
+            "categories": [
+                "EXC"
+            ],
+            "points": 30,
+            "content": [
+                {
+                    "type": "text",
+                    "value": "Question.txt"
+                }
+            ],
+            "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.png"
+                }
+            ],
+            "is_demo": false,
+            "options": [
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Correct.txt"
+                        }
+                    ],
+                    "valid": true
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect1.txt"
+                        }
+                    ],
+                    "valid": false
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect2.txt"
+                        }
+                    ],
+                    "valid": false
+                }
+            ]
+        },
+        {
+            "name": "EXC4",
+            "categories": [
+                "EXC"
+            ],
+            "points": 40,
+            "content": [
+                {
+                    "type": "text",
+                    "value": "Question.txt"
+                }
+            ],
+            "correction": [],
+            "is_demo": false,
+            "options": [
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Correct.txt"
+                        }
+                    ],
+                    "valid": true
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect1.txt"
+                        }
+                    ],
+                    "valid": false
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect2.txt"
+                        }
+                    ],
+                    "valid": false
+                }
+            ]
+        },
+        {
             "name": "JTB1",
             "categories": [
                 "JTB"
             ],
-            "points": 100,
+            "points": 10,
             "content": [
                 {
                     "type": "image",
@@ -292,7 +774,7 @@ const QUIZZ_DATA = {
             "categories": [
                 "JTB"
             ],
-            "points": 200,
+            "points": 20,
             "content": [
                 {
                     "type": "image",
@@ -349,7 +831,7 @@ const QUIZZ_DATA = {
             "categories": [
                 "JTB"
             ],
-            "points": 300,
+            "points": 30,
             "content": [
                 {
                     "type": "image",
@@ -406,7 +888,7 @@ const QUIZZ_DATA = {
             "categories": [
                 "JTB"
             ],
-            "points": 400,
+            "points": 40,
             "content": [
                 {
                     "type": "image",
@@ -463,7 +945,7 @@ const QUIZZ_DATA = {
             "categories": [
                 "QSC"
             ],
-            "points": 100,
+            "points": 10,
             "content": [
                 {
                     "type": "image",
@@ -478,10 +960,6 @@ const QUIZZ_DATA = {
                 {
                     "type": "image",
                     "value": "Answer.PNG"
-                },
-                {
-                    "type": "text",
-                    "value": "Answer.txt"
                 }
             ],
             "is_demo": false,
@@ -494,24 +972,6 @@ const QUIZZ_DATA = {
                         }
                     ],
                     "valid": true
-                },
-                {
-                    "content": [
-                        {
-                            "type": "text",
-                            "value": "Incorrect1.txt"
-                        }
-                    ],
-                    "valid": false
-                },
-                {
-                    "content": [
-                        {
-                            "type": "text",
-                            "value": "Incorrect2.txt"
-                        }
-                    ],
-                    "valid": false
                 }
             ]
         },
@@ -520,7 +980,7 @@ const QUIZZ_DATA = {
             "categories": [
                 "QSC"
             ],
-            "points": 200,
+            "points": 20,
             "content": [
                 {
                     "type": "image",
@@ -577,7 +1037,7 @@ const QUIZZ_DATA = {
             "categories": [
                 "QSC"
             ],
-            "points": 300,
+            "points": 30,
             "content": [
                 {
                     "type": "image",
@@ -634,7 +1094,7 @@ const QUIZZ_DATA = {
             "categories": [
                 "QSC"
             ],
-            "points": 400,
+            "points": 40,
             "content": [
                 {
                     "type": "image",
@@ -691,7 +1151,7 @@ const QUIZZ_DATA = {
             "categories": [
                 "RIG"
             ],
-            "points": 100,
+            "points": 10,
             "content": [
                 {
                     "type": "image",
@@ -739,7 +1199,7 @@ const QUIZZ_DATA = {
             "categories": [
                 "RIG"
             ],
-            "points": 200,
+            "points": 20,
             "content": [
                 {
                     "type": "image",
@@ -787,7 +1247,7 @@ const QUIZZ_DATA = {
             "categories": [
                 "RIG"
             ],
-            "points": 300,
+            "points": 30,
             "content": [
                 {
                     "type": "image",
@@ -835,55 +1295,7 @@ const QUIZZ_DATA = {
             "categories": [
                 "RIG"
             ],
-            "points": 400,
-            "content": [
-                {
-                    "type": "image",
-                    "value": "Question.png"
-                },
-                {
-                    "type": "text",
-                    "value": "Question.txt"
-                }
-            ],
-            "correction": [],
-            "is_demo": false,
-            "options": [
-                {
-                    "content": [
-                        {
-                            "type": "text",
-                            "value": "Correct.txt"
-                        }
-                    ],
-                    "valid": true
-                },
-                {
-                    "content": [
-                        {
-                            "type": "text",
-                            "value": "Incorrect1.txt"
-                        }
-                    ],
-                    "valid": false
-                },
-                {
-                    "content": [
-                        {
-                            "type": "text",
-                            "value": "Incorrect2.txt"
-                        }
-                    ],
-                    "valid": false
-                }
-            ]
-        },
-        {
-            "name": "RIG5",
-            "categories": [
-                "RIG"
-            ],
-            "points": 500,
+            "points": 40,
             "content": [
                 {
                     "type": "image",

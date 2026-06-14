@@ -33,7 +33,7 @@ const QUIZZ_DATA = {
             "categories": [
                 "images"
             ],
-            "points": 100,
+            "points": 10,
             "content": [],
             "correction": [],
             "is_demo": false,
@@ -44,7 +44,7 @@ const QUIZZ_DATA = {
             "categories": [
                 "sounds"
             ],
-            "points": 100,
+            "points": 10,
             "content": [],
             "correction": [],
             "is_demo": false,
@@ -55,7 +55,7 @@ const QUIZZ_DATA = {
             "categories": [
                 "videos"
             ],
-            "points": 100,
+            "points": 10,
             "content": [],
             "correction": [],
             "is_demo": false,

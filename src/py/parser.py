@@ -52,11 +52,11 @@ def infer_points(question_name):
     match = re.search(r"(\d+)$", question_name)
 
     if match:
-        points = int(match.group(1)) * 100
+        points = int(match.group(1)) * 10
         #print(points)
-        return int(match.group(1)) * 100
+        return points
 
-    return 100
+    return 10
 
 
 def parse_audio(audio_dir):

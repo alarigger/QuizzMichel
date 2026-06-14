@@ -15,6 +15,15 @@ function renderOption(option, index) {
 
     return el;
 }
+
+function renderOptionSimple(option) {
+
+    const el = document.createElement("div");
+    el.className = "option";
+    el.appendChild(renderContentList(option.content));
+
+    return el;
+}
 /**
  * @param {Question} question
  */

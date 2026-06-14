@@ -72,7 +72,7 @@ function Question() {
     this.get_valid_option = function () {
         for (var a in this.options) {
             if (this.options[a].valid) {
-                return this.options[a].asset
+                return this.options[a]
             }
         }
     }

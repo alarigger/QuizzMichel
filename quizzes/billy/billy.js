@@ -36,7 +36,7 @@ game.add_state("intro", function (id) {
     quizz.restart()
     reset_background()
     document.getElementById(id).innerHTML = "";
-    addCenteredImage(id, "quizz/otaquizz/otaquizz.jpg")
+    addCenteredImage(id, quizz.backgrounds.get_background("intro").get_image().src)
 }, function (id) {
 
 }, function (id) {
@@ -58,6 +58,8 @@ game.add_state("jeopardy", function (id, state) {
     reset_background()
     quizz.sounds.stop_music()
     quizz.sounds.play_music("music_grid")
+
+    addCenteredImage(id, quizz.backgrounds.get_background("jeopardy").get_image())
 
     const questions = quizz.get_questions();
 
@@ -276,17 +278,17 @@ game.add_state("correction", function (id) {
     verdict.textContent = quizz.valid ? "Bonne réponse !" : "Mauvaise réponse !";
     card.appendChild(verdict);
 
-    if (quizz.valid) {
-        const popup = quizz.backgrounds.get_background("popup")
-        if(popup!==undefined){
-            popup_image = popup.get_random()
-            image_popup(popup_image,function(){});
-        }
-        question.burn()
-        if (question.correction) {
-            card.appendChild(renderContentList(question.correction));
-        }
+    const popup = quizz.backgrounds.get_background("popup")
+    if(popup!==undefined){
+        popup_image = popup.get_random()
+        image_popup(popup_image,function(){});
     }
+    question.burn()
+    if (question.correction) {
+        card.appendChild(renderContentList(question.correction));
+        card.appendChild(renderOptionSimple(question.get_valid_option(),1));
+    }
+
 
     // background
     card.style.backgroundColor = quizz.valid ? "#82e082" : "#ff8b8b";
@@ -308,16 +310,13 @@ game.add_state("correction", function (id) {
     if (quizz.valid) {
         game.apply_state("attribution");
     } else {
-        if (question.atempts <= max_retry) {
-            game.apply_state("question");
-        } else {
-            question.burn()
-            if(quizz.all_burned()){
-                game.apply_state("result")
-            }else{
-                game.apply_state("score");
-            }
+        question.burn()
+        if(quizz.all_burned()){
+            game.apply_state("result")
+        }else{
+            game.apply_state("score");
         }
+        
     }
 });
 ;
