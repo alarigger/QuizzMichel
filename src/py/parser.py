@@ -271,6 +271,29 @@ def generate_data_json(quiz_name:str,folder:str):
         )
 
     #print(f"Generated {output_file}")
+    # 
+    
+    
+
+def generate_data_js(quiz_name: str, folder: str):
+
+    quiz = build_quiz(quiz_name, folder)
+
+    output_file = os.path.join(folder, "data.js")
+
+    data = quiz.to_dict()
+
+    with open(output_file, "w", encoding="utf-8") as f:
+        f.write("const QUIZZ_DATA = ")
+        json.dump(
+            data,
+            f,
+            indent=4,
+            ensure_ascii=False
+        )
+        f.write(";")
+
+    print(f"Generated {output_file}")
 
 def main():
     parser = argparse.ArgumentParser()

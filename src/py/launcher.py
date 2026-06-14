@@ -8,7 +8,7 @@ import os
 
 PORT = 8000
 
-from parser import generate_data_json
+from parser import generate_data_json,generate_data_js
 
 
 
@@ -24,7 +24,7 @@ class QuizzManager():
         for dir in os.listdir(root):
             name = dir
             folder = root+"/"+dir
-            generate_data_json(name,folder)
+            generate_data_js(name,folder)
 
 
 def open_browser(page):

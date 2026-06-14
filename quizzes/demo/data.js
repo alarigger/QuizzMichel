@@ -1,0 +1,12 @@
+const QUIZZ_DATA = {
+    "name": "demo",
+    "options": {
+        "shuffle_options": false,
+        "question_limit": 0
+    },
+    "teams": [],
+    "audio": [],
+    "backgrounds": [],
+    "categories": [],
+    "questions": []
+};

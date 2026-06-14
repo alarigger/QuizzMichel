@@ -5,11 +5,11 @@
 // ------------------------------
 
 const QUIZZ_NAME = "billy"
-const DATA = await fetch("/quizzes/"+QUIZZ_NAME+"/data.json").then(r => r.json());
+//const QUIIZZ_DATA = await fetch("/quizzes/"+QUIZZ_NAME+"/data.json").then(r => r.json());
 
 /* loading game data */
 var quizz = new Quizz(name)
-quizz.load(DATA,"entity/name")
+quizz.load(QUIZZ_DATA,"entity/name")
 
 var game = new Game()
 game.unlock()

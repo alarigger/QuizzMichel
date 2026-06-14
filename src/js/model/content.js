@@ -241,8 +241,7 @@ function QuizzContentManager(game_name, folder_policy, hooks) {
 
             this._pending++;
 
-            fetch(src + "?v=" + Date.now(), { cache: "no-store" })
-                .then(r => r.text())
+            fetch(src)
                 .then(r => r.text())
                 .then(text => {
                     content.asset = text;
@@ -259,7 +258,7 @@ function QuizzContentManager(game_name, folder_policy, hooks) {
                 })
                 .finally(() => {
                     this._call("onLoadEnd", content);
-            });
+                });
         }
 
         return this
