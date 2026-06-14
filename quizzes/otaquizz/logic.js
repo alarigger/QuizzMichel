@@ -96,7 +96,7 @@ game.add_state("jeopardy", function (id, state) {
     this.categories.forEach(category => {
         const header = document.createElement("div");
         header.className = "jeopardy-header";
-        header.textContent = quizz.get_category(category)?.title || category;
+        header.textContent = quizz.get_category(category)?.get_title() || category;
         board.appendChild(header);
     });
 
@@ -204,7 +204,7 @@ game.add_state("question", function (id, state) {
     quizz.valid = false
     const question = quizz.get_current_question();
     const category = quizz.get_question_category(question)
-    var background = question.get_background_image() || category.get_background_image()
+    var background = question.get_background_image() || category.get_background()
     if (background) {
         set_background_image(background.asset)
     }

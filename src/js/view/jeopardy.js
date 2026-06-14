@@ -64,7 +64,7 @@ function Jeopardy(quizz, game) {
             const header = document.createElement("div");
             header.className = "jeopardy-header";
             header.textContent =
-                this.quizz.get_category(category)?.title || category;
+                this.quizz.get_category(category)?.get_title() || category;
 
             board.appendChild(header);
         });

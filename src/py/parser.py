@@ -92,9 +92,12 @@ def parse_category(category_dir):
             continue
 
         lower = filename.lower()
+        
+        if lower.startswith("data."):
+            category.title.append(content)
 
         if lower.startswith("title."):
-            category.title.append(content)
+            category.title.append(content)        
 
         elif lower.startswith("background."):
             category.background.append(content)

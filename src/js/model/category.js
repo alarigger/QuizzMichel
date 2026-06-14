@@ -6,14 +6,22 @@ function Category() {
     this.id = Math.floor(Math.random() * 1000000000); // 0-999,999,999
     this.name = ""
     this.title = null
-    this.background_image = []
-    this.background_music = []
+    this.images = []
+    this.background = []
+    this.music = []
 
-    this.get_background_image = function(){
-        if(this.background_image.length==0){
+    this.get_background = function(){
+        if(this.background.length==0){
             return 
         }
-        return this.background_image[0]
+        return this.background[0]
+    }
+
+    this.get_title = function(){
+        if(this.title.length==0){
+            return 
+        }
+        return this.title[0].asset
     }
 }
 
@@ -31,8 +39,9 @@ function CategoryFactory(content_manager) {
         const cat = new Category();
         cat.name = data.name || cat.id
         cat.title = this._content_manager.from_obj(data.title) || cat.name
-        cat.background_image = this._content_manager.from_obj(data.background_image);
-        cat.background_music = this._content_manager.from_obj(data.background_music);
+        cat.images = this._content_manager.from_obj(data.images);
+        cat.background = this._content_manager.from_obj(data.background);
+        cat.music = this._content_manager.from_obj(data.music);
         return cat
     };
 
@@ -68,8 +77,10 @@ function CategoryManager(content_manager) {
     */
     this._preload_category_data = function (category) {
         console.log("preload content")
-        this._content_manager.preload(category, category.background_image);
-        this._content_manager.preload(category, category.background_music);
+        this._content_manager.preload(category, category.title);
+        this._content_manager.preload(category, category.background);
+        this._content_manager.preload(category, category.music);
+        this._content_manager.preload(category, category.images);
         return this
     };
 

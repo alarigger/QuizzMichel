@@ -97,7 +97,7 @@ game.add_state("jeopardy", function (id, state) {
     this.categories.forEach(category => {
         const header = document.createElement("div");
         header.className = "jeopardy-header";
-        header.textContent = quizz.get_category(category)?.title || category;
+        header.textContent = quizz.get_category(category)?.get_title() || category;
         board.appendChild(header);
     });
 
@@ -209,7 +209,7 @@ game.add_state("question", function (id, state) {
     const category = quizz.get_question_category(question)
     var cat_bg = undefined
     if (category!=undefined){
-        cat_bg = category.get_background_image()
+        cat_bg = category.get_background()
     }
     var background = question.get_background_image() || cat_bg
     if (background) {
@@ -416,8 +416,10 @@ game.add_state("result", function (id, state) {
 
     quizz.sounds.play_music("final")
     var final_background = quizz.backgrounds.get_background("result")
-    console.log(final_background)
-    set_background_image(final_background.get_image())
+    if(final_background!=undefined){
+        console.log(final_background)
+        set_background_image(final_background.get_image())
+    }
 
     const winner_text = winner_team_names.length > 1
         ? `Égalité entre ${winner_team_names.join(" & ")} !`
