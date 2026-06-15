@@ -2,7 +2,7 @@ const QUIZZ_DATA = {
     "name": "billy",
     "options": {
         "shuffle_options": true,
-        "question_limit": 3
+        "question_limit": 300
     },
     "teams": [
         "JC",
@@ -972,6 +972,24 @@ const QUIZZ_DATA = {
                         }
                     ],
                     "valid": true
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect1.txt"
+                        }
+                    ],
+                    "valid": false
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Incorrect2.txt"
+                        }
+                    ],
+                    "valid": false
                 }
             ]
         },

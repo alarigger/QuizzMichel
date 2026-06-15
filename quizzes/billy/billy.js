@@ -21,10 +21,10 @@ function play_point_music(question) {
     quizz.sounds.stop_music();
     const music_name =
         [
-            { name: "music_easy", points: [100, 200] },
-            { name: "music_medium", points: [300, 400] },
-            { name: "music_hard", points: [500, 600] },
-            { name: "music_epic", points: [700] }
+            { name: "music_easy", points: [0, ,10,20,30] },
+            //{ name: "music_medium", points: [300, 400] },
+            //{ name: "music_hard", points: [500, 600] },
+            { name: "music_epic", points: [40] }
         ].find(m => m.points.includes(question.points))?.name ?? "music_easy";
 
     quizz.sounds.play_music(music_name);
@@ -391,13 +391,16 @@ game.add_state("score", function (id, state) {
     game.lock()
 
     const chosen_team = quizz.get_current_team()
+    if(chosen_team!==undefined){
 
-    const card = document.createElement("div");
-    card.className = "card";
-    card.id = "card";
-    card.innerHTML = render_scores_podium(quizz, "score", [chosen_team.name]);
-    document.getElementById(id).innerHTML = "";
-    document.getElementById(id).appendChild(card);
+        const card = document.createElement("div");
+        card.className = "card";
+        card.id = "card";
+        card.innerHTML = render_scores_podium(quizz, "score", [chosen_team.name]);
+        document.getElementById(id).innerHTML = "";
+        document.getElementById(id).appendChild(card);
+    }
+
 
     game.unlock()
 
