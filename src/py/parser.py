@@ -26,15 +26,23 @@ def get_content_type(filename):
     return None
 
 
-def make_content(filename):
+def make_content(question_dir, filename):
     content_type = get_content_type(filename)
 
     if content_type is None:
         return None
 
+    value = filename
+
+    if content_type == "text":
+        path = os.path.join(question_dir, filename)
+
+        with open(path, "r", encoding="utf-8") as f:
+            value = f.read()
+
     return Content(
         type=content_type,
-        value=filename
+        value=value
     )
 
 
@@ -63,7 +71,7 @@ def parse_audio(audio_dir):
     name = os.path.basename(audio_dir)
     audio = Audio(name=name)
     for filename in sorted(os.listdir(audio_dir)):
-        content = make_content(filename)
+        content = make_content(audio_dir,filename)
         if content:
             audio.sound.append(content)
 
@@ -75,7 +83,7 @@ def parse_background(background_dir):
     bg = Background(name=name)
 
     for filename in sorted(os.listdir(background_dir)):
-        content = make_content(filename)
+        content = make_content(background_dir,filename)
 
         if content:
             bg.image.append(content)
@@ -92,7 +100,7 @@ def parse_category(category_dir):
     category = Category(name=name)
 
     for filename in sorted(os.listdir(category_dir)):
-        content = make_content(filename)
+        content = make_content(category_dir,filename)
 
         if not content:
             continue
@@ -140,7 +148,7 @@ def parse_question(question_dir):
     # Question.*
     for filename in files:
         if filename.startswith("Question."):
-            content = make_content(filename)
+            content = make_content(question_dir,filename)
 
             if content:
                 question.content.append(content)
@@ -148,7 +156,7 @@ def parse_question(question_dir):
     # Answer.*
     for filename in files:
         if filename.startswith("Answer."):
-            content = make_content(filename)
+            content = make_content(question_dir,filename)
 
             if content:
                 question.correction.append(content)
@@ -156,7 +164,7 @@ def parse_question(question_dir):
     # Correct.*
     for filename in files:
         if filename.startswith("Correct"):
-            content = make_content(filename)
+            content = make_content(question_dir,filename)
 
             if content:
                 question.options.append(
@@ -169,7 +177,7 @@ def parse_question(question_dir):
     # Incorrect.*
     for filename in files:
         if filename.startswith("Incorrect"):
-            content = make_content(filename)
+            content = make_content(question_dir,filename)
 
             if content:
                 question.options.append(
@@ -186,9 +194,7 @@ def build_quiz(quizz_name,folder):
     
 
     root = os.path.join(folder, "data")
-
     quiz = Quiz(name=quizz_name)
-
     options_file = os.path.join(root, "options.json")
 
     if os.path.exists(options_file):

@@ -216,7 +216,7 @@ const QUIZZ_DATA = {
             "title": [
                 {
                     "type": "text",
-                    "value": "Title.txt"
+                    "value": "🧠Deep Lore🧠"
                 }
             ],
             "background": [
@@ -234,7 +234,7 @@ const QUIZZ_DATA = {
             "title": [
                 {
                     "type": "text",
-                    "value": "Title.txt"
+                    "value": "📈Expert Comptable📉"
                 }
             ],
             "background": [
@@ -252,7 +252,7 @@ const QUIZZ_DATA = {
             "title": [
                 {
                     "type": "text",
-                    "value": "Title.txt"
+                    "value": "🎲Pifomètre🎲"
                 }
             ],
             "background": [
@@ -270,7 +270,7 @@ const QUIZZ_DATA = {
             "title": [
                 {
                     "type": "text",
-                    "value": "Title.txt"
+                    "value": "🙈Qui Se Cache ?🙉 "
                 }
             ],
             "background": [
@@ -288,7 +288,7 @@ const QUIZZ_DATA = {
             "title": [
                 {
                     "type": "text",
-                    "value": "Title.txt"
+                    "value": "🤖Rig Vision🤖"
                 }
             ],
             "background": [
@@ -316,7 +316,7 @@ const QUIZZ_DATA = {
                 },
                 {
                     "type": "text",
-                    "value": "Question.txt"
+                    "value": "Comment s'appelle le hiboux dans l'épisode 22 saison 1 ? "
                 }
             ],
             "correction": [
@@ -326,7 +326,7 @@ const QUIZZ_DATA = {
                 },
                 {
                     "type": "text",
-                    "value": "Answer.txt"
+                    "value": "Comment s'appelle le hiboux dans l'épisode 22 saison 1 ? "
                 }
             ],
             "is_demo": false,
@@ -335,7 +335,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Correct.txt"
+                            "value": "Juliuis"
                         }
                     ],
                     "valid": true
@@ -344,7 +344,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect1.txt"
+                            "value": "Claudius"
                         }
                     ],
                     "valid": false
@@ -353,7 +353,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect2.txt"
+                            "value": "Sibelius"
                         }
                     ],
                     "valid": false
@@ -373,7 +373,7 @@ const QUIZZ_DATA = {
                 },
                 {
                     "type": "text",
-                    "value": "Question.txt"
+                    "value": "Quel est le surnom que la mère de grosdur donne à son fils ? "
                 }
             ],
             "correction": [
@@ -388,7 +388,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Correct.txt"
+                            "value": "dudu\n"
                         }
                     ],
                     "valid": true
@@ -397,7 +397,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect1.txt"
+                            "value": "grodounet"
                         }
                     ],
                     "valid": false
@@ -406,7 +406,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect2.txt"
+                            "value": "roro"
                         }
                     ],
                     "valid": false
@@ -426,7 +426,7 @@ const QUIZZ_DATA = {
                 },
                 {
                     "type": "text",
-                    "value": "Question.txt"
+                    "value": "Quel est le prénom de l' ecureuil Foulafrousse ? "
                 }
             ],
             "correction": [
@@ -441,7 +441,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Correct.txt"
+                            "value": "gaston"
                         }
                     ],
                     "valid": true
@@ -450,7 +450,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect1.txt"
+                            "value": "victor"
                         }
                     ],
                     "valid": false
@@ -459,7 +459,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect2.txt"
+                            "value": "boris"
                         }
                     ],
                     "valid": false
@@ -479,7 +479,7 @@ const QUIZZ_DATA = {
                 },
                 {
                     "type": "text",
-                    "value": "Question.txt"
+                    "value": "Comment s'appelle l'idole d'enfance de jessy dog ? "
                 }
             ],
             "correction": [
@@ -494,7 +494,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Correct.txt"
+                            "value": "kid coyotte\n"
                         }
                     ],
                     "valid": true
@@ -503,7 +503,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect1.txt"
+                            "value": "marshal dustin"
                         }
                     ],
                     "valid": false
@@ -512,7 +512,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect2.txt"
+                            "value": "capitaine cactus"
                         }
                     ],
                     "valid": false
@@ -528,7 +528,7 @@ const QUIZZ_DATA = {
             "content": [
                 {
                     "type": "text",
-                    "value": "Question.txt"
+                    "value": "Combien de props dépouillés sur saison1 et 2 ? "
                 }
             ],
             "correction": [
@@ -543,7 +543,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Correct.txt"
+                            "value": "685"
                         }
                     ],
                     "valid": true
@@ -552,7 +552,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect1.txt"
+                            "value": "705"
                         }
                     ],
                     "valid": false
@@ -561,7 +561,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect2.txt"
+                            "value": "1852"
                         }
                     ],
                     "valid": false
@@ -577,7 +577,7 @@ const QUIZZ_DATA = {
             "content": [
                 {
                     "type": "text",
-                    "value": "Question.txt"
+                    "value": "Combien de personnages (rhab compris) dépouillés sur saison1 et 2 ? "
                 }
             ],
             "correction": [
@@ -592,7 +592,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Correct.txt"
+                            "value": "373"
                         }
                     ],
                     "valid": true
@@ -601,7 +601,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect1.txt"
+                            "value": "542\n"
                         }
                     ],
                     "valid": false
@@ -610,7 +610,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect2.txt"
+                            "value": "133"
                         }
                     ],
                     "valid": false
@@ -626,7 +626,7 @@ const QUIZZ_DATA = {
             "content": [
                 {
                     "type": "text",
-                    "value": "Question.txt"
+                    "value": "Combien de décors (reut compris) dépouillés sur saison1 et 2 ? "
                 }
             ],
             "correction": [
@@ -641,7 +641,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Correct.txt"
+                            "value": "8295"
                         }
                     ],
                     "valid": true
@@ -650,7 +650,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect1.txt"
+                            "value": "2630\n"
                         }
                     ],
                     "valid": false
@@ -659,7 +659,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect2.txt"
+                            "value": "3695"
                         }
                     ],
                     "valid": false
@@ -675,7 +675,7 @@ const QUIZZ_DATA = {
             "content": [
                 {
                     "type": "text",
-                    "value": "Question.txt"
+                    "value": "Combien de personnages (sans rhab) dans la saison 1 et 2 ? "
                 }
             ],
             "correction": [],
@@ -685,7 +685,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Correct.txt"
+                            "value": "41"
                         }
                     ],
                     "valid": true
@@ -694,7 +694,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect1.txt"
+                            "value": "53"
                         }
                     ],
                     "valid": false
@@ -703,7 +703,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect2.txt"
+                            "value": "102"
                         }
                     ],
                     "valid": false
@@ -723,7 +723,7 @@ const QUIZZ_DATA = {
                 },
                 {
                     "type": "text",
-                    "value": "Question.txt"
+                    "value": "Comment s'appelle l'araignée dans l'épisode 9 saison 1 ? "
                 }
             ],
             "correction": [
@@ -733,7 +733,7 @@ const QUIZZ_DATA = {
                 },
                 {
                     "type": "text",
-                    "value": "Answer.txt"
+                    "value": "Bernadette !"
                 }
             ],
             "is_demo": false,
@@ -742,7 +742,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Correct.txt"
+                            "value": "Bernadette "
                         }
                     ],
                     "valid": true
@@ -751,7 +751,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect1.txt"
+                            "value": "Renée"
                         }
                     ],
                     "valid": false
@@ -760,7 +760,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect2.txt"
+                            "value": "Ursule"
                         }
                     ],
                     "valid": false
@@ -780,7 +780,7 @@ const QUIZZ_DATA = {
                 },
                 {
                     "type": "text",
-                    "value": "Question.txt"
+                    "value": "Dans l'épisode 9 saison 1 Jean-Claude échappe à gros dur en se déguisant en ..."
                 }
             ],
             "correction": [
@@ -790,7 +790,7 @@ const QUIZZ_DATA = {
                 },
                 {
                     "type": "text",
-                    "value": "Answer.txt"
+                    "value": "..."
                 }
             ],
             "is_demo": false,
@@ -799,7 +799,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Correct.txt"
+                            "value": "Caca"
                         }
                     ],
                     "valid": true
@@ -808,7 +808,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect1.txt"
+                            "value": "Branche\n"
                         }
                     ],
                     "valid": false
@@ -817,7 +817,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect2.txt"
+                            "value": "Serpent\n"
                         }
                     ],
                     "valid": false
@@ -837,7 +837,7 @@ const QUIZZ_DATA = {
                 },
                 {
                     "type": "text",
-                    "value": "Question.txt"
+                    "value": "Dans l'épisode 6 saison 1 à qui appartient la plume que trouve billy ? "
                 }
             ],
             "correction": [
@@ -847,7 +847,7 @@ const QUIZZ_DATA = {
                 },
                 {
                     "type": "text",
-                    "value": "Answer.txt"
+                    "value": "La pie Agatha !"
                 }
             ],
             "is_demo": false,
@@ -856,7 +856,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Correct.txt"
+                            "value": "Agatha"
                         }
                     ],
                     "valid": true
@@ -865,7 +865,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect1.txt"
+                            "value": "Jack"
                         }
                     ],
                     "valid": false
@@ -874,7 +874,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect2.txt"
+                            "value": "Ursule"
                         }
                     ],
                     "valid": false
@@ -894,7 +894,7 @@ const QUIZZ_DATA = {
                 },
                 {
                     "type": "text",
-                    "value": "Question.txt"
+                    "value": "Dans l'episode \"un aprés midi animé\" quel est le super pouvoir de Jean Claude ? "
                 }
             ],
             "correction": [
@@ -904,7 +904,7 @@ const QUIZZ_DATA = {
                 },
                 {
                     "type": "text",
-                    "value": "Answer.txt"
+                    "value": "Avoir des bras ! "
                 }
             ],
             "is_demo": false,
@@ -913,7 +913,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Correct.txt"
+                            "value": "avoir des bras"
                         }
                     ],
                     "valid": true
@@ -922,7 +922,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect1.txt"
+                            "value": "faire fondre la glace"
                         }
                     ],
                     "valid": false
@@ -931,7 +931,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect2.txt"
+                            "value": "voler "
                         }
                     ],
                     "valid": false
@@ -951,7 +951,7 @@ const QUIZZ_DATA = {
                 },
                 {
                     "type": "text",
-                    "value": "Question.txt"
+                    "value": "Qui est le monstre dans la brume de l'épisode 13 saison 1 ?"
                 }
             ],
             "correction": [
@@ -966,7 +966,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Correct.txt"
+                            "value": "bison"
                         }
                     ],
                     "valid": true
@@ -975,7 +975,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect1.txt"
+                            "value": "grosdur"
                         }
                     ],
                     "valid": false
@@ -984,7 +984,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect2.txt"
+                            "value": "marla et marvin"
                         }
                     ],
                     "valid": false
@@ -1004,7 +1004,7 @@ const QUIZZ_DATA = {
                 },
                 {
                     "type": "text",
-                    "value": "Question.txt"
+                    "value": "Dans l'épisode 9 saison 1 Billy et Suzie chassent Grosdur de la fontaine en... "
                 }
             ],
             "correction": [
@@ -1014,7 +1014,7 @@ const QUIZZ_DATA = {
                 },
                 {
                     "type": "text",
-                    "value": "Answer.txt"
+                    "value": "..."
                 }
             ],
             "is_demo": false,
@@ -1023,7 +1023,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Correct.txt"
+                            "value": "Se déguisant en fantômes !"
                         }
                     ],
                     "valid": true
@@ -1032,7 +1032,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect1.txt"
+                            "value": "En imittant sa mère"
                         }
                     ],
                     "valid": false
@@ -1041,7 +1041,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect2.txt"
+                            "value": "En l'attaquant avec l'aide d'une fourmillière"
                         }
                     ],
                     "valid": false
@@ -1061,7 +1061,7 @@ const QUIZZ_DATA = {
                 },
                 {
                     "type": "text",
-                    "value": "Question.txt"
+                    "value": "Qui est le Croque-mitaine de l'episode D'Halloween ? "
                 }
             ],
             "correction": [
@@ -1071,7 +1071,7 @@ const QUIZZ_DATA = {
                 },
                 {
                     "type": "text",
-                    "value": "Answer.txt"
+                    "value": "Marla et Marvin ! "
                 }
             ],
             "is_demo": false,
@@ -1080,7 +1080,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Correct.txt"
+                            "value": "Marla et Marvin "
                         }
                     ],
                     "valid": true
@@ -1089,7 +1089,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect1.txt"
+                            "value": "Gros dur"
                         }
                     ],
                     "valid": false
@@ -1098,7 +1098,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect2.txt"
+                            "value": "Foulafrousse"
                         }
                     ],
                     "valid": false
@@ -1118,7 +1118,7 @@ const QUIZZ_DATA = {
                 },
                 {
                     "type": "text",
-                    "value": "Question.txt"
+                    "value": "Qui se cache dans le jouet maudit ? "
                 }
             ],
             "correction": [
@@ -1128,7 +1128,7 @@ const QUIZZ_DATA = {
                 },
                 {
                     "type": "text",
-                    "value": "Answer.txt"
+                    "value": "C'est Rémi le bousier qui était prisonnier du jouet ! "
                 }
             ],
             "is_demo": false,
@@ -1137,7 +1137,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Correct.txt"
+                            "value": "Remi le bousier"
                         }
                     ],
                     "valid": true
@@ -1146,7 +1146,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect1.txt"
+                            "value": "Isabelle la lubellule"
                         }
                     ],
                     "valid": false
@@ -1155,7 +1155,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect2.txt"
+                            "value": "Marie la fourmie "
                         }
                     ],
                     "valid": false
@@ -1175,7 +1175,7 @@ const QUIZZ_DATA = {
                 },
                 {
                     "type": "text",
-                    "value": "Question.txt"
+                    "value": "A quel personnage appartient ce rig ? "
                 }
             ],
             "correction": [],
@@ -1185,7 +1185,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Correct.txt"
+                            "value": "jean-claude"
                         }
                     ],
                     "valid": true
@@ -1194,7 +1194,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect1.txt"
+                            "value": "marla"
                         }
                     ],
                     "valid": false
@@ -1203,7 +1203,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect2.txt"
+                            "value": "marvin"
                         }
                     ],
                     "valid": false
@@ -1223,7 +1223,7 @@ const QUIZZ_DATA = {
                 },
                 {
                     "type": "text",
-                    "value": "Question.txt"
+                    "value": "A quel personnage appartient ce rig ? "
                 }
             ],
             "correction": [],
@@ -1233,7 +1233,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Correct.txt"
+                            "value": "jack\n"
                         }
                     ],
                     "valid": true
@@ -1242,7 +1242,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect1.txt"
+                            "value": "scott"
                         }
                     ],
                     "valid": false
@@ -1251,7 +1251,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect2.txt"
+                            "value": "kurt"
                         }
                     ],
                     "valid": false
@@ -1271,7 +1271,7 @@ const QUIZZ_DATA = {
                 },
                 {
                     "type": "text",
-                    "value": "Question.txt"
+                    "value": "A quel personnage appartient ce rig ? "
                 }
             ],
             "correction": [],
@@ -1281,7 +1281,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Correct.txt"
+                            "value": "scott\n"
                         }
                     ],
                     "valid": true
@@ -1290,7 +1290,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect1.txt"
+                            "value": "billy"
                         }
                     ],
                     "valid": false
@@ -1299,7 +1299,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect2.txt"
+                            "value": "kurt"
                         }
                     ],
                     "valid": false
@@ -1319,7 +1319,7 @@ const QUIZZ_DATA = {
                 },
                 {
                     "type": "text",
-                    "value": "Question.txt"
+                    "value": "A quel personnage appartient ce rig ? "
                 }
             ],
             "correction": [],
@@ -1329,7 +1329,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Correct.txt"
+                            "value": "billy"
                         }
                     ],
                     "valid": true
@@ -1338,7 +1338,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect1.txt"
+                            "value": "scott"
                         }
                     ],
                     "valid": false
@@ -1347,7 +1347,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Incorrect2.txt"
+                            "value": "suzie"
                         }
                     ],
                     "valid": false
