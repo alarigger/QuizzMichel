@@ -5,10 +5,8 @@ const QUIZZ_DATA = {
         "question_limit": 300
     },
     "teams": [
-        "JC",
-        "Billy",
-        "Jack",
-        "Suzie"
+        "Blitz",
+        "Didier"
     ],
     "audio": [
         {
