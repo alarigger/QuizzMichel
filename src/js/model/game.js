@@ -246,6 +246,7 @@ function GameState(_name, _render_func, _update_func, _validate_func) {
     this.name = _name
     this.rows = null
     this.columns = null
+    this.current_view = null
     this._render = _render_func || function (id, state) { }
     this._update = _update_func || function (id, state) { }
     this._validate = _validate_func || function (id, state) { game.next_state(); }

@@ -139,6 +139,14 @@ function Quizz(name){
         }
         var first_cat = question.categories[0]
         return this.categories.get_category(first_cat)
+    }      
+    /**
+     * 
+     * @param {Question} question 
+     * @returns {GameSound}
+     */
+    this.get_question_audio = function(question){
+        return
     }    
     /**
      * 

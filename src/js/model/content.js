@@ -176,27 +176,7 @@ function QuizzContentManager(game_name, folder_policy, hooks) {
 
             img.src = src;
         }
-        if (content.type === "video") {
 
-            const folder = this._resolve_content_path(data_object, content);
-            const file = `${folder}/${content.value}`
-            console.log(file)
-            const src = isUrl(content.value) ? content.value: file;
-
-            this._pending++;
-
-            const video = document.createElement("video");
-            video.preload = "auto";
-
-            content.asset = video;
-
-            video.onloadeddata = () => {
-                content.loaded = true;
-                this._call("onLoadEnd", content);
-            };
-
-            video.src = src;
-        }
 
         if (content.type === "audio") {
 
@@ -259,6 +239,28 @@ function QuizzContentManager(game_name, folder_policy, hooks) {
                 .finally(() => {
                     this._call("onLoadEnd", content);
                 });
+        }
+
+        if (content.type === "video") {
+
+            const folder = this._resolve_content_path(data_object, content);
+            const file = `${folder}/${content.value}`
+            console.log(file)
+            const src = isUrl(content.value) ? content.value: file;
+
+            this._pending++;
+
+            const video = document.createElement("video");
+            video.preload = "auto";
+
+            content.asset = video;
+
+            video.onloadeddata = () => {
+                content.loaded = true;
+                this._call("onLoadEnd", content);
+            };
+
+            video.src = src;
         }
 
         return this

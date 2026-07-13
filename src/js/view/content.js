@@ -39,12 +39,35 @@ function VideoContentRenderer() {
     };
 }
 
+function AudioContentRenderer() {
+    this.render = function (content) {
+        const audio = content.asset || document.createElement("audio");
+
+        audio.classList.add(
+            "question-content",
+            "question-content--audio"
+        );
+
+        audio.controls = true;
+
+        if (!content.asset) {
+            audio.src = "audio/" + content.value;
+        }
+
+        // Autoplay
+        audio.play().catch(err => {
+            console.log("Autoplay blocked:", err);
+        });
+
+        return audio;
+    };
+}
 const ContentRendererRegistry = {
     text: new TextContentRenderer(),
     image: new ImageContentRenderer(),
-    video: new VideoContentRenderer()
+    video: new VideoContentRenderer(),
+    audio: new AudioContentRenderer()
 };
-
 function renderContent(content) {
     const renderer = ContentRendererRegistry[content.type];
     if (!renderer) {
@@ -67,8 +90,7 @@ function renderContentList(contents) {
     const sorted = [...contents].sort((a, b) => {
         const rank = {
             image: 0,
-            video: 0,
-            audio: 0,
+            audio: 3,
             text: 1
         };
         return (rank[a.type] || 0) - (rank[b.type] || 0);

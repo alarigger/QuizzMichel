@@ -98,6 +98,12 @@ function Question() {
             return 
         }
         return this.background[0]
+    }    
+    this.get_content_audio = function(){
+        if(this.background.length==0){
+            return 
+        }
+        return this.background[0]
     }
 }
 

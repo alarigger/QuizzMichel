@@ -1,33 +1,35 @@
 :root {
-    /* Core atmosphere */
-    --color-primary: #a66a3f;              /* worn leather / wood */
-    --color-secondary: #8b3a3a;            /* faded outlaw red */
+    /* Core atmosphere - hand printed poster */
+    --color-primary: #d94a3d;              /* warm poster red */
+    --color-secondary: #f2c94c;            /* faded yellow ink */
 
     /* Backgrounds */
-    --color-quizz_background: #1f1a16;     /* dark saloon wood */
-    --color-card_background: #e7d6b6;      /* aged paper / parchment */
+    --color-quizz_background: #000000;     /* deep ink black */
+    --color-card_background: #f1ead8;      /* aged white paper */
 
     /* Shadows & depth */
-    --color-card_box-shadow: #5a2b1e;      /* deep wood shadow */
+    --color-card_box-shadow: #000000;      /* heavy print shadow */
 
     /* Text */
-    --color-text: #f3e7d3;                 /* warm bone white */
-    --color-card_text: #3b2a1f;           /* ink on paper */
-    --color-card_text-shadow: #c79b63;    /* dust glow */
+    --color-text: #f5f0df;                 /* paper white */
+    --color-card_text: #171717;            /* black ink */
+    --color-card_text-shadow: #d6c8a8;     /* paper texture */
 
     /* Options */
-    --color-option_text: #3b2a1f;
-    --color-option_background: #f7ecd6;   /* faded parchment */
-    --color-option_text-shadow: #b0894a;  /* brass hint */
+    --color-option_text: #171717;
+    --color-option_background: #fff8e6;     /* clean poster paper */
+    --color-option_text-shadow: #e5b93f;    /* yellow ink offset */
 
     /* States */
-    --color-correct: #3c7a3c;             /* muted cactus green */
-    --color-wrong: #b23b2b;               /* dusty warning red */
+    --color-correct: #e0b83f;              /* yellow success stamp */
+    --color-wrong: #c93632;                /* red ink mistake */
 
     /* Jeopardy / special UI */
-    --color-jeopardy: #b23b2b;
-    --color-jeopardy-cell-background: #2a1f1a;  /* dark wood grid */
-    --color-jeopardy-cell-text: #f2d36b;        /* gold coin */
-    --color-jeopardy-header-background: #6b3f1f; /* tavern wood plank */
-    --color-jeopardy-header-text: #f2d36b;       /* gold signage */
+    --color-jeopardy: #d94a3d;
+
+    --color-jeopardy-cell-background: #1c1c1c;
+    --color-jeopardy-cell-text: #f2c94c;
+
+    --color-jeopardy-header-background: #d94a3d;
+    --color-jeopardy-header-text: #f5f0df;
 }

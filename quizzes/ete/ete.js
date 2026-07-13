@@ -21,15 +21,23 @@ function play_point_music(question) {
     quizz.sounds.stop_music();
     const music_name =
         [
-            { name: "music_easy", points: [0, ,10,20,30] },
+            { name: "music_easy", points: [0,10,20,30] },
             //{ name: "music_medium", points: [300, 400] },
             //{ name: "music_hard", points: [500, 600] },
-            { name: "music_epic", points: [40] }
+            { name: "music_epic", points: [60] }
         ].find(m => m.points.includes(question.points))?.name ?? "music_easy";
 
     quizz.sounds.play_music(music_name);
 }
 
+function stopAllSounds() {
+    const audios = document.querySelectorAll("audio");
+
+    audios.forEach(audio => {
+        audio.pause();
+        audio.currentTime = 0;
+    });
+}
 
 /*======================INTRO===========================*/
 game.add_state("intro", function (id) {
@@ -225,6 +233,10 @@ game.add_state("question", function (id, state) {
     if (question != undefined) {
         const view = new QuestionView(question);
         view.render(id);
+        state.current_view = view
+        if(question.name.indexOf("BLIND")!=-1){
+            state.current_view.startSound()
+        }
 
     }
 
@@ -247,9 +259,11 @@ game.add_state("question", function (id, state) {
 
 }, function (id, state) {
     const question = quizz.get_current_question();
+    stopAllSounds()
     if (question) {
         question.try()
     }
+     state.current_view = null
     game.next_state();
 
 });

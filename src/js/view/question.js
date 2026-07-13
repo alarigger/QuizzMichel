@@ -81,6 +81,31 @@ function QuestionView(question) {
         }
     };
 
+    this.startSound = function () {
+        if (!this.card) return;
+
+        const audios = this.card.querySelectorAll("audio");
+
+        audios.forEach(audio => {
+            audio.currentTime = 0;
+            audio.play().catch(err => {
+                console.log("Cannot play audio:", err);
+            });
+        });
+    };
+
+
+    this.stopSound = function () {
+        if (!this.card) return;
+
+        const audios = this.card.querySelectorAll("audio");
+
+        audios.forEach(audio => {
+            audio.pause();
+            audio.currentTime = 0;
+        });
+    };
+
 }
 
 
