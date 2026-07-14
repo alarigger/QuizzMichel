@@ -21,9 +21,9 @@ function play_point_music(question) {
     quizz.sounds.stop_music();
     const music_name =
         [
-            { name: "music_easy", points: [0,10,20,30] },
-            //{ name: "music_medium", points: [300, 400] },
-            //{ name: "music_hard", points: [500, 600] },
+            { name: "music_easy", points: [10] },
+            { name: "music_medium", points: [20,30] },
+            { name: "music_hard", points: [40,50] },
             { name: "music_epic", points: [60] }
         ].find(m => m.points.includes(question.points))?.name ?? "music_easy";
 
@@ -200,7 +200,7 @@ game.add_state("jeopardy", function (id, state) {
             const question = quizz.select_question(question_id);
             const category = quizz.get_question_category(question)
             if (category!=undefined){
-                if (category.name != "BO") {
+                if (category.name != "BLIND") {
                     play_point_music(question)
                 }
             }
@@ -216,14 +216,15 @@ game.add_state("jeopardy", function (id, state) {
 
 //======================QUESTION========================
 game.add_state("question", function (id, state) {
-
-
     quizz.valid = false
     const question = quizz.get_current_question();
     const category = quizz.get_question_category(question)
     var cat_bg = undefined
     if (category!=undefined){
         cat_bg = category.get_background()
+        if(category.name =="BLIND"){
+            stopAllSounds()
+        }
     }
     var background = question.get_background_image() || cat_bg
     if (background) {

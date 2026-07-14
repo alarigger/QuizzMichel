@@ -5,9 +5,8 @@ const QUIZZ_DATA = {
         "question_limit": 300
     },
     "teams": [
-        "A",
-        "B",
-        "C"
+        "Mayo",
+        "BBQ"
     ],
     "audio": [
         {
@@ -213,29 +212,11 @@ const QUIZZ_DATA = {
     ],
     "categories": [
         {
-            "name": "DEL",
+            "name": "BLIND",
             "title": [
                 {
                     "type": "text",
-                    "value": "🧠Deep Lore🧠"
-                }
-            ],
-            "background": [
-                {
-                    "type": "image",
-                    "value": "Background.gif"
-                }
-            ],
-            "images": [],
-            "music": [],
-            "description": []
-        },
-        {
-            "name": "EXC",
-            "title": [
-                {
-                    "type": "text",
-                    "value": "📈Expert Comptable📉"
+                    "value": "🎵MusicPassion🎵"
                 }
             ],
             "background": [
@@ -249,11 +230,11 @@ const QUIZZ_DATA = {
             "description": []
         },
         {
-            "name": "JTB",
+            "name": "CRITIQ",
             "title": [
                 {
                     "type": "text",
-                    "value": "🎲Pifomètre🎲"
+                    "value": "🙈TrollTranslate🙉 "
                 }
             ],
             "background": [
@@ -267,11 +248,47 @@ const QUIZZ_DATA = {
             "description": []
         },
         {
-            "name": "QSC",
+            "name": "DROIT",
             "title": [
                 {
                     "type": "text",
-                    "value": "🙈Qui Se Cache ?🙉 "
+                    "value": "⚖️PowerPoint⚖️\n"
+                }
+            ],
+            "background": [
+                {
+                    "type": "image",
+                    "value": "Background.PNG"
+                }
+            ],
+            "images": [],
+            "music": [],
+            "description": []
+        },
+        {
+            "name": "HIST",
+            "title": [
+                {
+                    "type": "text",
+                    "value": "🤓JmeLaPete🤓\n"
+                }
+            ],
+            "background": [
+                {
+                    "type": "image",
+                    "value": "Background.PNG"
+                }
+            ],
+            "images": [],
+            "music": [],
+            "description": []
+        },
+        {
+            "name": "IMAGE",
+            "title": [
+                {
+                    "type": "text",
+                    "value": "👀BingeWatché👀"
                 }
             ],
             "background": [
@@ -285,11 +302,29 @@ const QUIZZ_DATA = {
             "description": []
         },
         {
-            "name": "RIG",
+            "name": "RAND",
             "title": [
                 {
                     "type": "text",
-                    "value": "🤖Rig Vision🤖"
+                    "value": "🎲AuPif🎲"
+                }
+            ],
+            "background": [
+                {
+                    "type": "image",
+                    "value": "Background.gif"
+                }
+            ],
+            "images": [],
+            "music": [],
+            "description": []
+        },
+        {
+            "name": "TECH",
+            "title": [
+                {
+                    "type": "text",
+                    "value": "🤖Akshully🤖"
                 }
             ],
             "background": [
@@ -948,6 +983,10 @@ const QUIZZ_DATA = {
             "points": 10,
             "content": [
                 {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
                     "type": "text",
                     "value": "En quelle année a été créée la convention collective du film d’animation ? "
                 }
@@ -996,6 +1035,10 @@ const QUIZZ_DATA = {
             ],
             "points": 20,
             "content": [
+                {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
                 {
                     "type": "text",
                     "value": " Quel service public permet de bénéficier de congés payés en étant intermittent·e du spectacle ? "
@@ -1046,6 +1089,10 @@ const QUIZZ_DATA = {
             "points": 30,
             "content": [
                 {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
                     "type": "text",
                     "value": "Depuis quelle année les entreprises de cinéma sont-elles obligées d’avoir des référent·es pour lutter contre les VSS (violences sexistes et sexuelles) ?"
                 }
@@ -1094,6 +1141,10 @@ const QUIZZ_DATA = {
             ],
             "points": 40,
             "content": [
+                {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
                 {
                     "type": "text",
                     "value": "Quel pourcentage de film d’animation français, tout format confondu, a t il été réalisé par des femmes ou personnes en minorité de genre sur la dernière décennie? "
@@ -1144,6 +1195,10 @@ const QUIZZ_DATA = {
             "points": 50,
             "content": [
                 {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
                     "type": "text",
                     "value": "Quelles sont les conditions pour bénéficier de la clause de rattrapage pour bénéficier de 6 mois supplémentaires pour cumuler des heures travaillées ? "
                 }
@@ -1192,6 +1247,10 @@ const QUIZZ_DATA = {
             ],
             "points": 60,
             "content": [
+                {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
                 {
                     "type": "text",
                     "value": "En 2025 de combien ont  augmenté les minimas sociaux en animation ?"
@@ -1242,6 +1301,10 @@ const QUIZZ_DATA = {
             "points": 10,
             "content": [
                 {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
                     "type": "text",
                     "value": "Quel est le titre de la première version du roi et l’oiseau ? "
                 }
@@ -1291,11 +1354,19 @@ const QUIZZ_DATA = {
             "points": 20,
             "content": [
                 {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
                     "type": "text",
                     "value": "Quel est le premier film d’animation a avoir fait l’ouverture du festival de Cannes ?"
                 }
             ],
             "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
                 {
                     "type": "text",
                     "value": "Là-haut"
@@ -1389,6 +1460,10 @@ const QUIZZ_DATA = {
             "points": 40,
             "content": [
                 {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
                     "type": "text",
                     "value": "Dans quel pays a été fabriqué une large partie du long-métrage Gandahar, de René Laloux "
                 }
@@ -1438,11 +1513,19 @@ const QUIZZ_DATA = {
             "points": 50,
             "content": [
                 {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
                     "type": "text",
                     "value": "Quel est l’auteur du court métrage Le hérisson dans la brume ?"
                 }
             ],
             "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
                 {
                     "type": "text",
                     "value": "Youri Norstein"
@@ -1487,11 +1570,19 @@ const QUIZZ_DATA = {
             "points": 60,
             "content": [
                 {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
                     "type": "text",
                     "value": "Quel est le nom du premier dinosaure jamais animé, créé par Winsor McCay?"
                 }
             ],
             "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
                 {
                     "type": "text",
                     "value": "Gertie"
@@ -1836,6 +1927,327 @@ const QUIZZ_DATA = {
                         {
                             "type": "text",
                             "value": "L’ile de Black Mór"
+                        }
+                    ],
+                    "valid": false
+                }
+            ]
+        },
+        {
+            "name": "RAND_01",
+            "categories": [
+                "RAND"
+            ],
+            "points": 10,
+            "content": [
+                {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
+                    "type": "text",
+                    "value": "Qui est le réalisateur de ce film ? "
+                }
+            ],
+            "correction": [],
+            "is_demo": false,
+            "options": [
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Fiodor Khitrouk"
+                        }
+                    ],
+                    "valid": true
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Joseph Barbera"
+                        }
+                    ],
+                    "valid": false
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Lev Atamanov"
+                        }
+                    ],
+                    "valid": false
+                }
+            ]
+        },
+        {
+            "name": "RAND_02",
+            "categories": [
+                "RAND"
+            ],
+            "points": 20,
+            "content": [
+                {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
+                    "type": "text",
+                    "value": "La série \"Daria\" diffusée sur MTV est basée sur un personnage de la série ... "
+                }
+            ],
+            "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                }
+            ],
+            "is_demo": false,
+            "options": [
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Beavis and Butt-Head"
+                        }
+                    ],
+                    "valid": true
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "King of the Hill"
+                        }
+                    ],
+                    "valid": false
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Ugly Americans"
+                        }
+                    ],
+                    "valid": false
+                }
+            ]
+        },
+        {
+            "name": "RAND_03",
+            "categories": [
+                "RAND"
+            ],
+            "points": 30,
+            "content": [
+                {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
+                    "type": "text",
+                    "value": "Qui a réalisé la première adaptation animée du compte de \"la reine des neiges\" ? "
+                }
+            ],
+            "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
+                {
+                    "type": "text",
+                    "value": "Lev Atanamov ! 1957 ! "
+                }
+            ],
+            "is_demo": false,
+            "options": [
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Lev Anamatov "
+                        }
+                    ],
+                    "valid": true
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Vlad Barbe et Maksim Sveshnikov "
+                        }
+                    ],
+                    "valid": false
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Martin Gates"
+                        }
+                    ],
+                    "valid": false
+                }
+            ]
+        },
+        {
+            "name": "RAND_04",
+            "categories": [
+                "RAND"
+            ],
+            "points": 40,
+            "content": [
+                {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
+                    "type": "text",
+                    "value": "Où est né le réalisateur des super nanas et samourai jack Genndy Tartakovsky ?"
+                }
+            ],
+            "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
+                {
+                    "type": "text",
+                    "value": "Genndy Borisovich Tartakovsky est né le 17 janvier 1970 à Moscou"
+                }
+            ],
+            "is_demo": false,
+            "options": [
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Moscou\n"
+                        }
+                    ],
+                    "valid": true
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Budapest"
+                        }
+                    ],
+                    "valid": false
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "NewYork"
+                        }
+                    ],
+                    "valid": false
+                }
+            ]
+        },
+        {
+            "name": "RAND_05",
+            "categories": [
+                "RAND"
+            ],
+            "points": 50,
+            "content": [
+                {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
+                    "type": "text",
+                    "value": "En 1964 qui est le secrétaire général du syndicat du studio japonais Toie ? "
+                }
+            ],
+            "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                }
+            ],
+            "is_demo": false,
+            "options": [
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Miyazaki Hayao"
+                        }
+                    ],
+                    "valid": true
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Takahata Isao"
+                        }
+                    ],
+                    "valid": false
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Toshio Suzuki"
+                        }
+                    ],
+                    "valid": false
+                }
+            ]
+        },
+        {
+            "name": "RAND_06",
+            "categories": [
+                "RAND"
+            ],
+            "points": 60,
+            "content": [
+                {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
+                    "type": "text",
+                    "value": "En 2018 le studio Anglais Aardman décide de ..."
+                }
+            ],
+            "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                }
+            ],
+            "is_demo": false,
+            "options": [
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "céder 75 % des parts à ses employés"
+                        }
+                    ],
+                    "valid": true
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Ouvrir un département 3D"
+                        }
+                    ],
+                    "valid": false
+                },
+                {
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "Créer une antenne à singapour"
                         }
                     ],
                     "valid": false
