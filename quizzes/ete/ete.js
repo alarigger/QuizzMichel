@@ -23,8 +23,9 @@ function play_point_music(question) {
         [
             { name: "music_easy", points: [10] },
             { name: "music_medium", points: [20,30] },
-            { name: "music_hard", points: [40,50] },
-            { name: "music_epic", points: [60] }
+            { name: "music_hard", points: [40] },
+            { name: "music_hard", points: [50] },
+            { name: "music_superepic", points: [60] }
         ].find(m => m.points.includes(question.points))?.name ?? "music_easy";
 
     quizz.sounds.play_music(music_name);
@@ -65,10 +66,12 @@ game.add_state("jeopardy", function (id, state) {
 
     reset_background()
     quizz.sounds.stop_music()
-    quizz.sounds.play_music("music_grid")
 
-    addCenteredImage(id, quizz.backgrounds.get_background("jeopardy").get_image())
-
+    const bgimg= quizz.backgrounds.get_background("jeopardy").get_image()
+    if (bgimg) {
+        set_background_image(bgimg)
+    }
+    
     const questions = quizz.get_questions();
 
     // Categories
@@ -366,6 +369,14 @@ game.add_state("attribution", function (id, state) {
     document.getElementById(id).innerHTML = "";
     document.getElementById(id).appendChild(card);
 
+    const index = game.get_selected_index();
+    const teams_el = document.querySelectorAll(".team");
+    teams_el.forEach(el => el.classList.remove("selected"));
+    const selectedTeam = teams_el[index];
+    if (selectedTeam) {
+        selectedTeam.classList.add("selected"); 1
+    }
+
 }, function (id) {
     quizz.sounds.play("move")
     const index = game.get_selected_index();
@@ -474,7 +485,7 @@ game.add_state("outro", function (id) {
     quizz.sounds.play_music("music_outro")
     reset_background()
     document.getElementById(id).innerHTML = "";
-    addCenteredImage(id, "quizz/otaquizz/otaquizz.jpg")
+    addCenteredImage(id, quizz.backgrounds.get_background("outro").get_image().src)
 
 }, function (id, state) {
     quizz.sounds.play_random("waaw")

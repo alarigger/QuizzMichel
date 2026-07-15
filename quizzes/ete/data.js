@@ -2,11 +2,11 @@ const QUIZZ_DATA = {
     "name": "ete",
     "options": {
         "shuffle_options": true,
-        "question_limit": 300
+        "question_limit": 200
     },
     "teams": [
-        "Mayo",
-        "BBQ"
+        "A",
+        "B"
     ],
     "audio": [
         {
@@ -141,6 +141,15 @@ const QUIZZ_DATA = {
             ]
         },
         {
+            "name": "music_superepic",
+            "sound": [
+                {
+                    "type": "audio",
+                    "value": "HE.mp3"
+                }
+            ]
+        },
+        {
             "name": "option",
             "sound": [
                 {
@@ -178,7 +187,11 @@ const QUIZZ_DATA = {
             "image": [
                 {
                     "type": "image",
-                    "value": "Background.jpg"
+                    "value": "Background.png"
+                },
+                {
+                    "type": "image",
+                    "value": "web.PNG"
                 }
             ]
         },
@@ -196,7 +209,7 @@ const QUIZZ_DATA = {
             "image": [
                 {
                     "type": "image",
-                    "value": "Background copy.webp"
+                    "value": "Background.png"
                 }
             ]
         },
@@ -216,7 +229,7 @@ const QUIZZ_DATA = {
             "title": [
                 {
                     "type": "text",
-                    "value": "🎵MusicPassion🎵"
+                    "value": "🎵MusicPassion!🎵"
                 }
             ],
             "background": [
@@ -252,7 +265,7 @@ const QUIZZ_DATA = {
             "title": [
                 {
                     "type": "text",
-                    "value": "⚖️PowerPoint⚖️\n"
+                    "value": "⚖️Sérieux2s⚖️\n"
                 }
             ],
             "background": [
@@ -306,7 +319,7 @@ const QUIZZ_DATA = {
             "title": [
                 {
                     "type": "text",
-                    "value": "🎲AuPif🎲"
+                    "value": "🎲Random🎲"
                 }
             ],
             "background": [
@@ -356,6 +369,10 @@ const QUIZZ_DATA = {
                 }
             ],
             "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
                 {
                     "type": "text",
                     "value": "Il s'agit du générique de Neon Genesis Evangelion, A cruel Angel Thesis."
@@ -410,6 +427,10 @@ const QUIZZ_DATA = {
             ],
             "correction": [
                 {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
+                {
                     "type": "text",
                     "value": "Les Ratz, avec des rats qui font du rap."
                 }
@@ -463,8 +484,8 @@ const QUIZZ_DATA = {
             ],
             "correction": [
                 {
-                    "type": "text",
-                    "value": "Gravity Falls est la bonne réponse !"
+                    "type": "image",
+                    "value": "Answer.PNG"
                 }
             ],
             "is_demo": false,
@@ -515,6 +536,10 @@ const QUIZZ_DATA = {
                 }
             ],
             "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
                 {
                     "type": "text",
                     "value": "C'est l'anime Death Parade, avec ses barmans et barmaid cools qui vous envoient au purgatoires"
@@ -569,6 +594,10 @@ const QUIZZ_DATA = {
             ],
             "correction": [
                 {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
+                {
                     "type": "text",
                     "value": "Il s'agit du mystérieux ending de Hisone to Matosan, une série suivant la vie d'une base militaire où les avions sont en fait des dragons."
                 }
@@ -621,6 +650,10 @@ const QUIZZ_DATA = {
                 }
             ],
             "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
                 {
                     "type": "text",
                     "value": "C'est un étrange mashup italien crée pour le dessin animé Lupin 3, appelé Edgard de la cambriole en France, mais avec la musique du générique japonais et français de Olive et Tom (Capitaine Tsubasa). On ne ratait pas que les traductions à cet époque d'import massif d'anime"
@@ -675,6 +708,10 @@ const QUIZZ_DATA = {
             ],
             "correction": [
                 {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
+                {
                     "type": "text",
                     "value": "Les Indestructibles"
                 }
@@ -727,6 +764,10 @@ const QUIZZ_DATA = {
                 }
             ],
             "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
                 {
                     "type": "text",
                     "value": "L'illusionniste"
@@ -834,8 +875,12 @@ const QUIZZ_DATA = {
             ],
             "correction": [
                 {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
+                {
                     "type": "text",
-                    "value": "Les contes de la princesse Kaguya"
+                    "value": "Les contes de la princesse Kaguya !"
                 }
             ],
             "is_demo": false,
@@ -844,7 +889,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": ""
+                            "value": "Le Conte de la princesse Kaguya"
                         }
                     ],
                     "valid": true
@@ -886,6 +931,10 @@ const QUIZZ_DATA = {
                 }
             ],
             "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.gif"
+                },
                 {
                     "type": "text",
                     "value": "Persépolis"
@@ -940,6 +989,10 @@ const QUIZZ_DATA = {
             ],
             "correction": [
                 {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
+                {
                     "type": "text",
                     "value": "Renaissance : Paris 2054"
                 }
@@ -993,6 +1046,10 @@ const QUIZZ_DATA = {
             ],
             "correction": [
                 {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
+                {
                     "type": "text",
                     "value": "2004"
                 }
@@ -1037,17 +1094,21 @@ const QUIZZ_DATA = {
             "content": [
                 {
                     "type": "image",
-                    "value": "Question.PNG"
+                    "value": "Question.gif"
                 },
                 {
                     "type": "text",
-                    "value": " Quel service public permet de bénéficier de congés payés en étant intermittent·e du spectacle ? "
+                    "value": "En quelle année a été créée la Caisse des Congés Spectacles, permettant aux salarié·es du spectacle de bénéficier de congés payés ?"
                 }
             ],
             "correction": [
                 {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
+                {
                     "type": "text",
-                    "value": "Les Congés Spectacles. On peut bénéficier de 2 semaines de congés, payées en fonction de notre taux annuel. A poser à partir du 1er mai chaque année où l'on est au régime intermittent."
+                    "value": "On peut bénéficier de 2 semaines de congés, payées en fonction de notre taux annuel. A poser à partir du 1er mai chaque année où l'on est au régime intermittent."
                 }
             ],
             "is_demo": false,
@@ -1056,7 +1117,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Les Congés Spectacles"
+                            "value": "1939"
                         }
                     ],
                     "valid": true
@@ -1065,7 +1126,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Audiens, la mutuelle des intermittent·es"
+                            "value": "1968"
                         }
                     ],
                     "valid": false
@@ -1074,7 +1135,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Le service Seine et Marne de France travail "
+                            "value": "1945"
                         }
                     ],
                     "valid": false
@@ -1098,6 +1159,10 @@ const QUIZZ_DATA = {
                 }
             ],
             "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
                 {
                     "type": "text",
                     "value": "2021. Depuis chaque entreprise est tenue d'avoir un·e référent·e VSS, un protocole d'accompagnement des victimes, ainsi qu'un affichage obligatoire au sein de l'entreprise. Les aides du CNC sont conditionnées à ce que tout soit mis en place dans l'entreprise."
@@ -1200,10 +1265,14 @@ const QUIZZ_DATA = {
                 },
                 {
                     "type": "text",
-                    "value": "Quelles sont les conditions pour bénéficier de la clause de rattrapage pour bénéficier de 6 mois supplémentaires pour cumuler des heures travaillées ? "
+                    "value": "Quelles conditions doivent être remplies pour bénéficier de la clause de rattrapage permettant de disposer de 6 mois supplémentaires afin de cumuler les heures travaillées ?"
                 }
             ],
             "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.gif"
+                },
                 {
                     "type": "text",
                     "value": "2535 h de travails cumulées ou 5 années  au régime intermittent sur les dix dernières années. Il faut également avoir cumulé entre 338h et 506h pour pouvoir bénéficier de cette clause qui étendra votre protection sociale sur 6 mois pour finir de cumuler des heures. "
@@ -1258,6 +1327,10 @@ const QUIZZ_DATA = {
             ],
             "correction": [
                 {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
+                {
                     "type": "text",
                     "value": ""
                 }
@@ -1310,6 +1383,10 @@ const QUIZZ_DATA = {
                 }
             ],
             "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
                 {
                     "type": "text",
                     "value": "La bergère et le ramoneur"
@@ -1411,11 +1488,19 @@ const QUIZZ_DATA = {
             "points": 30,
             "content": [
                 {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
                     "type": "text",
                     "value": "Le cristal du long métrage d’animation d’Annecy n’a été donné qu’une seule fois ex aequo entre deux films, mais lesquels ?"
                 }
             ],
             "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
                 {
                     "type": "text",
                     "value": "Coraline et Mary & Max, en 2009\nDeux films en stop motion salués pour leurs propositions innovantes dans le domaine. Inversement le jury du festival a refusé de donner un cristal en 2000, évoquant le manque de modernité des films en compétition."
@@ -1470,6 +1555,10 @@ const QUIZZ_DATA = {
             ],
             "correction": [
                 {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
+                {
                     "type": "text",
                     "value": ""
                 }
@@ -1518,7 +1607,7 @@ const QUIZZ_DATA = {
                 },
                 {
                     "type": "text",
-                    "value": "Quel est l’auteur du court métrage Le hérisson dans la brume ?"
+                    "value": "Quel est l’auteur du court métrage Le hérisson dans le brouillard ?"
                 }
             ],
             "correction": [
@@ -1571,7 +1660,7 @@ const QUIZZ_DATA = {
             "content": [
                 {
                     "type": "image",
-                    "value": "Question.PNG"
+                    "value": "Question.gif"
                 },
                 {
                     "type": "text",
@@ -1637,6 +1726,10 @@ const QUIZZ_DATA = {
             ],
             "correction": [
                 {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
+                {
                     "type": "text",
                     "value": "Spider-Man : Across the Spider-Verse"
                 }
@@ -1689,6 +1782,10 @@ const QUIZZ_DATA = {
                 }
             ],
             "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
                 {
                     "type": "text",
                     "value": "Les aventures du prince Ahmed"
@@ -1743,6 +1840,10 @@ const QUIZZ_DATA = {
             ],
             "correction": [
                 {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
+                {
                     "type": "text",
                     "value": "Ralph 2.0, où toutes les princesses Disney viennent à la rescousse de Ralph en plein brainrot sur internet."
                 }
@@ -1795,6 +1896,10 @@ const QUIZZ_DATA = {
                 }
             ],
             "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
                 {
                     "type": "text",
                     "value": "Gandahar, les années lumières"
@@ -1849,6 +1954,10 @@ const QUIZZ_DATA = {
             ],
             "correction": [
                 {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
+                {
                     "type": "text",
                     "value": "Si tu tends l’oreille"
                 }
@@ -1892,11 +2001,19 @@ const QUIZZ_DATA = {
             "points": 60,
             "content": [
                 {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
                     "type": "text",
                     "value": "De quel long métrage est issu cette image ? (Edition Jean François Laguionie)"
                 }
             ],
             "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
                 {
                     "type": "text",
                     "value": "Slocum et moi. L'ultime film de Laguionie, où il revient sur son enfant et le rêve de ses parents de construire un bateau pour prendre la mer comme le marin Slocum. La mer est resté un thème emblématique à travers toute son oeuvre de 7 longs métrages."
@@ -1946,17 +2063,22 @@ const QUIZZ_DATA = {
                 },
                 {
                     "type": "text",
-                    "value": "Qui est le réalisateur de ce film ? "
+                    "value": "Qui a créé la série Steven Universe diffusée sur Cartoon Network ?"
                 }
             ],
-            "correction": [],
+            "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                }
+            ],
             "is_demo": false,
             "options": [
                 {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Fiodor Khitrouk"
+                            "value": "Rebecca Sugar"
                         }
                     ],
                     "valid": true
@@ -1965,7 +2087,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Joseph Barbera"
+                            "value": "Lauren Faust"
                         }
                     ],
                     "valid": false
@@ -1974,7 +2096,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Lev Atamanov"
+                            "value": "Pendleton Ward"
                         }
                     ],
                     "valid": false
@@ -2066,7 +2188,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Lev Anamatov "
+                            "value": "Lev Atamanov "
                         }
                     ],
                     "valid": true
@@ -2161,7 +2283,7 @@ const QUIZZ_DATA = {
                 },
                 {
                     "type": "text",
-                    "value": "En 1964 qui est le secrétaire général du syndicat du studio japonais Toie ? "
+                    "value": "En 1964 qui est le secrétaire général du syndicat du studio japonais Toei ? "
                 }
             ],
             "correction": [
@@ -2262,14 +2384,22 @@ const QUIZZ_DATA = {
             "points": 10,
             "content": [
                 {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
                     "type": "text",
-                    "value": "Lequel de ces logiciels d’animation 2D fonctionne en Bitmap ?"
+                    "value": "Lequel de ces films d’animation français a copieusement utilisé Blender dans son processus de fabrication ?"
                 }
             ],
             "correction": [
                 {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
+                {
                     "type": "text",
-                    "value": " Tvpaint utilise des brushs bitmap, approchant ses rendus de l'animation traditionnelle tracée à la main."
+                    "value": "J'ai perdu mon corps a été un des premiers film à parier sur l'outils \"Grease Pencil\" de blender aujourd'hui largement utilisé "
                 }
             ],
             "is_demo": false,
@@ -2278,7 +2408,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": " Tvpaint"
+                            "value": "J'ai perdu mon corps"
                         }
                     ],
                     "valid": true
@@ -2287,7 +2417,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Adobe Animate"
+                            "value": "Ernest et Celestine"
                         }
                     ],
                     "valid": false
@@ -2296,7 +2426,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Toon Boom Harmony"
+                            "value": "Le Corset"
                         }
                     ],
                     "valid": false
@@ -2311,11 +2441,19 @@ const QUIZZ_DATA = {
             "points": 20,
             "content": [
                 {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
                     "type": "text",
                     "value": "Quelle technique d’animation est définie ainsi : “ ____ est une technique d'animation en volume, où des acteurs ou objets réels sont filmés image par image.  ?"
                 }
             ],
             "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.gif"
+                },
                 {
                     "type": "text",
                     "value": "La pixilation "
@@ -2360,11 +2498,19 @@ const QUIZZ_DATA = {
             "points": 30,
             "content": [
                 {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
                     "type": "text",
                     "value": " En compositing, qu’est ce que l’effet de parallaxe ?"
                 }
             ],
             "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
                 {
                     "type": "text",
                     "value": "Différents niveaux de l’image qui bougent à des vitesses variables"
@@ -2409,11 +2555,19 @@ const QUIZZ_DATA = {
             "points": 40,
             "content": [
                 {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
                     "type": "text",
                     "value": "En moyenne en 2025, combien coûte une minute d’animation en France (tous formats confondus) ?"
                 }
             ],
             "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.gif"
+                },
                 {
                     "type": "text",
                     "value": "14 943 € par minute, lissé entre série, court et long métrage. Un seconde coute donc 249 €"
@@ -2458,11 +2612,19 @@ const QUIZZ_DATA = {
             "points": 50,
             "content": [
                 {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
                     "type": "text",
                     "value": "En optique, que désigne la transluminescence ?"
                 }
             ],
             "correction": [
+                {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
                 {
                     "type": "text",
                     "value": "Une lumière qui est réfléchie imparfaitement à travers un objet translucide. Par exemple la lumière du soleil qui traverse des parties fines du corps comme les oreilles ou les doigts. "
@@ -2507,14 +2669,22 @@ const QUIZZ_DATA = {
             "points": 60,
             "content": [
                 {
+                    "type": "image",
+                    "value": "Question.PNG"
+                },
+                {
                     "type": "text",
-                    "value": "En modélisation 3D que signifie le terme voxel ?"
+                    "value": "En modélisation 3D, qu'est-ce qu'un voxel ?"
                 }
             ],
             "correction": [
                 {
+                    "type": "image",
+                    "value": "Answer.PNG"
+                },
+                {
                     "type": "text",
-                    "value": ""
+                    "value": "Exemple d'utilisation du voxel : Minecraft ! "
                 }
             ],
             "is_demo": false,
@@ -2523,7 +2693,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Le composant élémentaire d'un environnement numérique 3D"
+                            "value": "L'équivalent d'un pixel mais dans un espace en trois dimentions"
                         }
                     ],
                     "valid": true
@@ -2532,7 +2702,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Un synonyme d’un polygone 3D low poly"
+                            "value": "Un point provenant d'une scene de tournage dont les coordonnées sont connues"
                         }
                     ],
                     "valid": false
@@ -2541,7 +2711,7 @@ const QUIZZ_DATA = {
                     "content": [
                         {
                             "type": "text",
-                            "value": "Un rendu 3D d’un modèle avec son mesh"
+                            "value": "Le rendu d'un modèle 3D mais sans les polygones"
                         }
                     ],
                     "valid": false
